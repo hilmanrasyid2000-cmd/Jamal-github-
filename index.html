@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portofolio Hilman Rasyid Kaizan - SMA Negeri 70 Jakarta</title>
+    <!-- Google Fonts: Instrument Serif & Inter (Graphik fallback) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Mobile Menu Toggle Button -->
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="profile-img-container">
+                <img src="profile.jpg" alt="Foto Profil Hilman Rasyid Kaizan" class="profile-img">
+                <span class="status-indicator" title="Pelajar Aktif SMAN 70 Jakarta"></span>
+            </div>
+            <h1 class="profile-name">Hilman Rasyid Kaizan</h1>
+            <p class="profile-role"><i class="fa-solid fa-graduation-cap"></i> SMAN 70 Jakarta</p>
+        </div>
+
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#home" class="nav-link active"><i class="fa-solid fa-house"></i> <span>Beranda</span></a></li>
+                <li><a href="#about" class="nav-link"><i class="fa-solid fa-user"></i> <span>Tentang Saya</span></a></li>
+                <li><a href="#research" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> <span>Riset Ilmiah</span></a></li>
+                <li><a href="#achievements" class="nav-link"><i class="fa-solid fa-medal"></i> <span>Prestasi</span></a></li>
+                <li><a href="#interests" class="nav-link"><i class="fa-solid fa-heart"></i> <span>Minat & Hobi</span></a></li>
+                <li><a href="#projects" class="nav-link"><i class="fa-solid fa-microscope"></i> <span>Karya Lainnya</span></a></li>
+                <li><a href="#contact" class="nav-link"><i class="fa-solid fa-envelope"></i> <span>Kontak</span></a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="special-badge-sidebar">
+                <i class="fa-solid fa-heart text-danger"></i> <span>I Love Sultan</span>
+            </div>
+            <div class="social-links">
+                <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://github.com" target="_blank" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                <a href="mailto:hilmanrasyid2000@gmail.com" aria-label="Email"><i class="fa-solid fa-paper-plane"></i></a>
+            </div>
+            <p class="copyright">&copy; 2026 Hilman Rasyid Kaizan.<br>SMA Negeri 70 Jakarta.</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Home / Hero Section -->
+        <section id="home" class="section hero-section">
+            <div class="container">
+                <div class="palette-strip">
+                    <span class="swatch-dot swatch-violet"></span>
+                    <span class="swatch-dot swatch-coral"></span>
+                    <span class="swatch-dot swatch-crimson"></span>
+                    <span class="swatch-dot swatch-yellow"></span>
+                    <span class="palette-label">SMA Negeri 70 Jakarta &bull; Researcher</span>
+                </div>
+                <h1 class="hero-title">
+                    Hilman Rasyid Kaizan
+                </h1>
+                <h2 class="hero-subtitle">
+                    <span class="typewriter-text" id="typewriter"></span><span class="cursor">|</span>
+                </h2>
+                <p class="hero-description">
+                    Siswa <strong>SMA Negeri 70 Jakarta</strong> dengan fokus dedikasi pada riset sains, kebumian, dan inovasi teknologi. Penggemar buku fiksi sastra dan penikmat simfoni musik klasik karya maestro <em>Jean Sibelius</em>.
+                </p>
+
+                <!-- Highlight Box I Love Sultan -->
+                <div class="sultan-love-banner">
+                    <div class="sultan-icon"><i class="fa-solid fa-crown"></i></div>
+                    <div class="sultan-text">
+                        <span class="sultan-tag">Special Highlight</span>
+                        <h4 class="sultan-quote">"I Love Sultan"</h4>
+                    </div>
+                    <div class="sultan-heart"><i class="fa-solid fa-heart"></i></div>
+                </div>
+
+                <div class="hero-cta">
+                    <a href="#research" class="btn btn-primary"><i class="fa-solid fa-book-open"></i> Baca Riset Loker Saya</a>
+                    <a href="#achievements" class="btn btn-secondary"><i class="fa-solid fa-award"></i> Lihat Prestasi</a>
+                    <a href="#contact" class="btn btn-outline"><i class="fa-solid fa-envelope"></i> Hubungi Saya</a>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">🥈 ISIF</span>
+                        <span class="stat-label">Silver Medal 2024</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">📄 156+</span>
+                        <span class="stat-label">Responden Riset Loker</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">🔬 OPSI</span>
+                        <span class="stat-label">Peserta Bidang IPTEK 2025</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">🌍 OSN-K</span>
+                        <span class="stat-label">Peserta Kebumian 2026</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Mengenal Lebih Dekat</span>
+                    <h2 class="section-title">Tentang Saya</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-card about-intro">
+                        <h3>Salam Hangat! Senang Bertemu Anda 👋</h3>
+                        <p>
+                            Nama saya <strong>Hilman Rasyid Kaizan</strong>, saat ini menempuh pendidikan di <strong>SMA Negeri 70 Jakarta</strong> (sebelumnya menyelesaikan pendidikan menengah pertama di <strong>SMP Labschool Kebayoran</strong>). Saya memiliki dedikasi dan antusiasme tinggi terhadap metodologi riset ilmiah, telaah fasilitas pendidikan, dan eksplorasi ilmu kebumian.
+                        </p>
+                        <p>
+                            Di luar kegiatan akademis dan laboratorium, saya menyukai ketenangan membaca karya sastra fiksi (novel) yang memperluas sudut pandang imajinasi, serta mendalami harmoni simfoni musik klasik karya komponis legendaris Finlandia, <strong>Jean Sibelius</strong>.
+                        </p>
+                        
+                        <div class="info-list">
+                            <div class="info-item">
+                                <span class="info-title"><i class="fa-solid fa-school"></i> Sekolah Sekarang:</span>
+                                <span class="info-val">SMA Negeri 70 Jakarta</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-title"><i class="fa-solid fa-graduation-cap"></i> SMP Asal:</span>
+                                <span class="info-val">SMP Labschool Kebayoran</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-title"><i class="fa-solid fa-envelope"></i> Email:</span>
+                                <span class="info-val"><a href="mailto:hilmanrasyid2000@gmail.com" class="text-accent">hilmanrasyid2000@gmail.com</a></span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-title"><i class="fa-solid fa-location-dot"></i> Domisili:</span>
+                                <span class="info-val">Jakarta Selatan, Indonesia</span>
+                            </div>
+                            <div class="info-item">
+                                <span class="info-title"><i class="fa-solid fa-crown"></i> Special Statement:</span>
+                                <span class="info-val text-accent font-bold">I Love Sultan ❤️</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-highlights">
+                        <div class="highlight-box">
+                            <div class="highlight-icon"><i class="fa-solid fa-file-signature"></i></div>
+                            <h4>Peneliti Muda & Penulis Karya Tulis</h4>
+                            <p>Telah mempublikasikan riset kuantitatif efektivitas fasilitas loker sekolah dengan responden 156 siswa di SMP Labschool Kebayoran.</p>
+                        </div>
+                        <div class="highlight-box">
+                            <div class="highlight-icon"><i class="fa-solid fa-flask-vial"></i></div>
+                            <h4>Invensi & Kompetisi Sains</h4>
+                            <p>Peraih Medali Perak ISIF 2024 serta peserta OPSI Bidang IPTEK 2025.</p>
+                        </div>
+                        <div class="highlight-box">
+                            <div class="highlight-icon"><i class="fa-solid fa-music"></i></div>
+                            <h4>Apresiasi Musik Klasik & Sastra</h4>
+                            <p>Penikmat setia karya-karya Jean Sibelius (Finlandia, Violin Concerto, Symphony No. 2) dan pembaca aktif novel fiksi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Research Section (From PDF) -->
+        <section id="research" class="section research-section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Publikasi Riset Ilmiah</span>
+                    <h2 class="section-title">Karya Tulis Penelitian</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="research-showcase-card">
+                    <div class="research-header-banner">
+                        <div class="research-badge-row">
+                            <span class="badge-tag"><i class="fa-solid fa-building-columns"></i> SMP Labschool Kebayoran</span>
+                            <span class="badge-tag badge-year"><i class="fa-solid fa-calendar"></i> 2025</span>
+                            <span class="badge-tag badge-method"><i class="fa-solid fa-chart-pie"></i> Metode Kuantitatif</span>
+                        </div>
+                        <h3 class="research-main-title">
+                            "Efektivitas Penggunaan Loker dalam Mendukung Kegiatan Pembelajaran Siswa di SMP Labschool Kebayoran"
+                        </h3>
+                        <p class="research-meta">
+                            <strong>Penulis:</strong> Hilman Rasyid Kaizan (Kelas IX E / NISN: 0102954654) &bull; <strong>Institusi:</strong> SMP Labschool Kebayoran Jakarta Selatan
+                        </p>
+                    </div>
+
+                    <div class="research-content-body">
+                        <!-- Abstract & Summary -->
+                        <div class="research-abstract-box">
+                            <h4><i class="fa-solid fa-circle-info"></i> Latar Belakang & Ringkasan Abstrak</h4>
+                            <p>
+                                Penelitian ini dilatarbelakangi oleh beban tas berlebih pada siswa yang berpotensi memicu gangguan muskuloskeletal dan keluhan tulang belakang. Sesuai anjuran <em>World Health Organization (WHO)</em> dan <em>American Academy of Pediatrics (AAP)</em>, beban tas ideal tidak boleh melebihi 10–15% dari berat badan anak. Riset ini mengkaji efektivitas fasilitas loker sekolah dalam meringankan beban fisik, menciptakan kedisiplinan, kerapian lingkungan kelas, serta dampaknya terhadap kesiapan belajar siswa.
+                            </p>
+                        </div>
+
+                        <!-- Key Findings Metrics Grid -->
+                        <div class="research-stats-grid">
+                            <div class="r-stat-box">
+                                <div class="r-stat-val">156</div>
+                                <div class="r-stat-title">Siswa Responden</div>
+                                <div class="r-stat-desc">Sampel representatif angkatan 23, 24, dan 25</div>
+                            </div>
+                            <div class="r-stat-box">
+                                <div class="r-stat-val">97.4%</div>
+                                <div class="r-stat-title">Kurangi Beban Tas</div>
+                                <div class="r-stat-desc">Siswa merasa terbantu dari risiko beban tas berlebih</div>
+                            </div>
+                            <div class="r-stat-box">
+                                <div class="r-stat-val">93.6%</div>
+                                <div class="r-stat-title">Kenyamanan Kelas</div>
+                                <div class="r-stat-desc">Merasakan kegiatan belajar menjadi jauh lebih nyaman</div>
+                            </div>
+                            <div class="r-stat-box">
+                                <div class="r-stat-val">94.8%</div>
+                                <div class="r-stat-title">Efektivitas Total</div>
+                                <div class="r-stat-desc">Menyatakan penggunaan loker terbukti efektif</div>
+                            </div>
+                        </div>
+
+                        <!-- Research Findings Points -->
+                        <div class="research-details-grid">
+                            <div class="r-detail-item">
+                                <h5><i class="fa-solid fa-shield-heart text-success"></i> Kesehatan Fisik & Ergonomi</h5>
+                                <p>Menyimpan buku di loker secara signifikan mencegah kelelahan fisik, risiko nyeri punggung, serta menjaga postur tubuh yang sehat (sejalan dengan prinsip ergonomi Pheasant & Haslegrave, 2006).</p>
+                            </div>
+                            <div class="r-detail-item">
+                                <h5><i class="fa-solid fa-list-check text-accent"></i> Kedisiplinan & Kerapian Kelas</h5>
+                                <p>90.4% responden menyatakan ruang kelas menjadi lebih rapi, teratur, dan minim gangguan visual, sejalan dengan prinsip <em>Environmental Psychology</em> untuk memusatkan fokus belajar.</p>
+                            </div>
+                            <div class="r-detail-item">
+                                <h5><i class="fa-solid fa-lock text-primary-light"></i> Keamanan & Kesiapan Belajar</h5>
+                                <p>94.2% siswa merasa aman menyimpan barang di loker, dan 92.3% merasa lebih siap dalam mengikuti proses pembelajaran harian.</p>
+                            </div>
+                            <div class="r-detail-item">
+                                <h5><i class="fa-solid fa-lightbulb text-warning"></i> Rekomendasi & Solusi</h5>
+                                <p>Perlunya peningkatan pemeliharaan kunci berkala, sosialisasi tata tertib berkala, serta integrasi pemanfaatan fasilitas untuk mendukung prestasi siswa.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Rekam Jejak Kompetisi</span>
+                    <h2 class="section-title">Prestasi & Penghargaan</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="timeline-container">
+                    <!-- Prestasi 1: OSNK 2026 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2026</div>
+                        <div class="timeline-content">
+                            <div class="achievement-badge badge-osn"><i class="fa-solid fa-earth-asia"></i> Sains Nasional</div>
+                            <h3 class="timeline-title">Peserta OSN-K Bidang Kebumian 2026</h3>
+                            <h4 class="timeline-company">Olimpiade Sains Nasional Tingkat Kota/Kabupaten &bull; Puspresnas</h4>
+                            <p>Mewakili SMA Negeri 70 Jakarta dalam kompetisi prestisius OSN Bidang Kebumian, mencakup kajian litosfer, hidrosfer, atmosfer, dan dinamika keplanetan.</p>
+                        </div>
+                    </div>
+
+                    <!-- Prestasi 2: OPSI 2025 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2025</div>
+                        <div class="timeline-content">
+                            <div class="achievement-badge badge-opsi"><i class="fa-solid fa-atom"></i> Riset & Teknologi</div>
+                            <h3 class="timeline-title">Peserta OPSI Bidang IPTEK 2025</h3>
+                            <h4 class="timeline-company">Olimpiade Penelitian Siswa Indonesia &bull; Kemendikbudristek / BPTI</h4>
+                            <p>Merancang proposal dan riset aplikatif berbasis ilmu pengetahuan dan teknologi untuk memberikan solusi inovatif terhadap tantangan sains terapan.</p>
+                        </div>
+                    </div>
+
+                    <!-- Prestasi 3: ISIF 2024 -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date">2024</div>
+                        <div class="timeline-content">
+                            <div class="achievement-badge badge-silver"><i class="fa-solid fa-medal"></i> International Medalist</div>
+                            <h3 class="timeline-title">🥈 Silver Medal - International Science Invention Fair (ISIF) 2024</h3>
+                            <h4 class="timeline-company">ISIF Offline Competition 2024 &bull; Indonesian Young Scientist Association (IYSA)</h4>
+                            <p>Meraih Medali Perak dalam kompetisi invensi sains internasional dengan mempresentasikan karya inovatif di hadapan juri dan peneliti internasional.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interests & Hobbies Section -->
+        <section id="interests" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Eksplorasi & Kegemaran</span>
+                    <h2 class="section-title">Hobi & Minat Pribadi</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="interests-grid">
+                    <!-- Card 1: Sibelius Music -->
+                    <div class="interest-card">
+                        <div class="interest-header">
+                            <div class="interest-icon icon-music"><i class="fa-solid fa-music"></i></div>
+                            <div>
+                                <h3>Musik Klasik: Jean Sibelius</h3>
+                                <span class="interest-sub">Komposisi Simfoni & Orkestra</span>
+                            </div>
+                        </div>
+                        <p class="interest-desc">
+                            Sangat menikmati karya-karya Jean Sibelius, komponis era Romantik asal Finlandia. Musiknya memberikan ketenangan mendalam, kejernihan pikiran, dan fokus saat belajar dan meneliti.
+                        </p>
+                        <div class="music-track-list">
+                            <div class="track-item"><i class="fa-solid fa-play"></i> <span>Finlandia, Op. 26</span></div>
+                            <div class="track-item"><i class="fa-solid fa-play"></i> <span>Violin Concerto in D minor, Op. 47</span></div>
+                            <div class="track-item"><i class="fa-solid fa-play"></i> <span>Symphony No. 2 in D major, Op. 43</span></div>
+                            <div class="track-item"><i class="fa-solid fa-play"></i> <span>Valse Triste, Op. 44 No. 1</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2: Novel & Fiction -->
+                    <div class="interest-card">
+                        <div class="interest-header">
+                            <div class="interest-icon icon-book"><i class="fa-solid fa-book-open"></i></div>
+                            <div>
+                                <h3>Membaca Buku Fiksi & Novel</h3>
+                                <span class="interest-sub">Eksplorasi Cerita & Literasi</span>
+                            </div>
+                        </div>
+                        <p class="interest-desc">
+                            Membaca novel fiksi adalah cara terbaik saya untuk melatih imajinasi, memperluas wawasan naratif, dan menggali pesan filosofis di balik alur cerita yang mendalam.
+                        </p>
+                        <div class="genre-tags">
+                            <span class="tag"><i class="fa-solid fa-bookmark"></i> Science Fiction</span>
+                            <span class="tag"><i class="fa-solid fa-bookmark"></i> Mystery & Thriller</span>
+                            <span class="tag"><i class="fa-solid fa-bookmark"></i> Classic Literature</span>
+                            <span class="tag"><i class="fa-solid fa-bookmark"></i> Fantasy & Adventure</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3: Earth Science & Astronomy -->
+                    <div class="interest-card">
+                        <div class="interest-header">
+                            <div class="interest-icon icon-earth"><i class="fa-solid fa-volcano"></i></div>
+                            <div>
+                                <h3>Ilmu Kebumian & Sains</h3>
+                                <span class="interest-sub">Geosfer & Alam Semesta</span>
+                            </div>
+                        </div>
+                        <p class="interest-desc">
+                            Mempelajari fenomena litosfer, lempeng tektonik, dinamika awan dan iklim atmosfer, serta sistem keplanetan tata surya yang menjadi fokus persiapan olimpiade sains.
+                        </p>
+                        <div class="genre-tags">
+                            <span class="tag"><i class="fa-solid fa-mountain"></i> Geologi</span>
+                            <span class="tag"><i class="fa-solid fa-cloud-sun"></i> Meteorologi</span>
+                            <span class="tag"><i class="fa-solid fa-water"></i> Oseanografi</span>
+                            <span class="tag"><i class="fa-solid fa-star"></i> Astronomi</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 4: Special Passion -->
+                    <div class="interest-card special-love-card">
+                        <div class="interest-header">
+                            <div class="interest-icon icon-heart"><i class="fa-solid fa-heart"></i></div>
+                            <div>
+                                <h3>The Special One</h3>
+                                <span class="interest-sub">Personal Statement</span>
+                            </div>
+                        </div>
+                        <div class="love-statement-box">
+                            <span class="love-quote">"I Love Sultan"</span>
+                            <p>Sebuah pesan istimewa yang selalu membawa energi positif dan semangat terbaik dalam setiap langkah belajar dan berkarya.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects & Additional Research Section -->
+        <section id="projects" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Portofolio Karya Ilmiah</span>
+                    <h2 class="section-title">Karya & Invensi Lainnya</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="projects-grid">
+                    <!-- Project 1: ISIF Invention -->
+                    <div class="project-card">
+                        <div class="project-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&auto=format&fit=crop&q=80" alt="Invensi Sains ISIF">
+                            <div class="project-overlay">
+                                <span class="badge-overlay"><i class="fa-solid fa-medal"></i> ISIF Silver Medal</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span class="tag">Invensi Sains</span>
+                                <span class="tag">ISIF 2024</span>
+                                <span class="tag">IYSA Offline</span>
+                            </div>
+                            <h3 class="project-title">Proyek Invensi Ilmiah - ISIF 2024</h3>
+                            <p class="project-desc">Karya inovasi sains yang dipresentasikan langsung di hadapan dewan juri internasional dalam International Science Invention Fair 2024 dan sukses meraih Medali Perak.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: OPSI IPTEK -->
+                    <div class="project-card">
+                        <div class="project-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?w=800&auto=format&fit=crop&q=80" alt="Penelitian OPSI IPTEK">
+                            <div class="project-overlay">
+                                <span class="badge-overlay"><i class="fa-solid fa-atom"></i> OPSI 2025</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span class="tag">OPSI IPTEK</span>
+                                <span class="tag">Metodologi Riset</span>
+                                <span class="tag">Puspresnas</span>
+                            </div>
+                            <h3 class="project-title">Penelitian Bidang IPTEK - OPSI 2025</h3>
+                            <p class="project-desc">Kajian penelitian ilmiah terapan berbasis teknologi terkini untuk menguji hipotesis dan merancang solusi aplikatif bagi tantangan lingkungan dan sains.</p>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: OSN Kebumian -->
+                    <div class="project-card">
+                        <div class="project-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80" alt="Studi Kebumian OSN">
+                            <div class="project-overlay">
+                                <span class="badge-overlay"><i class="fa-solid fa-earth-asia"></i> OSN-K 2026</span>
+                            </div>
+                        </div>
+                        <div class="project-body">
+                            <div class="project-tags">
+                                <span class="tag">OSN-K 2026</span>
+                                <span class="tag">Kebumian</span>
+                                <span class="tag">Geoscience</span>
+                            </div>
+                            <h3 class="project-title">Kajian Sains Kebumian & Atmosfer</h3>
+                            <p class="project-desc">Portofolio eksplorasi komprehensif tentang dinamika lempeng bumi, siklus hidrologi, iklim meteorologis, dan sistem astronomi tata surya.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-subtitle">Tetap Terhubung</span>
+                    <h2 class="section-title">Hubungi Saya</h2>
+                    <div class="section-divider"></div>
+                </div>
+
+                <div class="contact-wrapper">
+                    <div class="contact-info">
+                        <h3>Tertarik Berdiskusi atau Berkolaborasi? ✉️</h3>
+                        <p>Saya sangat terbuka untuk berdiskusi seputar riset karya ilmiah, sains kebumian, rekomendasi novel fiksi, atau bertukar apresiasi musik klasik Jean Sibelius!</p>
+                        
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-school"></i></div>
+                            <div>
+                                <span class="contact-label">Sekolah</span>
+                                <span class="contact-value">SMA Negeri 70 Jakarta</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-envelope"></i></div>
+                            <div>
+                                <span class="contact-label">Email Pribadi</span>
+                                <a href="mailto:hilmanrasyid2000@gmail.com" class="contact-value">hilmanrasyid2000@gmail.com</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-card">
+                            <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <span class="contact-label">Lokasi</span>
+                                <span class="contact-value">Jakarta Selatan, DKI Jakarta, Indonesia</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Nama Anda</label>
+                                <input type="text" id="name" name="name" placeholder="Masukkan nama" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" placeholder="email@domain.com" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subjek</label>
+                            <input type="text" id="subject" name="subject" placeholder="Diskusi Riset / Sains / Musik" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Pesan Anda</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tuliskan pesan atau pertanyaan Anda di sini..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-submit">
+                            <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Footer -->
+        <footer class="content-footer">
+            <p>Portofolio Pribadi <strong>Hilman Rasyid Kaizan</strong> &bull; Siswa SMA Negeri 70 Jakarta &bull; <em>"I Love Sultan"</em></p>
+        </footer>
+    </main>
+
+    <!-- Custom JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
