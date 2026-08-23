@@ -1,10 +1,13 @@
 /**
  * PORTOFOLIO HILMAN RASYID KAIZAN - JAVASCRIPT
  * SMA NEGERI 70 JAKARTA
+ * Includes: Smooth Scroll, Section Motion Animations, Typewriter, 2048 Game Engine, and Contact Handling
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Mobile Sidebar Toggle
+    /* =========================================================
+       1. MOBILE SIDEBAR TOGGLE
+       ========================================================= */
     const mobileToggle = document.getElementById('mobileToggle');
     const sidebar = document.getElementById('sidebar');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -39,16 +42,30 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebarOverlay.addEventListener('click', closeSidebar);
     }
 
-    // Close mobile menu when clicking nav link
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 868) {
-                closeSidebar();
+    // Smooth navigation click handling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#' || targetId === '') return;
+            
+            const targetElem = document.querySelector(targetId);
+            if (targetElem) {
+                e.preventDefault();
+                targetElem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                if (window.innerWidth <= 768) {
+                    closeSidebar();
+                }
             }
         });
     });
 
-    // 2. Active Link On Scroll (ScrollSpy)
+    /* =========================================================
+       2. SCROLLSPY (ACTIVE LINK ON SCROLL)
+       ========================================================= */
     const sections = document.querySelectorAll('section[id]');
     
     function scrollSpy() {
@@ -56,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sections.forEach(current => {
             const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 120;
+            const sectionTop = current.offsetTop - 140;
             const sectionId = current.getAttribute('id');
             const correspondingLink = document.querySelector(`.sidebar-nav a[href*="${sectionId}"]`);
 
@@ -68,17 +85,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-    window.addEventListener('scroll', scrollSpy);
+    window.addEventListener('scroll', scrollSpy, { passive: true });
 
-    // 3. Typewriter Effect tailored for Hilman Rasyid Kaizan
+    /* =========================================================
+       3. INTERSECTION OBSERVER FOR SECTION REVEAL ANIMATIONS
+       ========================================================= */
+    const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
+
+    if ('IntersectionObserver' in window) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    // Unobserve to keep performance high
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: null,
+            threshold: 0.12,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    } else {
+        // Fallback for older browsers
+        revealElements.forEach(el => el.classList.add('in-view'));
+    }
+
+    /* =========================================================
+       4. TYPEWRITER EFFECT
+       ========================================================= */
     const words = [
-        'Siswa SMAN 70 Jakarta',
+        'Siswa SMA Negeri 70 Jakarta',
+        'Pecinta Novel: Laut Bercerita & Pulang',
+        'Penikmat Violin Concerto Sibelius & Bach',
         'Peneliti Efektivitas Loker Sekolah',
         'ISIF 2024 Silver Medalist',
         'Peserta OSN-K Kebumian 2026',
-        'Peserta OPSI IPTEK 2025',
-        'Pecinta Musik Jean Sibelius',
-        'Penggemar Buku Fiksi & Novel'
+        'Peserta OPSI IPTEK 2025'
     ];
     let wordIndex = 0;
     let charIndex = 0;
@@ -98,28 +143,343 @@ document.addEventListener('DOMContentLoaded', () => {
             charIndex++;
         }
 
-        let typeSpeed = isDeleting ? 35 : 90;
+        let typeSpeed = isDeleting ? 30 : 80;
 
         if (!isDeleting && charIndex === currentWord.length) {
-            typeSpeed = 2000; // Pause at end of word
+            typeSpeed = 2200; // Pause at end
             isDeleting = true;
         } else if (isDeleting && charIndex === 0) {
             isDeleting = false;
             wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 400; // Pause before typing new word
+            typeSpeed = 400; // Pause before typing new
         }
 
         setTimeout(typeEffect, typeSpeed);
     }
     typeEffect();
 
-    // 4. Contact Form Handling
+    /* =========================================================
+       5. 2048 GAME ENGINE
+       ========================================================= */
+    class Game2048 {
+        constructor() {
+            this.size = 4;
+            this.board = [];
+            this.score = 0;
+            this.bestScore = parseInt(localStorage.getItem('game2048_bestScore') || '0', 10);
+            this.won = false;
+            this.over = false;
+
+            this.gridElement = document.getElementById('gameGrid');
+            this.boardContainer = document.getElementById('gameBoardContainer');
+            this.scoreElement = document.getElementById('currentScore');
+            this.bestScoreElement = document.getElementById('bestScore');
+            this.messageElement = document.getElementById('gameMessage');
+            this.messageText = document.getElementById('gameMessageText');
+            this.newGameBtn = document.getElementById('newGameBtn');
+            this.retryBtn = document.getElementById('retryBtn');
+
+            if (!this.gridElement) return;
+
+            this.init();
+        }
+
+        init() {
+            this.updateBestScoreDisplay();
+            this.setupEventListeners();
+            this.startNewGame();
+        }
+
+        startNewGame() {
+            this.board = Array(this.size).fill(null).map(() => Array(this.size).fill(0));
+            this.score = 0;
+            this.won = false;
+            this.over = false;
+            this.updateScoreDisplay();
+            this.hideMessage();
+            
+            // Add 2 initial tiles
+            this.addRandomTile();
+            this.addRandomTile();
+            this.render();
+        }
+
+        updateScoreDisplay() {
+            if (this.scoreElement) this.scoreElement.textContent = this.score;
+            if (this.score > this.bestScore) {
+                this.bestScore = this.score;
+                localStorage.setItem('game2048_bestScore', this.bestScore.toString());
+                this.updateBestScoreDisplay();
+            }
+        }
+
+        updateBestScoreDisplay() {
+            if (this.bestScoreElement) this.bestScoreElement.textContent = this.bestScore;
+        }
+
+        addRandomTile() {
+            const emptyCells = [];
+            for (let r = 0; r < this.size; r++) {
+                for (let c = 0; c < this.size; c++) {
+                    if (this.board[r][c] === 0) {
+                        emptyCells.push({ r, c });
+                    }
+                }
+            }
+
+            if (emptyCells.length > 0) {
+                const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
+                this.board[randomCell.r][randomCell.c] = Math.random() < 0.9 ? 2 : 4;
+            }
+        }
+
+        render() {
+            // Remove existing dynamic tiles
+            const existingTiles = this.gridElement.querySelectorAll('.tile');
+            existingTiles.forEach(t => t.remove());
+
+            const containerWidth = this.gridElement.clientWidth || 310;
+            const gap = 8;
+            const cellSize = (containerWidth - (gap * (this.size - 1))) / this.size;
+
+            for (let r = 0; r < this.size; r++) {
+                for (let c = 0; c < this.size; c++) {
+                    const value = this.board[r][c];
+                    if (value > 0) {
+                        const tile = document.createElement('div');
+                        tile.className = `tile tile-${value}`;
+                        tile.style.width = `${cellSize}px`;
+                        tile.style.height = `${cellSize}px`;
+                        tile.style.transform = `translate(${c * (cellSize + gap)}px, ${r * (cellSize + gap)}px)`;
+
+                        const inner = document.createElement('div');
+                        inner.className = 'tile-inner';
+                        inner.textContent = value;
+                        tile.appendChild(inner);
+
+                        this.gridElement.appendChild(tile);
+                    }
+                }
+            }
+        }
+
+        move(direction) {
+            if (this.over) return;
+
+            let moved = false;
+            const previousBoard = JSON.stringify(this.board);
+
+            // 0: up, 1: right, 2: down, 3: left
+            if (direction === 0) moved = this.moveUp();
+            else if (direction === 1) moved = this.moveRight();
+            else if (direction === 2) moved = this.moveDown();
+            else if (direction === 3) moved = this.moveLeft();
+
+            if (JSON.stringify(this.board) !== previousBoard) {
+                this.addRandomTile();
+                this.render();
+                this.updateScoreDisplay();
+
+                if (this.checkWin() && !this.won) {
+                    this.won = true;
+                    this.showMessage('Selamat! Anda Mencapai 2048!');
+                } else if (this.checkGameOver()) {
+                    this.over = true;
+                    this.showMessage('Game Over! Coba lagi!');
+                }
+            }
+        }
+
+        slide(row) {
+            let arr = row.filter(val => val !== 0);
+            for (let i = 0; i < arr.length - 1; i++) {
+                if (arr[i] === arr[i + 1]) {
+                    arr[i] *= 2;
+                    this.score += arr[i];
+                    arr[i + 1] = 0;
+                }
+            }
+            arr = arr.filter(val => val !== 0);
+            while (arr.length < this.size) {
+                arr.push(0);
+            }
+            return arr;
+        }
+
+        moveLeft() {
+            for (let r = 0; r < this.size; r++) {
+                this.board[r] = this.slide(this.board[r]);
+            }
+        }
+
+        moveRight() {
+            for (let r = 0; r < this.size; r++) {
+                let reversed = this.board[r].slice().reverse();
+                reversed = this.slide(reversed);
+                this.board[r] = reversed.reverse();
+            }
+        }
+
+        moveUp() {
+            for (let c = 0; c < this.size; c++) {
+                let col = [this.board[0][c], this.board[1][c], this.board[2][c], this.board[3][c]];
+                col = this.slide(col);
+                for (let r = 0; r < this.size; r++) {
+                    this.board[r][c] = col[r];
+                }
+            }
+        }
+
+        moveDown() {
+            for (let c = 0; c < this.size; c++) {
+                let col = [this.board[3][c], this.board[2][c], this.board[1][c], this.board[0][c]];
+                col = this.slide(col);
+                for (let r = 0; r < this.size; r++) {
+                    this.board[3 - r][c] = col[r];
+                }
+            }
+        }
+
+        checkWin() {
+            for (let r = 0; r < this.size; r++) {
+                for (let c = 0; c < this.size; c++) {
+                    if (this.board[r][c] === 2048) return true;
+                }
+            }
+            return false;
+        }
+
+        checkGameOver() {
+            // Check for empty cells
+            for (let r = 0; r < this.size; r++) {
+                for (let c = 0; c < this.size; c++) {
+                    if (this.board[r][c] === 0) return false;
+                }
+            }
+            // Check adjacent horizontal & vertical merges
+            for (let r = 0; r < this.size; r++) {
+                for (let c = 0; c < this.size; c++) {
+                    if (c < this.size - 1 && this.board[r][c] === this.board[r][c + 1]) return false;
+                    if (r < this.size - 1 && this.board[r][c] === this.board[r + 1][c]) return false;
+                }
+            }
+            return true;
+        }
+
+        showMessage(text) {
+            if (this.messageElement && this.messageText) {
+                this.messageText.textContent = text;
+                this.messageElement.classList.add('game-over');
+            }
+        }
+
+        hideMessage() {
+            if (this.messageElement) {
+                this.messageElement.classList.remove('game-over', 'game-won');
+            }
+        }
+
+        setupEventListeners() {
+            // Keyboard controls
+            window.addEventListener('keydown', (e) => {
+                // Prevent scrolling when using arrow keys inside the game area
+                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) {
+                    const gameSection = document.getElementById('game');
+                    if (gameSection) {
+                        const rect = gameSection.getBoundingClientRect();
+                        if (rect.top < window.innerHeight && rect.bottom > 0) {
+                            e.preventDefault();
+                        }
+                    }
+                }
+
+                switch (e.code) {
+                    case 'ArrowUp':
+                    case 'KeyW':
+                        this.move(0);
+                        break;
+                    case 'ArrowRight':
+                    case 'KeyD':
+                        this.move(1);
+                        break;
+                    case 'ArrowDown':
+                    case 'KeyS':
+                        this.move(2);
+                        break;
+                    case 'ArrowLeft':
+                    case 'KeyA':
+                        this.move(3);
+                        break;
+                }
+            });
+
+            // Touch Swipe controls
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            if (this.boardContainer) {
+                this.boardContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }, { passive: true });
+
+                this.boardContainer.addEventListener('touchend', (e) => {
+                    if (!touchStartX || !touchStartY) return;
+
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const touchEndY = e.changedTouches[0].clientY;
+
+                    const dx = touchEndX - touchStartX;
+                    const dy = touchEndY - touchStartY;
+
+                    if (Math.abs(dx) > Math.abs(dy)) {
+                        if (Math.abs(dx) > 30) {
+                            if (dx > 0) this.move(1); // Right
+                            else this.move(3); // Left
+                        }
+                    } else {
+                        if (Math.abs(dy) > 30) {
+                            if (dy > 0) this.move(2); // Down
+                            else this.move(0); // Up
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            // Buttons
+            if (this.newGameBtn) {
+                this.newGameBtn.addEventListener('click', () => this.startNewGame());
+            }
+            if (this.retryBtn) {
+                this.retryBtn.addEventListener('click', () => this.startNewGame());
+            }
+
+            // Resize handle for tile responsiveness
+            window.addEventListener('resize', () => {
+                this.render();
+            });
+        }
+    }
+
+    // Initialize 2048 Game
+    const game = new Game2048();
+
+    /* =========================================================
+       6. CONTACT FORM & EMAIL SIMULATION
+       ========================================================= */
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('name').value;
-            alert(`Halo ${name}! Pesan Anda telah terkirim kepada Hilman Rasyid Kaizan (Simulasi). Terima kasih!`);
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+
+            // Direct to user's email client
+            const mailtoUrl = `mailto:hilmanrasyid2000@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nama: ${name}\n\nPesan:\n${message}`)}`;
+            window.location.href = mailtoUrl;
+
+            alert(`Terima kasih, ${name}! Pesan Anda telah disiapkan untuk dikirim ke hilmanrasyid2000@gmail.com.`);
             contactForm.reset();
         });
     }

@@ -1,152 +1,118 @@
 ---
 version: alpha
-name: "Khroma Dark Immersive"
-description: "Khroma is an AI-powered color tool for designers. Its homepage uses a near-black (#0c0c0e) full-bleed canvas as the primary surface, with large Instrument Serif display headings at 78px and Graphik as the workhorse sans-serif for body and UI text. The design is flat (no shadows), uses minimal border radii, and lets color swatches and palette previews serve as the primary visual content. White text dominates on the dark background, with accent colors (coral, yellow, violet) appearing as palette samples rather than structural UI tokens."
+name: "Frequency-Based Extraction"
+description: "Design tokens extracted from frequency analysis without LLM interpretation."
 colors:
-  palette-violet: "#4e42f9"
-  palette-coral: "#f58f8d"
-  palette-crimson: "#cb355f"
-  palette-yellow: "#faf0a3"
-  surface-base: "#0c0c0e"
-  text-primary: "#ffffff"
-  text-secondary: "#939dac"
-  text-tertiary: "#646a85"
+  low-confidence: "#ed462d"
+  text: "#f0ede6"
+  text-2: "#22c55e"
+  text-3: "#0000ee"
+  local-accent: "#ffffff"
+  local-accent-2: "#0a0a0a"
+  local-accent-3: "#050505"
+  local-accent-4: "#000000"
+  local-accent-5: "#767676"
 typography:
-  display-hero:
-    fontFamily: "Instrument Serif"
-    fontSize: "78px"
-    fontWeight: "400"
-    lineHeight: "78px"
-    letterSpacing: "-2px"
-  display-large:
-    fontFamily: "Instrument Serif"
-    fontSize: "60px"
-    fontWeight: "400"
-    lineHeight: "60px"
-  display-medium:
-    fontFamily: "Instrument Serif"
-    fontSize: "46px"
-    fontWeight: "400"
-    lineHeight: "46px"
-  body-default:
-    fontFamily: "Graphik"
-    fontSize: "18px"
-    fontWeight: "400"
-    lineHeight: "27px"
-  body-compact:
-    fontFamily: "Graphik"
-    fontSize: "18px"
-    fontWeight: "400"
-    lineHeight: "18px"
-  body-small:
-    fontFamily: "Graphik"
+  type-1:
+    fontFamily: "Instrument Sans"
     fontSize: "16px"
     fontWeight: "400"
-    lineHeight: "16px"
-  ui-large:
-    fontFamily: "Graphik"
-    fontSize: "24px"
+  type-2:
+    fontFamily: "Chivo Mono"
+    fontSize: "12px"
     fontWeight: "400"
-    lineHeight: "65px"
+    letterSpacing: "1.44px"
+  type-3:
+    fontFamily: "Geist Pixel Square"
+    fontSize: "12.8px"
+    fontWeight: "400"
+    letterSpacing: "1.28px"
+  type-4:
+    fontFamily: "Chivo Mono"
+    fontSize: "11.2px"
+    fontWeight: "400"
+    lineHeight: "20.16px"
+  type-5:
+    fontFamily: "Geist Pixel Square"
+    fontSize: "9.6px"
+    fontWeight: "400"
+    lineHeight: "14.4px"
+    letterSpacing: "0.96px"
 rounded:
-  sm: "5px"
-  md: "10px"
-  pill: "27px"
+  radius-1: "1px"
+  radius-2: "6px"
+  radius-3: "10px"
 spacing:
-  xs: "10px"
-  sm: "13px"
-  md: "15px"
-  lg: "20px"
-  xl: "40px"
-  2xl: "50px"
-  3xl: "60px"
-  4xl: "70px"
-  5xl: "80px"
-  6xl: "100px"
-  7xl: "136px"
-  8xl: "150px"
-  9xl: "160px"
+  space-1: "32px"
+  space-2: "24px"
+  space-3: "12px"
+  space-4: "63.3px"
+  space-5: "16px"
+  space-6: "8px"
+  space-7: "20px"
+  space-8: "48px"
+  space-9: "9.6px"
+  space-10: "64px"
 ---
 
 ## Overview
 
-Khroma is an AI-powered color tool for designers. Its homepage uses a near-black (#0c0c0e) full-bleed canvas as the primary surface, with large Instrument Serif display headings at 78px and Graphik as the workhorse sans-serif for body and UI text. The design is flat (no shadows), uses minimal border radii, and lets color swatches and palette previews serve as the primary visual content. White text dominates on the dark background, with accent colors (coral, yellow, violet) appearing as palette samples rather than structural UI tokens.
+Design tokens extracted from frequency analysis without LLM interpretation.
 
 **Signature traits:**
-- Dual typeface system: Pairs Instrument Serif and Graphik across the type hierarchy.
-- Soft, rounded geometry: Generous corner rounding up to 27px.
+- Evidence was insufficient to extract distinctive signature traits for this system.
 
 ## Colors
 
-The palette uses 8 validated color tokens across 1 theme profile. Semantic roles stay attached to observed usage so generation agents can choose accents without inventing new color meaning.
-
-**Semantic naming:**
-- **surface-background** maps to `surface-base`: Role "background" is grounded by usage context "Primary page background and hero canvas — near-black, full-bleed".
-- **action-text** maps to `text-primary`: Role "text" is grounded by usage context "All headings, body copy, nav links, and CTA text on dark backgrounds".
-- **content-text** maps to `text-secondary`: Role "text" is grounded by usage context "Secondary descriptive text, footer metadata, muted labels".
-- **content-accent** maps to `palette-coral`: Role "accent" is grounded by usage context "Color swatch sample — palette preview accent, not a structural UI token".
-
-### Primary Brand
-- **Palette Violet** (#4e42f9): Brand-adjacent violet used in palette samples and potentially CTA highlights. Role: primary.
-- **Palette Coral** (#f58f8d): Color swatch sample — palette preview accent, not a structural UI token. Role: accent.
-- **Palette Crimson** (#cb355f): Color swatch sample — palette preview accent in footer zone. Role: accent.
-- **Palette Yellow** (#faf0a3): Color swatch sample — palette preview accent in footer zone. Role: accent.
+The palette uses 9 validated color tokens across 1 theme profile. Semantic roles stay attached to observed usage so generation agents can choose accents without inventing new color meaning.
 
 ### Text Scale
-- **Text Primary** (#ffffff): All headings, body copy, nav links, and CTA text on dark backgrounds. Role: text.
-- **Text Secondary** (#939dac): Secondary descriptive text, footer metadata, muted labels. Role: text.
-- **Text Tertiary** (#646a85): Lowest-hierarchy text, footer fine print, disabled states. Role: text.
+- **Text** (#f0ede6): Frequency rank #1 (209 occurrences); token importance textCandidate: repeated text-role usage (209 hits). Role: text. {authored: rgba(240, 237, 230, 0.016), space: rgb, alpha: 0.016}
+- **Text-2** (#22c55e): Frequency rank #5 (10 occurrences); token importance textCandidate: repeated text-role usage (10 hits). Role: text. {authored: rgb(34, 197, 94), space: rgb}
+- **Text-3** (#0000ee): Frequency rank #6 (8 occurrences); token importance textCandidate: repeated text-role usage (8 hits). Role: text. {authored: rgb(0, 0, 238), space: rgb}
+
+### Interactive
+- **Local-accent** (#ffffff): Frequency rank #2 (19 occurrences); token importance localAccent: localized usage with limited global footprint. Role: border. {authored: rgb(255, 255, 255), space: rgb, alpha: 0.02}
+- **Local-accent-2** (#0a0a0a): Frequency rank #3 (18 occurrences); token importance localAccent: localized usage with limited global footprint. Role: border. {authored: rgb(10, 10, 10), space: rgb, alpha: 0.15}
+- **Local-accent-3** (#050505): Frequency rank #7 (1 occurrences); token importance localAccent: localized usage with limited global footprint. Role: border. {authored: rgb(5, 5, 5), space: rgb}
+- **Local-accent-4** (#000000): Frequency rank #8 (1 occurrences); token importance localAccent: localized usage with limited global footprint. Role: border. {authored: rgb(0, 0, 0), space: rgb}
+- **Local-accent-5** (#767676): Frequency rank #9 (1 occurrences); token importance localAccent: localized usage with limited global footprint. Role: border. {authored: rgb(118, 118, 118), space: rgb}
 
 ### Surface & Shadows
-- **Surface Base** (#0c0c0e): Primary page background and hero canvas — near-black, full-bleed. Role: background.
+- **Low-confidence** (#ed462d): Frequency rank #4 (12 occurrences); token importance lowConfidence: insufficient confidence from deterministic signals. Role: background. {authored: rgb(237, 70, 45), space: rgb, alpha: 0.2}
 
 ## Typography
 
-Typography uses Instrument Serif, Graphik across extracted hierarchy roles. Keep hierarchy mapped to these token rows before adding decorative type styles.
+Typography uses Instrument Sans, Chivo Mono, Geist Pixel Square across extracted hierarchy roles. Keep hierarchy mapped to these token rows before adding decorative type styles.
 
-Mixes Instrument Serif and Graphik for visual contrast. Sizes range from 16px to 78px.
-
-### Font Roles
-- **Headline Font**: Instrument Serif
-- **Body Font**: Graphik (with Inter / system sans-serif fallback)
+Mixes Instrument Sans and Chivo Mono and Geist Pixel Square for visual contrast. Sizes range from 9.6px to 16px.
 
 ### Type Scale Evidence
 | Role | Font | Size | Weight | Line Height | Letter Spacing | Stack / Features | Notes |
 |------|------|------|--------|-------------|----------------|------------------|-------|
-| Primary hero heading — large editorial display type with tight negative tracking | Instrument Serif | 78px | 400 | 78px | -2px | Instrument Serif | Extracted token |
-| Section-level display headings | Instrument Serif | 60px | 400 | 60px | normal | Instrument Serif | Extracted token |
-| Sub-section headings and feature callouts | Instrument Serif | 46px | 400 | 46px | normal | Instrument Serif | Extracted token |
-| Primary body copy and descriptive text | Graphik | 18px | 400 | 27px | normal | Graphik, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, Helvetica, Arial, sans-serif | Extracted token |
-| Navigation links, labels, and compact UI text | Graphik | 18px | 400 | 18px | normal | Graphik, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, Helvetica, Arial, sans-serif | Extracted token |
-| Secondary UI text, captions, footer copy | Graphik | 16px | 400 | 16px | normal | Graphik, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, Helvetica, Arial, sans-serif | Extracted token |
-| Large UI labels or feature callout text with generous line height | Graphik | 24px | 400 | 65px | normal | Graphik, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, Helvetica, Arial, sans-serif | Extracted token |
+| Frequency rank #1 | Instrument Sans | 16px | 400 | normal | normal | Instrument Sans, system-ui, sans-serif | Extracted token |
+| Frequency rank #2 | Chivo Mono | 12px | 400 | normal | 1.44px | Chivo Mono, monospace | Extracted token |
+| Frequency rank #3 | Geist Pixel Square | 12.8px | 400 | normal | 1.28px | Geist Pixel Square, monospace | Extracted token |
+| Frequency rank #4 | Chivo Mono | 11.2px | 400 | 20.16px | normal | Chivo Mono, monospace | Extracted token |
+| Frequency rank #5 | Geist Pixel Square | 9.6px | 400 | 14.4px | 0.96px | Geist Pixel Square, monospace | Extracted token |
 
 ## Layout
 
-Responsive system uses 2 breakpoint tier(s): mobile, wide.
-
-This system uses a 10px base grid with scale values 10, 13, 15, 20, 40, 50, 60, 70, 80, 100, 136, 150, 160.
-
-### Responsive Strategy
-- **mobile (<= 1124px)**: Constrain layout for small viewports and prioritize vertical stacking.
-- **wide (>= 1600px)**: Stretch composition with generous gutters and wider layout spans.
+Layout rhythm is inferred from spacing tokens and responsive breakpoint evidence.
 
 ### Spacing System
 | Token | Value | Px | Notes |
 |------|-------|----|-------|
-| xs | 10px | 10 | Extracted spacing token |
-| sm | 13px | 13 | Extracted spacing token |
-| md | 15px | 15 | Extracted spacing token |
-| lg | 20px | 20 | Extracted spacing token |
-| xl | 40px | 40 | Extracted spacing token |
-| 2xl | 50px | 50 | Extracted spacing token |
-| 3xl | 60px | 60 | Extracted spacing token |
-| 4xl | 70px | 70 | Extracted spacing token |
-| 5xl | 80px | 80 | Extracted spacing token |
-| 6xl | 100px | 100 | Extracted spacing token |
-| 7xl | 136px | 136 | Extracted spacing token |
-| 8xl | 150px | 150 | Extracted spacing token |
-| 9xl | 160px | 160 | Extracted spacing token |
+| space-6 | 8px | 8 | Extracted spacing token |
+| space-9 | 9.6px | 9.6 | Extracted spacing token |
+| space-3 | 12px | 12 | Extracted spacing token |
+| space-5 | 16px | 16 | Extracted spacing token |
+| space-7 | 20px | 20 | Extracted spacing token |
+| space-2 | 24px | 24 | Extracted spacing token |
+| space-1 | 32px | 32 | Extracted spacing token |
+| space-8 | 48px | 48 | Extracted spacing token |
+| space-4 | 63.3px | 63.3 | Extracted spacing token |
+| space-10 | 64px | 64 | Extracted spacing token |
 
 ## Elevation & Depth
 
@@ -155,15 +121,16 @@ Keep depth flat unless validated shadow or interaction evidence appears in the e
 ### Shadow Evidence
 | Shadow Token | Layers | Details |
 |--------------|--------|---------|
-| n/a | 0 | Flat design (no drop shadows) |
+| n/a | 0 | No validated shadow payload |
 
 ### Interaction Signals
 | Theme | Signal | Evidence |
 |-------|--------|----------|
-| Light | outline-color | rgb(255, 255, 255) ; rgb(100, 106, 133) ; rgb(147, 157, 172) |
+| Light | backdrop-filter | blur(8px) |
+| Light | outline-color | oklch(0.9465 0.0099 87.47) ; oklch(0.6329 0.2075 31.49) ; oklch(0.1448 0 0) |
 | Light | outline-width | 3px |
 | Light | outline-offset | 0px |
-| Light | transform | matrix(1, 0, 0, 1, 0, 0) ; matrix(0.707107, 0.707107, -0.707107, 0.707107, 0, 0) |
+| Light | transform | matrix(1, 0, 0, 1, 0, 0) ; matrix(0, 1, -1, 0, 705, -225) ; matrix(0.25, 0, 0, 0.25, 157, 157) |
 
 ## Shapes
 
@@ -172,16 +139,16 @@ Shape language maps directly to rounded tokens. Keep component corners consisten
 ### Radius Roles
 | Token | Value | Px | Role Mapping |
 |------|-------|----|--------------|
-| sm | 5px | 5 | Subtle corner |
-| md | 10px | 10 | Control corner |
-| pill | 27px | 27 | Large surface corner |
+| radius-1 | 1px | 1 | Hairline corner |
+| radius-2 | 6px | 6 | Subtle corner |
+| radius-3 | 10px | 10 | Control corner |
 
 ### Geometry Evidence
 | Radius Token | Shape | Units |
 |--------------|-------|-------|
-| sm | 5px | px |
-| md | 10px | px |
-| pill | 27px | px |
+| radius-1 | 1px | px |
+| radius-2 | 6px | px |
+| radius-3 | 10px | px |
 
 ## Components
 
@@ -189,7 +156,7 @@ Shape language maps directly to rounded tokens. Keep component corners consisten
 
 ## Do's and Don'ts
 
-Guardrails protect Dual typeface system, Soft, rounded geometry without adding unsupported visual claims.
+Guardrails tie generation choices back to validated tokens, component patterns, and evidence-backed hierarchy.
 
 | Do | Don't |
 |----|---------|
@@ -204,6 +171,6 @@ Guardrails protect Dual typeface system, Soft, rounded geometry without adding u
 | Name | Width | Key Changes |
 |------|-------|-------------|
 | Breakpoint 1 | <= 768px | (max-width: 768px) |
-| Breakpoint 2 | <= 1124px | (max-width: 1124px) |
-| Desktop | >= 1600px | (min-width: 1600px) |
-| Desktop | >= 1820px | (min-width: 1820px) |
+| Breakpoint 2 | <= 1024px | (max-width: 1024px) |
+| Breakpoint 3 | <= 1280px | (max-width: 1280px) |
+| Tablet | 769-1024px | (max-width: 1024px) and (min-width: 769px) |
