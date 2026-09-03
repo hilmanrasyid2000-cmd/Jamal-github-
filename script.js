@@ -1,7 +1,7 @@
 /**
  * PORTOFOLIO HILMAN RASYID KAIZAN - JAVASCRIPT
  * SMA NEGERI 70 JAKARTA
- * Includes: Smooth Scroll, Section Motion Animations, Typewriter, 2048 Game Engine, and Contact Handling
+ * Features: Smooth Navigation Scroll, ScrollSpy, Intersection Observer, 2048 Game Engine, Contact Handling
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -31,8 +31,10 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebar.classList.remove('open');
         sidebarOverlay.classList.remove('active');
         const icon = mobileToggle.querySelector('i');
-        icon.classList.remove('fa-xmark');
-        icon.classList.add('fa-bars');
+        if (icon) {
+            icon.classList.remove('fa-xmark');
+            icon.classList.add('fa-bars');
+        }
     }
 
     if (mobileToggle) {
@@ -42,20 +44,24 @@ document.addEventListener('DOMContentLoaded', () => {
         sidebarOverlay.addEventListener('click', closeSidebar);
     }
 
-    // Smooth navigation click handling
+    /* =========================================================
+       2. SMOOTH SCROLL NAVIGATION WITH PRECISE OFFSET
+       ========================================================= */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
-            if (targetId === '#' || targetId === '') return;
+            if (!targetId || targetId === '#') return;
             
             const targetElem = document.querySelector(targetId);
             if (targetElem) {
                 e.preventDefault();
+                
                 targetElem.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
                 
+                // Close mobile sidebar if open
                 if (window.innerWidth <= 768) {
                     closeSidebar();
                 }
@@ -64,12 +70,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* =========================================================
-       2. SCROLLSPY (ACTIVE LINK ON SCROLL)
+       3. SCROLLSPY (ACTIVE LINK ON SCROLL)
        ========================================================= */
     const sections = document.querySelectorAll('section[id]');
     
     function scrollSpy() {
-        const scrollY = window.pageYOffset;
+        const scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
         sections.forEach(current => {
             const sectionHeight = current.offsetHeight;
@@ -77,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const sectionId = current.getAttribute('id');
             const correspondingLink = document.querySelector(`.sidebar-nav a[href*="${sectionId}"]`);
 
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+            if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                 navLinks.forEach(link => link.classList.remove('active'));
                 if (correspondingLink) {
                     correspondingLink.classList.add('active');
@@ -86,24 +92,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     window.addEventListener('scroll', scrollSpy, { passive: true });
+    scrollSpy(); // Initial check
 
     /* =========================================================
-       3. INTERSECTION OBSERVER FOR SECTION REVEAL ANIMATIONS
+       4. INTERSECTION OBSERVER FOR FLUID SECTION REVEAL
        ========================================================= */
-    const revealElements = document.querySelectorAll('.reveal, .reveal-scale');
+    const revealElements = document.querySelectorAll('.reveal');
 
     if ('IntersectionObserver' in window) {
         const revealObserver = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
-                    // Unobserve to keep performance high
                     observer.unobserve(entry.target);
                 }
             });
         }, {
             root: null,
-            threshold: 0.12,
+            threshold: 0.1,
             rootMargin: '0px 0px -40px 0px'
         });
 
@@ -112,51 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Fallback for older browsers
         revealElements.forEach(el => el.classList.add('in-view'));
     }
-
-    /* =========================================================
-       4. TYPEWRITER EFFECT
-       ========================================================= */
-    const words = [
-        'Siswa SMA Negeri 70 Jakarta',
-        'Pecinta Novel: Laut Bercerita & Pulang',
-        'Penikmat Violin Concerto Sibelius & Bach',
-        'Peneliti Efektivitas Loker Sekolah',
-        'ISIF 2024 Silver Medalist',
-        'Peserta OSN-K Kebumian 2026',
-        'Peserta OPSI IPTEK 2025'
-    ];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    const typewriterElement = document.getElementById('typewriter');
-
-    function typeEffect() {
-        if (!typewriterElement) return;
-
-        const currentWord = words[wordIndex];
-        
-        if (isDeleting) {
-            typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
-            charIndex--;
-        } else {
-            typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
-            charIndex++;
-        }
-
-        let typeSpeed = isDeleting ? 30 : 80;
-
-        if (!isDeleting && charIndex === currentWord.length) {
-            typeSpeed = 2200; // Pause at end
-            isDeleting = true;
-        } else if (isDeleting && charIndex === 0) {
-            isDeleting = false;
-            wordIndex = (wordIndex + 1) % words.length;
-            typeSpeed = 400; // Pause before typing new
-        }
-
-        setTimeout(typeEffect, typeSpeed);
-    }
-    typeEffect();
 
     /* =========================================================
        5. 2048 GAME ENGINE
@@ -234,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         render() {
-            // Remove existing dynamic tiles
             const existingTiles = this.gridElement.querySelectorAll('.tile');
             existingTiles.forEach(t => t.remove());
 
@@ -269,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let moved = false;
             const previousBoard = JSON.stringify(this.board);
 
-            // 0: up, 1: right, 2: down, 3: left
             if (direction === 0) moved = this.moveUp();
             else if (direction === 1) moved = this.moveRight();
             else if (direction === 2) moved = this.moveDown();
@@ -350,13 +309,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         checkGameOver() {
-            // Check for empty cells
             for (let r = 0; r < this.size; r++) {
                 for (let c = 0; c < this.size; c++) {
                     if (this.board[r][c] === 0) return false;
                 }
             }
-            // Check adjacent horizontal & vertical merges
             for (let r = 0; r < this.size; r++) {
                 for (let c = 0; c < this.size; c++) {
                     if (c < this.size - 1 && this.board[r][c] === this.board[r][c + 1]) return false;
@@ -380,9 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setupEventListeners() {
-            // Keyboard controls
             window.addEventListener('keydown', (e) => {
-                // Prevent scrolling when using arrow keys inside the game area
                 if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) {
                     const gameSection = document.getElementById('game');
                     if (gameSection) {
@@ -434,19 +389,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (Math.abs(dx) > Math.abs(dy)) {
                         if (Math.abs(dx) > 30) {
-                            if (dx > 0) this.move(1); // Right
-                            else this.move(3); // Left
+                            if (dx > 0) this.move(1);
+                            else this.move(3);
                         }
                     } else {
                         if (Math.abs(dy) > 30) {
-                            if (dy > 0) this.move(2); // Down
-                            else this.move(0); // Up
+                            if (dy > 0) this.move(2);
+                            else this.move(0);
                         }
                     }
                 }, { passive: true });
             }
 
-            // Buttons
             if (this.newGameBtn) {
                 this.newGameBtn.addEventListener('click', () => this.startNewGame());
             }
@@ -454,7 +408,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.retryBtn.addEventListener('click', () => this.startNewGame());
             }
 
-            // Resize handle for tile responsiveness
             window.addEventListener('resize', () => {
                 this.render();
             });
@@ -465,7 +418,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const game = new Game2048();
 
     /* =========================================================
-       6. CONTACT FORM & EMAIL SIMULATION
+       6. CONTACT FORM & EMAIL HANDLER
        ========================================================= */
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
@@ -475,11 +428,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
 
-            // Direct to user's email client
             const mailtoUrl = `mailto:hilmanrasyid2000@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Nama: ${name}\n\nPesan:\n${message}`)}`;
             window.location.href = mailtoUrl;
 
-            alert(`Terima kasih, ${name}! Pesan Anda telah disiapkan untuk dikirim ke hilmanrasyid2000@gmail.com.`);
+            alert(`Terima kasih, ${name}! Email korespondensi telah disiapkan untuk dikirim ke hilmanrasyid2000@gmail.com.`);
             contactForm.reset();
         });
     }

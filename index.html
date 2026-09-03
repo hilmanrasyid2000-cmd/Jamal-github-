@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portofolio Hilman Rasyid Kaizan - SMA Negeri 70 Jakarta</title>
-    <!-- Google Fonts: Instrument Serif & Inter (Graphik fallback) -->
+    <title>Hilman Rasyid Kaizan — Portofolio Akademik & Riset</title>
+    <!-- Google Fonts: Playfair Display (Editorial Serif), Plus Jakarta Sans (Clean Body), JetBrains Mono (Technical Data) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@300;400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Pixelify+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <!-- Mobile Toggle -->
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Buka Menu Navigasi">
         <i class="fa-solid fa-bars"></i>
     </button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
@@ -25,13 +25,9 @@
             <div class="profile-block">
                 <div class="profile-img-wrap">
                     <img src="profile.jpg" alt="Hilman Rasyid Kaizan" class="profile-img">
-                    <span class="online-dot"></span>
                 </div>
-                <p class="profile-name">Hilman Rasyid Kaizan</p>
-                <span class="profile-chip">
-                    <i class="fa-solid fa-graduation-cap"></i>
-                    SMAN 70 Jakarta
-                </span>
+                <h2 class="profile-name">Hilman Rasyid Kaizan</h2>
+                <p class="profile-role">SMA Negeri 70 Jakarta</p>
             </div>
 
             <nav class="sidebar-nav">
@@ -51,13 +47,13 @@
                     </li>
                     <li>
                         <a href="#interests" class="nav-link">
-                            <i class="fa-solid fa-heart"></i>
-                            <span>Minat &amp; Hobi</span>
+                            <i class="fa-solid fa-book-open"></i>
+                            <span>Minat &amp; Sastra</span>
                         </a>
                     </li>
                     <li>
                         <a href="#experience" class="nav-link">
-                            <i class="fa-solid fa-flask-vial"></i>
+                            <i class="fa-solid fa-flask"></i>
                             <span>Pengalaman &amp; Riset</span>
                         </a>
                     </li>
@@ -78,19 +74,15 @@
         </div>
 
         <div class="sidebar-bottom">
-            <div class="sultan-chip">
-                <i class="fa-solid fa-heart"></i>
-                <span>I Love Sultan</span>
-            </div>
             <div class="sidebar-socials">
-                <a href="https://instagram.com/hilmanrasyid2000" target="_blank" aria-label="Instagram" title="@hilmanrasyid2000">
+                <a href="https://instagram.com/hilmanrasyid2000" target="_blank" rel="noopener noreferrer" aria-label="Instagram @hilmanrasyid2000" title="Instagram">
                     <i class="fa-brands fa-instagram"></i>
                 </a>
-                <a href="https://github.com" target="_blank" aria-label="GitHub">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
                     <i class="fa-brands fa-github"></i>
                 </a>
-                <a href="mailto:hilmanrasyid2000@gmail.com" aria-label="Email">
-                    <i class="fa-solid fa-paper-plane"></i>
+                <a href="mailto:hilmanrasyid2000@gmail.com" aria-label="Email hilmanrasyid2000@gmail.com" title="Email">
+                    <i class="fa-solid fa-envelope"></i>
                 </a>
             </div>
             <p class="sidebar-copy">&copy; 2026 Hilman Rasyid Kaizan</p>
@@ -100,77 +92,69 @@
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main">
 
-        <!-- 1. BERANDA -->
-        <section id="home" class="section">
+        <!-- 1. BERANDA (HERO & BENTO STATS) -->
+        <section id="home" class="section hero-section">
             <div class="container">
-                <div class="hero-status reveal">
-                    <span class="dot-accent"></span>
-                    <span class="type-4">SMA NEGERI 70 JAKARTA &bull; YOUNG RESEARCHER</span>
+                <div class="hero-header reveal">
+                    <div class="journal-badge">
+                        <span class="badge-dot"></span>
+                        <span class="badge-text">SMA NEGERI 70 JAKARTA &bull; PORTFOLIO &amp; RESEARCH</span>
+                    </div>
+
+                    <h1 class="hero-heading">Hilman Rasyid Kaizan</h1>
+
+                    <p class="hero-subtitle">
+                        Siswa SMA Negeri 70 Jakarta &bull; Peneliti Muda &bull; Penggiat Sains Kebumian &amp; Sastra
+                    </p>
+
+                    <p class="hero-desc">
+                        Siswa <strong>SMA Negeri 70 Jakarta</strong> dengan fokus studi pada sains kebumian, metodologi riset ilmiah, dan literatur sastra. Mengapresiasi keindahan logika empiris melalui penelitian kuantitatif serta keagungan harmoni musik klasik karya <em>Jean Sibelius</em>, <em>Beethoven</em>, <em>Bach</em>, dan <em>Brahms</em>.
+                    </p>
+
+                    <div class="hero-cta">
+                        <a href="#about" class="btn btn-primary">
+                            <span>Tentang Saya</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#experience" class="btn btn-secondary">
+                            <i class="fa-solid fa-file-lines"></i>
+                            <span>Karya &amp; Riset</span>
+                        </a>
+                        <a href="#contact" class="btn btn-ghost">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Hubungi</span>
+                        </a>
+                    </div>
                 </div>
 
-                <h1 class="hero-heading reveal delay-1">Hilman Rasyid<br>Kaizan</h1>
+                <!-- BENTO GRID STATS -->
+                <div class="bento-grid reveal delay-2">
+                    <div class="bento-card bento-featured">
+                        <div class="bento-tag">PENGHARGAAN INTERNASIONAL</div>
+                        <h3 class="bento-val">Silver Medal</h3>
+                        <p class="bento-title">ISIF 2024</p>
+                        <p class="bento-desc">International Science Invention Fair &bull; Kategori offline competition bersama IYSA dengan dewan juri mancanegara.</p>
+                    </div>
 
-                <p class="hero-typewriter type-2 reveal delay-2">
-                    &gt; <span id="typewriter" class="tw-text"></span><span class="tw-cursor">_</span>
-                </p>
+                    <div class="bento-card">
+                        <div class="bento-tag">PUBLIKASI KTI</div>
+                        <h3 class="bento-val">156+</h3>
+                        <p class="bento-title">Responden Riset</p>
+                        <p class="bento-desc">Studi kuantitatif efektivitas loker sekolah berbasis standar ergonomi WHO &amp; AAP.</p>
+                    </div>
 
-                <p class="hero-desc type-1 reveal delay-3">
-                    Siswa <strong>SMA Negeri 70 Jakarta</strong> dengan ketertarikan mendalam pada
-                    riset sains, kebumian, dan inovasi ilmiah. Gemar mengeksplorasi novel fiksi
-                    serta menikmati keagungan simfoni musik klasik karya
-                    <em>Jean Sibelius</em>, <em>Beethoven</em>, <em>Bach</em>, dan <em>Brahms</em>.
-                </p>
+                    <div class="bento-card">
+                        <div class="bento-tag">RISET TERAPAN</div>
+                        <h3 class="bento-val">OPSI 2025</h3>
+                        <p class="bento-title">Bidang IPTEK</p>
+                        <p class="bento-desc">Olimpiade Penelitian Siswa Indonesia &bull; Pusat Prestasi Nasional &amp; BPTI Kemendikbudristek.</p>
+                    </div>
 
-                <!-- Special I Love Sultan Banner -->
-                <div class="sultan-banner reveal-scale delay-3">
-                    <div class="sultan-left">
-                        <i class="fa-solid fa-crown sultan-icon"></i>
-                    </div>
-                    <div class="sultan-body">
-                        <span class="sultan-eyebrow type-5">SPECIAL HIGHLIGHT</span>
-                        <span class="sultan-headline type-1">"I Love Sultan"</span>
-                    </div>
-                    <div class="sultan-right">
-                        <i class="fa-solid fa-heart sultan-heart-icon"></i>
-                    </div>
-                </div>
-
-                <!-- CTA Buttons -->
-                <div class="hero-cta reveal delay-4">
-                    <a href="#about" class="btn btn-primary">
-                        <i class="fa-solid fa-user"></i> Tentang Saya
-                    </a>
-                    <a href="#experience" class="btn btn-ghost">
-                        <i class="fa-solid fa-flask"></i> Karya &amp; Riset
-                    </a>
-                    <a href="#game" class="btn btn-ghost">
-                        <i class="fa-solid fa-gamepad"></i> Game 2048
-                    </a>
-                    <a href="#contact" class="btn btn-outline">
-                        <i class="fa-solid fa-paper-plane"></i> Kirim Pesan
-                    </a>
-                </div>
-
-                <!-- Stats Row -->
-                <div class="hero-stats reveal-scale delay-5">
-                    <div class="stat-item">
-                        <span class="stat-val type-2">ISIF 2024</span>
-                        <span class="stat-label type-4">Silver Medal</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-val type-2">156+</span>
-                        <span class="stat-label type-4">Responden Riset</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-val type-2">OPSI 2025</span>
-                        <span class="stat-label type-4">Peserta Bidang IPTEK</span>
-                    </div>
-                    <div class="stat-divider"></div>
-                    <div class="stat-item">
-                        <span class="stat-val type-2">OSN-K 2026</span>
-                        <span class="stat-label type-4">Peserta Bidang Kebumian</span>
+                    <div class="bento-card">
+                        <div class="bento-tag">KOMPETISI SAINS</div>
+                        <h3 class="bento-val">OSN-K 2026</h3>
+                        <p class="bento-title">Bidang Kebumian</p>
+                        <p class="bento-desc">Analisis sistem litosfer, meteorologi, oseanografi, geologi, dan astronomi keplanetan.</p>
                     </div>
                 </div>
             </div>
@@ -180,107 +164,82 @@
         <section id="about" class="section">
             <div class="container">
                 <div class="section-header reveal">
-                    <span class="section-eyebrow type-2">PERKENALAN DIRI</span>
-                    <h2 class="section-heading">Tentang Saya</h2>
-                    <div class="section-rule"></div>
+                    <span class="section-kicker">PROFIL PRIBADI</span>
+                    <h2 class="section-title">Tentang Saya</h2>
+                    <div class="section-line"></div>
                 </div>
 
-                <!-- Steve Jobs Quote -->
-                <div class="quote-block reveal delay-1">
-                    <i class="fa-solid fa-quote-left quote-icon"></i>
-                    <blockquote class="quote-text">"Stay Hungry. Stay Foolish."</blockquote>
-                    <cite class="quote-cite type-2">— Steve Jobs</cite>
+                <!-- Steve Jobs Quote (Editorial Newspaper Style) -->
+                <div class="editorial-quote reveal delay-1">
+                    <div class="quote-mark">&ldquo;</div>
+                    <blockquote class="quote-body">
+                        Stay Hungry. Stay Foolish.
+                    </blockquote>
+                    <div class="quote-citation">
+                        <span class="citation-author">Steve Jobs</span>
+                        <span class="citation-source">Stanford Commencement Address</span>
+                    </div>
                 </div>
 
                 <div class="about-grid">
-                    <!-- Left: Bio + Info -->
+                    <!-- Left: Bio & Academic Info Table -->
                     <div class="about-bio reveal delay-2">
-                        <h3 class="about-bio-heading">Salam Hangat! Senang Bertemu Anda</h3>
-                        <p class="type-1 about-p">
-                            Perkenalkan, nama saya <strong>Hilman Rasyid Kaizan</strong>. Saat ini saya adalah
-                            seorang siswa aktif di <strong>SMA Negeri 70 Jakarta</strong>. Saya memiliki rasa
-                            ingin tahu yang besar terhadap dunia ilmu pengetahuan, metodologi riset ilmiah,
-                            serta eksplorasi sains kebumian.
+                        <h3 class="about-lead">Eksplorasi Keilmuan, Riset Kuantitatif &amp; Apresiasi Seni</h3>
+                        <p class="body-text">
+                            Perkenalkan, nama saya <strong>Hilman Rasyid Kaizan</strong>. Saat ini saya menempuh pendidikan sebagai siswa di <strong>SMA Negeri 70 Jakarta</strong>. Saya memiliki ketertarikan mendalam terhadap eksplorasi sains, kebumian, serta metode penalaran ilmiah berbasis data.
                         </p>
-                        <p class="type-1 about-p">
-                            Bagi saya, belajar dan meneliti adalah proses tanpa henti untuk memahami bagaimana
-                            dunia dan alam semesta bekerja. Di waktu luang, saya menemukan inspirasi dan
-                            ketenangan melalui dunia literasi fiksi serta kedalaman harmoni musik klasik.
+                        <p class="body-text">
+                            Bagi saya, riset bukan sekadar menyusun angka, melainkan ikhtiar sistematis untuk memecahkan persoalan nyata. Di sela-sela aktivitas akademik, saya menemukan kejernihan berpikir melalui literatur fiksi berkualitas dan kedalaman emosi simfoni klasik.
                         </p>
 
-                        <div class="info-table reveal-scale delay-3">
-                            <div class="info-row">
-                                <span class="info-key type-4">
-                                    <i class="fa-solid fa-school"></i> Sekolah SMA
-                                </span>
-                                <span class="info-val type-1">SMA Negeri 70 Jakarta</span>
+                        <div class="academic-table">
+                            <div class="academic-row">
+                                <span class="academic-key">Institusi Sekolah</span>
+                                <span class="academic-val">SMA Negeri 70 Jakarta</span>
                             </div>
-                            <div class="info-row">
-                                <span class="info-key type-4">
-                                    <i class="fa-solid fa-envelope"></i> Email
-                                </span>
-                                <a href="mailto:hilmanrasyid2000@gmail.com" class="info-val type-1 info-link">
-                                    hilmanrasyid2000@gmail.com
-                                </a>
+                            <div class="academic-row">
+                                <span class="academic-key">Email Korespondensi</span>
+                                <a href="mailto:hilmanrasyid2000@gmail.com" class="academic-val academic-link">hilmanrasyid2000@gmail.com</a>
                             </div>
-                            <div class="info-row">
-                                <span class="info-key type-4">
-                                    <i class="fa-solid fa-location-dot"></i> Domisili
-                                </span>
-                                <span class="info-val type-1">DKI Jakarta, Indonesia</span>
+                            <div class="academic-row">
+                                <span class="academic-key">Instagram</span>
+                                <a href="https://instagram.com/hilmanrasyid2000" target="_blank" rel="noopener noreferrer" class="academic-val academic-link">@hilmanrasyid2000</a>
                             </div>
-                            <div class="info-row">
-                                <span class="info-key type-4">
-                                    <i class="fa-brands fa-instagram"></i> Instagram
-                                </span>
-                                <a href="https://instagram.com/hilmanrasyid2000" target="_blank" class="info-val type-1 info-link">
-                                    @hilmanrasyid2000
-                                </a>
-                            </div>
-                            <div class="info-row info-row--last">
-                                <span class="info-key type-4">
-                                    <i class="fa-solid fa-crown"></i> Special Note
-                                </span>
-                                <span class="info-val type-1 info-val--accent">I Love Sultan</span>
+                            <div class="academic-row">
+                                <span class="academic-key">Domisili</span>
+                                <span class="academic-val">DKI Jakarta, Indonesia</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Right: Highlight Cards -->
-                    <div class="about-highlights">
-                        <div class="hl-card reveal delay-2">
-                            <div class="hl-card-icon">
-                                <i class="fa-solid fa-microscope"></i>
-                            </div>
-                            <div class="hl-card-body">
-                                <h4 class="hl-card-title">Riset &amp; Penulisan Ilmiah</h4>
-                                <p class="hl-card-desc type-4">
-                                    Berpengalaman menyusun karya tulis ilmiah berbasis metode kuantitatif
-                                    serta mengikuti kompetisi riset nasional dan internasional.
+                    <!-- Right: Highlight Pillars -->
+                    <div class="about-pillars">
+                        <div class="pillar-card reveal delay-2">
+                            <div class="pillar-num">01</div>
+                            <div class="pillar-content">
+                                <h4 class="pillar-title">Metodologi Riset Ilmiah</h4>
+                                <p class="pillar-desc">
+                                    Penyusunan karya tulis berbasis data kuantitatif, analisis kuesioner terstruktur, dan perancangan proposal riset aplikatif.
                                 </p>
                             </div>
                         </div>
-                        <div class="hl-card reveal delay-3">
-                            <div class="hl-card-icon">
-                                <i class="fa-solid fa-earth-americas"></i>
-                            </div>
-                            <div class="hl-card-body">
-                                <h4 class="hl-card-title">Olimpiade Sains Kebumian</h4>
-                                <p class="hl-card-desc type-4">
-                                    Mendalami bidang geologi, meteorologi, oseanografi, dan astronomi
-                                    dalam ajang OSN Kebumian.
+
+                        <div class="pillar-card reveal delay-3">
+                            <div class="pillar-num">02</div>
+                            <div class="pillar-content">
+                                <h4 class="pillar-title">Olimpiade Sains Kebumian</h4>
+                                <p class="pillar-desc">
+                                    Pendalaman komprehensif struktur geologis, proses atmosferik, dinamika oseanografi, serta sistem astronomi.
                                 </p>
                             </div>
                         </div>
-                        <div class="hl-card reveal delay-4">
-                            <div class="hl-card-icon">
-                                <i class="fa-solid fa-book-open-reader"></i>
-                            </div>
-                            <div class="hl-card-body">
-                                <h4 class="hl-card-title">Literasi &amp; Musik Klasik</h4>
-                                <p class="hl-card-desc type-4">
-                                    Menghayati alur kisah novel sastra berkualitas dan mengapresiasi
-                                    komposisi musik klasik orkestra.
+
+                        <div class="pillar-card reveal delay-4">
+                            <div class="pillar-num">03</div>
+                            <div class="pillar-content">
+                                <h4 class="pillar-title">Literasi Sastra &amp; Musik Klasik</h4>
+                                <p class="pillar-desc">
+                                    Refleksi nilai kemanusiaan melalui novel naratif berbobot dan apresiasi teknik orkestrasi simfoni Eropa.
                                 </p>
                             </div>
                         </div>
@@ -289,111 +248,103 @@
             </div>
         </section>
 
-        <!-- 3. MINAT & HOBI -->
+        <!-- 3. MINAT & HOBI (LITERATUR & MUSIK KLASIK) -->
         <section id="interests" class="section">
             <div class="container">
                 <div class="section-header reveal">
-                    <span class="section-eyebrow type-2">KEGEMARAN &amp; APRESIASI</span>
-                    <h2 class="section-heading">Minat &amp; Hobi</h2>
-                    <div class="section-rule"></div>
+                    <span class="section-kicker">APRESIASI BUDAYA &amp; SENI</span>
+                    <h2 class="section-title">Minat &amp; Literatur</h2>
+                    <div class="section-line"></div>
                 </div>
 
                 <div class="interests-grid">
-                    <!-- Novel -->
-                    <div class="interest-card reveal delay-1">
-                        <div class="interest-card-header">
-                            <div class="interest-card-icon interest-icon--accent">
+                    <!-- Column 1: Novel & Sastra -->
+                    <div class="interest-panel reveal delay-1">
+                        <div class="panel-header">
+                            <div class="panel-icon">
                                 <i class="fa-solid fa-book-bookmark"></i>
                             </div>
                             <div>
-                                <h3 class="interest-card-title">Membaca Buku Novel</h3>
-                                <span class="type-4 text-dim">Sastra, Fiksi &amp; Petualangan Epik</span>
+                                <h3 class="panel-title">Koleksi Literatur &amp; Novel</h3>
+                                <p class="panel-subtitle">Sastra Fiksi, Sejarah &amp; Narasi Epik</p>
                             </div>
                         </div>
-                        <p class="interest-card-desc type-1">
-                            Membaca novel adalah sarana favorit saya untuk melatih daya imajinasi,
-                            memperluas wawasan sosial, dan mendalami emosi manusia. Beberapa buku
-                            favorit yang sangat berkesan bagi saya:
+                        <p class="body-text">
+                            Membaca novel melatih daya imajinasi dan empati terhadap kompleksitas sosial. Beberapa karya sastra yang menjadi referensi dan inspirasi utama:
                         </p>
-                        <div class="book-list">
-                            <div class="book-row">
-                                <div class="book-icon"><i class="fa-solid fa-book"></i></div>
-                                <div>
-                                    <strong class="book-title">Laut Bercerita</strong>
-                                    <span class="book-author type-4">karya Leila S. Chudori</span>
+
+                        <div class="book-grid">
+                            <div class="book-item">
+                                <div class="book-spine"></div>
+                                <div class="book-info">
+                                    <strong class="book-name">Laut Bercerita</strong>
+                                    <span class="book-by">Leila S. Chudori</span>
                                 </div>
                             </div>
-                            <div class="book-row">
-                                <div class="book-icon"><i class="fa-solid fa-book"></i></div>
-                                <div>
-                                    <strong class="book-title">Pulang</strong>
-                                    <span class="book-author type-4">karya Leila S. Chudori</span>
+                            <div class="book-item">
+                                <div class="book-spine"></div>
+                                <div class="book-info">
+                                    <strong class="book-name">Pulang</strong>
+                                    <span class="book-by">Leila S. Chudori</span>
                                 </div>
                             </div>
-                            <div class="book-row">
-                                <div class="book-icon"><i class="fa-solid fa-book"></i></div>
-                                <div>
-                                    <strong class="book-title">The Girl Who Fell Beneath the Sea</strong>
-                                    <span class="book-author type-4">karya Axie Oh</span>
+                            <div class="book-item">
+                                <div class="book-spine"></div>
+                                <div class="book-info">
+                                    <strong class="book-name">The Girl Who Fell Beneath the Sea</strong>
+                                    <span class="book-by">Axie Oh</span>
                                 </div>
                             </div>
-                            <div class="book-row">
-                                <div class="book-icon"><i class="fa-solid fa-book"></i></div>
-                                <div>
-                                    <strong class="book-title">Red Rising</strong>
-                                    <span class="book-author type-4">karya Pierce Brown</span>
+                            <div class="book-item">
+                                <div class="book-spine"></div>
+                                <div class="book-info">
+                                    <strong class="book-name">Red Rising</strong>
+                                    <span class="book-by">Pierce Brown</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Musik -->
-                    <div class="interest-card reveal delay-2">
-                        <div class="interest-card-header">
-                            <div class="interest-card-icon interest-icon--accent">
+                    <!-- Column 2: Musik Klasik & Sibelius -->
+                    <div class="interest-panel reveal delay-2">
+                        <div class="panel-header">
+                            <div class="panel-icon">
                                 <i class="fa-solid fa-music"></i>
                             </div>
                             <div>
-                                <h3 class="interest-card-title">Apresiasi Musik Klasik</h3>
-                                <span class="type-4 text-dim">Simfoni, Concerto &amp; Orkestra</span>
+                                <h3 class="panel-title">Apresiasi Musik Klasik</h3>
+                                <p class="panel-subtitle">Simfoni, Concerto &amp; Komposisi Abad 18–20</p>
                             </div>
                         </div>
-                        <p class="interest-card-desc type-1">
-                            Saya sangat menyukai musik klasik legendaris dari maestro besar dunia seperti
-                            <strong>Ludwig van Beethoven</strong>, <strong>Johann Sebastian Bach</strong>,
-                            dan <strong>Johannes Brahms</strong>. Namun karya yang paling menjadi favorit
-                            sepanjang masa saya adalah:
+                        <p class="body-text">
+                            Menghayati aransemen polifonik karya maestro dunia seperti <strong>Ludwig van Beethoven</strong>, <strong>Johann Sebastian Bach</strong>, dan <strong>Johannes Brahms</strong>:
                         </p>
 
-                        <!-- Featured -->
-                        <div class="music-featured">
-                            <span class="music-featured-badge type-5">
-                                <i class="fa-solid fa-star"></i> FAVORIT UTAMA
-                            </span>
-                            <h4 class="music-featured-title">Violin Concerto in D minor, Op. 47</h4>
-                            <p class="music-featured-composer type-2">Karya Komponis <strong>Jean Sibelius</strong></p>
-                            <p class="music-featured-note type-4">
-                                Sebuah mahakarya yang emosional, virtuosik, dan memiliki nuansa lanskap
-                                Nordik yang memukau.
+                        <div class="classical-spotlight">
+                            <span class="spotlight-tag">MAHAKARYA PILIHAN</span>
+                            <h4 class="spotlight-piece">Violin Concerto in D minor, Op. 47</h4>
+                            <p class="spotlight-composer">Karya Komponis <strong>Jean Sibelius</strong></p>
+                            <p class="spotlight-text">
+                                Komposisi concerto biola yang kaya dinamika melankolis, teknik virtuositas tinggi, dan atmosfer megah lanskap Skandinavia.
                             </p>
                         </div>
 
-                        <div class="music-track-list">
-                            <div class="track-row">
-                                <i class="fa-solid fa-circle-play track-play-icon"></i>
-                                <span class="type-4">Jean Sibelius — Finlandia, Op. 26</span>
+                        <div class="repertoire-list">
+                            <div class="repertoire-item">
+                                <span class="repertoire-idx">01</span>
+                                <span class="repertoire-name">Jean Sibelius &mdash; Finlandia, Op. 26</span>
                             </div>
-                            <div class="track-row">
-                                <i class="fa-solid fa-circle-play track-play-icon"></i>
-                                <span class="type-4">L. van Beethoven — Symphony No. 5 &amp; 9</span>
+                            <div class="repertoire-item">
+                                <span class="repertoire-idx">02</span>
+                                <span class="repertoire-name">L. van Beethoven &mdash; Symphony No. 5 &amp; No. 9</span>
                             </div>
-                            <div class="track-row">
-                                <i class="fa-solid fa-circle-play track-play-icon"></i>
-                                <span class="type-4">J.S. Bach — Cello Suites &amp; Brandenburg Concertos</span>
+                            <div class="repertoire-item">
+                                <span class="repertoire-idx">03</span>
+                                <span class="repertoire-name">J.S. Bach &mdash; Cello Suites &amp; Brandenburg Concertos</span>
                             </div>
-                            <div class="track-row">
-                                <i class="fa-solid fa-circle-play track-play-icon"></i>
-                                <span class="type-4">Johannes Brahms — Symphony No. 1 in C minor</span>
+                            <div class="repertoire-item">
+                                <span class="repertoire-idx">04</span>
+                                <span class="repertoire-name">Johannes Brahms &mdash; Symphony No. 1 in C minor</span>
                             </div>
                         </div>
                     </div>
@@ -401,191 +352,159 @@
             </div>
         </section>
 
-        <!-- 4. PENGALAMAN & RISET -->
+        <!-- 4. PENGALAMAN & RISET ILMIAH -->
         <section id="experience" class="section">
             <div class="container">
                 <div class="section-header reveal">
-                    <span class="section-eyebrow type-2">REKAM JEJAK &amp; RISET</span>
-                    <h2 class="section-heading">Pengalaman &amp; Riset Ilmiah</h2>
-                    <div class="section-rule"></div>
+                    <span class="section-kicker">REKAM JEJAK AKADEMIK</span>
+                    <h2 class="section-title">Pengalaman &amp; Riset Ilmiah</h2>
+                    <div class="section-line"></div>
                 </div>
 
-                <!-- Research Showcase -->
-                <div class="research-card reveal delay-1">
-                    <div class="research-card-header">
-                        <div class="research-tags">
-                            <span class="tag tag--default type-4">
-                                <i class="fa-solid fa-file-lines"></i> Karya Tulis Ilmiah
-                            </span>
-                            <span class="tag tag--accent type-4">
-                                <i class="fa-solid fa-calendar"></i> 2025
-                            </span>
-                            <span class="tag tag--accent type-4">
-                                <i class="fa-solid fa-chart-pie"></i> Riset Kuantitatif
-                            </span>
+                <!-- Featured Research Paper (Scientific Journal Style) -->
+                <div class="paper-card reveal delay-1">
+                    <div class="paper-header">
+                        <div class="paper-badges">
+                            <span class="p-badge p-badge-category">Karya Tulis Ilmiah</span>
+                            <span class="p-badge p-badge-year">Tahun 2025</span>
+                            <span class="p-badge p-badge-method">Riset Kuantitatif</span>
                         </div>
-                        <h3 class="research-title">
-                            "Efektivitas Penggunaan Loker dalam Mendukung Kegiatan Pembelajaran
-                            Siswa di SMP Labschool Kebayoran"
+                        <h3 class="paper-title">
+                            &ldquo;Efektivitas Penggunaan Loker dalam Mendukung Kegiatan Pembelajaran Siswa di SMP Labschool Kebayoran&rdquo;
                         </h3>
-                        <p class="research-meta type-2">
-                            Penulis: Hilman Rasyid Kaizan (Kelas IX E) &bull;
-                            SMP Labschool Kebayoran, Jakarta Selatan
+                        <p class="paper-author">
+                            <strong>Peneliti:</strong> Hilman Rasyid Kaizan (NISN: 0102954654) &bull; <strong>Afiliasi:</strong> SMP Labschool Kebayoran, Jakarta Selatan
                         </p>
                     </div>
 
-                    <div class="research-abstract">
-                        <h4 class="research-abstract-title">
-                            <i class="fa-solid fa-circle-info"></i>
-                            Latar Belakang &amp; Kesimpulan Riset
-                        </h4>
-                        <p class="type-1">
-                            Penelitian ini dilatarbelakangi oleh permasalahan beban tas berlebih yang
-                            berisiko memicu gangguan muskuloskeletal pada siswa (merujuk standar batas
-                            10–15% berat badan anak dari <em>WHO</em> &amp; <em>AAP</em>). Melalui
-                            survei kuantitatif terhadap <strong>156 siswa</strong> (Angkatan 23, 24, dan
-                            25), terbukti bahwa fasilitas loker efektif mengurangi beban fisik tas
-                            (97.4%), meningkatkan kenyamanan belajar (93.6%), serta menjaga kerapian
-                            ruang kelas (90.4%).
+                    <div class="paper-abstract">
+                        <h4 class="abstract-heading">Abstrak Penelitian</h4>
+                        <p class="abstract-body">
+                            Studi ini menginvestigasi dampak penyediaan fasilitas loker terhadap reduksi beban fisik tas sekolah yang berisiko menimbulkan keluhan muskuloskeletal pada siswa. Mengacu pada batas aman beban punggung 10&ndash;15% berat badan menurut standar <em>World Health Organization (WHO)</em> dan <em>American Academy of Pediatrics (AAP)</em>. Berdasarkan survei empiris terhadap <strong>156 siswa</strong> responden (Angkatan 23, 24, dan 25), fasilitas loker terbukti efektif mengurangi beban fisik tas (97.4%), meningkatkan kenyamanan belajar (93.6%), serta mewujudkan keteraturan ruang kelas (90.4%).
                         </p>
                     </div>
 
-                    <div class="research-stats">
-                        <div class="rs-item">
-                            <span class="rs-val type-2">156</span>
-                            <span class="rs-title">Siswa Responden</span>
-                            <span class="rs-desc type-4">Sampel representatif angkatan 23, 24, 25</span>
+                    <div class="paper-metrics">
+                        <div class="metric-cell">
+                            <span class="metric-num">156</span>
+                            <span class="metric-label">Siswa Responden</span>
+                            <span class="metric-sub">Sampel 3 angkatan</span>
                         </div>
-                        <div class="rs-item">
-                            <span class="rs-val type-2">97.4%</span>
-                            <span class="rs-title">Kurangi Beban Tas</span>
-                            <span class="rs-desc type-4">Efektif menjaga kesehatan fisik siswa</span>
+                        <div class="metric-cell">
+                            <span class="metric-num">97.4%</span>
+                            <span class="metric-label">Reduksi Beban</span>
+                            <span class="metric-sub">Sesuai standar WHO/AAP</span>
                         </div>
-                        <div class="rs-item">
-                            <span class="rs-val type-2">93.6%</span>
-                            <span class="rs-title">Kenyamanan Kelas</span>
-                            <span class="rs-desc type-4">Suasana belajar lebih kondusif</span>
+                        <div class="metric-cell">
+                            <span class="metric-num">93.6%</span>
+                            <span class="metric-label">Kenyamanan Kelas</span>
+                            <span class="metric-sub">Iklim belajar kondusif</span>
                         </div>
-                        <div class="rs-item">
-                            <span class="rs-val type-2">94.8%</span>
-                            <span class="rs-title">Efektivitas Total</span>
-                            <span class="rs-desc type-4">Mendukung kegiatan belajar mengajar</span>
+                        <div class="metric-cell">
+                            <span class="metric-num">94.8%</span>
+                            <span class="metric-label">Efektivitas Total</span>
+                            <span class="metric-sub">Dukungan KBM sekolah</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Timeline -->
-                <div class="timeline">
-                    <!-- OSN-K 2026 -->
-                    <div class="tl-item reveal delay-2">
-                        <div class="tl-line-col">
-                            <div class="tl-dot"></div>
-                            <div class="tl-line"></div>
+                <!-- Academic Timeline -->
+                <div class="timeline-wrapper">
+                    <!-- Item 1: OSN-K 2026 -->
+                    <div class="timeline-row reveal delay-2">
+                        <div class="timeline-aside">
+                            <span class="timeline-year">2026</span>
+                            <span class="timeline-status">Puspresnas</span>
                         </div>
-                        <div class="tl-body">
-                            <span class="tl-year type-4">2026</span>
-                            <div class="tl-card">
-                                <span class="tl-badge tl-badge--accent type-4">
-                                    <i class="fa-solid fa-earth-asia"></i> Sains Nasional
-                                </span>
-                                <h3 class="tl-title">Peserta OSN-K Bidang Kebumian 2026</h3>
-                                <p class="tl-org type-2">
-                                    Olimpiade Sains Nasional Tk. Kota/Kab &bull; Puspresnas
-                                </p>
-                                <p class="type-4 tl-desc">
-                                    Mewakili SMA Negeri 70 Jakarta dalam kompetisi sains kebumian,
-                                    mendalami analisis fenomena litosfer, hidrosfer, atmosferik,
-                                    geologi, serta sistem keplanetan.
-                                </p>
-                            </div>
+                        <div class="timeline-marker">
+                            <div class="marker-dot"></div>
+                            <div class="marker-line"></div>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="card-kicker">OLIMPIADE SAINS NASIONAL</span>
+                            <h3 class="card-title">Peserta OSN-K Bidang Kebumian 2026</h3>
+                            <p class="card-org">Olimpiade Sains Nasional Tingkat Kota &bull; SMA Negeri 70 Jakarta</p>
+                            <p class="card-desc">
+                                Mewakili kontingen sekolah dalam kompetisi sains kebumian komprehensif, mencakup analisis litosfer, geodinamika, hidrosfer, dinamika atmosferik, serta astronomi tata surya.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- OPSI 2025 -->
-                    <div class="tl-item reveal delay-3">
-                        <div class="tl-line-col">
-                            <div class="tl-dot"></div>
-                            <div class="tl-line"></div>
+                    <!-- Item 2: OPSI 2025 -->
+                    <div class="timeline-row reveal delay-3">
+                        <div class="timeline-aside">
+                            <span class="timeline-year">2025</span>
+                            <span class="timeline-status">BPTI / Kemdikbud</span>
                         </div>
-                        <div class="tl-body">
-                            <span class="tl-year type-4">2025</span>
-                            <div class="tl-card">
-                                <span class="tl-badge tl-badge--blue type-4">
-                                    <i class="fa-solid fa-atom"></i> Riset &amp; Teknologi
-                                </span>
-                                <h3 class="tl-title">Peserta OPSI Bidang IPTEK 2025</h3>
-                                <p class="tl-org type-2">
-                                    Olimpiade Penelitian Siswa Indonesia &bull; Kemendikbudristek / BPTI
-                                </p>
-                                <p class="type-4 tl-desc">
-                                    Mengembangkan proposal dan karya penelitian berbasis IPTEK untuk
-                                    merancang solusi inovatif terhadap permasalahan nyata di bidang
-                                    sains dan teknologi terapan.
-                                </p>
-                            </div>
+                        <div class="timeline-marker">
+                            <div class="marker-dot"></div>
+                            <div class="marker-line"></div>
+                        </div>
+                        <div class="timeline-card">
+                            <span class="card-kicker">KOMPETISI PENELITIAN NASIONAL</span>
+                            <h3 class="card-title">Peserta OPSI Bidang IPTEK 2025</h3>
+                            <p class="card-org">Olimpiade Penelitian Siswa Indonesia &bull; Balai Pengembangan Talenta Indonesia</p>
+                            <p class="card-desc">
+                                Merumuskan proposal riset dan karya rekayasa berbasis IPTEK guna menghasilkan solusi sistematis terhadap tantangan sains terapan di lingkungan pendidikan.
+                            </p>
                         </div>
                     </div>
 
-                    <!-- ISIF 2024 -->
-                    <div class="tl-item tl-item--last reveal delay-4">
-                        <div class="tl-line-col">
-                            <div class="tl-dot tl-dot--accent"></div>
+                    <!-- Item 3: ISIF 2024 -->
+                    <div class="timeline-row timeline-row-last reveal delay-4">
+                        <div class="timeline-aside">
+                            <span class="timeline-year">2024</span>
+                            <span class="timeline-status">Medali Perak</span>
                         </div>
-                        <div class="tl-body">
-                            <span class="tl-year type-4">2024</span>
-                            <div class="tl-card">
-                                <span class="tl-badge tl-badge--default type-4">
-                                    <i class="fa-solid fa-medal"></i> International Medalist
-                                </span>
-                                <h3 class="tl-title">Silver Medal — International Science Invention Fair (ISIF) 2024</h3>
-                                <p class="tl-org type-2">
-                                    ISIF Offline Competition 2024 &bull; Indonesian Young Scientist Association (IYSA)
-                                </p>
-                                <p class="type-4 tl-desc">
-                                    Meraih Medali Perak dalam kompetisi invensi sains internasional
-                                    secara luring melalui presentasi ilmiah dan demonstrasi karya di
-                                    hadapan dewan juri mancanegara.
-                                </p>
-                            </div>
+                        <div class="timeline-marker">
+                            <div class="marker-dot marker-dot-highlight"></div>
+                        </div>
+                        <div class="timeline-card timeline-card-highlight">
+                            <span class="card-kicker">AJANG INTERNASIONAL</span>
+                            <h3 class="card-title">Silver Medal &mdash; International Science Invention Fair (ISIF) 2024</h3>
+                            <p class="card-org">ISIF Offline Competition 2024 &bull; Indonesian Young Scientist Association (IYSA)</p>
+                            <p class="card-desc">
+                                Meraih Medali Perak dalam kompetisi invensi sains internasional luring melalui presentasi ilmiah, demonstrasi purwarupa, dan sesi tanya-jawab bersama panel juri internasional.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- 5. GAME 2048 -->
+        <!-- 5. GAME 2048 (CLEAN EDITORIAL DARK) -->
         <section id="game" class="section">
             <div class="container">
                 <div class="section-header reveal">
-                    <span class="section-eyebrow type-2">ASAH LOGIKA &amp; REHAT SEJENAK</span>
-                    <h2 class="section-heading">Game 2048</h2>
-                    <div class="section-rule"></div>
+                    <span class="section-kicker">LOGIKA &amp; KOMPUTASI</span>
+                    <h2 class="section-title">Game 2048</h2>
+                    <div class="section-line"></div>
                 </div>
 
                 <div class="game-layout">
                     <div class="game-info reveal delay-1">
-                        <h3 class="game-info-title">Mainkan Game 2048</h3>
-                        <p class="type-1 game-info-desc">
-                            Gunakan <strong>Arrow Keys</strong> atau <strong>W/A/S/D</strong> pada
-                            komputer, atau <strong>geser layar (swipe)</strong> pada ponsel untuk
-                            menggabungkan angka hingga mencapai <strong>2048</strong>!
+                        <h3 class="game-lead">Tantangan Logika Angka</h3>
+                        <p class="body-text">
+                            Gunakan tombol <strong>Panah Keyboard (Arrow Keys)</strong> atau <strong>W, A, S, D</strong> pada komputer, atau <strong>geser layar (swipe)</strong> pada perangkat ponsel untuk menggabungkan kotak bernilai sama hingga mencapai angka <strong>2048</strong>.
                         </p>
-                        <div class="game-controls">
-                            <div class="score-box">
-                                <span class="score-box-label type-5">SKOR</span>
-                                <span class="score-box-val type-2" id="currentScore">0</span>
+
+                        <div class="game-stats-bar">
+                            <div class="score-pill">
+                                <span class="score-label">SKOR SAAT INI</span>
+                                <span class="score-num" id="currentScore">0</span>
                             </div>
-                            <div class="score-box">
-                                <span class="score-box-label type-5">TERBAIK</span>
-                                <span class="score-box-val type-2" id="bestScore">0</span>
+                            <div class="score-pill">
+                                <span class="score-label">SKOR TERTINGGI</span>
+                                <span class="score-num" id="bestScore">0</span>
                             </div>
-                            <button class="btn btn-primary" id="newGameBtn">
-                                <i class="fa-solid fa-rotate-right"></i> Game Baru
+                            <button class="btn btn-secondary btn-restart" id="newGameBtn">
+                                <i class="fa-solid fa-rotate-right"></i>
+                                <span>Mulai Baru</span>
                             </button>
                         </div>
                     </div>
 
-                    <div class="game-board-wrap reveal-scale delay-2" id="gameBoardContainer">
+                    <div class="game-board-container reveal delay-2" id="gameBoardContainer">
                         <div class="game-grid" id="gameGrid">
                             <div class="grid-cell"></div><div class="grid-cell"></div>
                             <div class="grid-cell"></div><div class="grid-cell"></div>
@@ -597,7 +516,7 @@
                             <div class="grid-cell"></div><div class="grid-cell"></div>
                         </div>
                         <div class="game-overlay" id="gameMessage">
-                            <p id="gameMessageText" class="game-overlay-text"></p>
+                            <p id="gameMessageText" class="overlay-msg"></p>
                             <button class="btn btn-primary" id="retryBtn">Coba Lagi</button>
                         </div>
                     </div>
@@ -605,100 +524,84 @@
             </div>
         </section>
 
-        <!-- 6. KONTAK -->
+        <!-- 6. KONTAK & KORESPONDENSI -->
         <section id="contact" class="section">
             <div class="container">
                 <div class="section-header reveal">
-                    <span class="section-eyebrow type-2">MARI BERDISKUSI</span>
-                    <h2 class="section-heading">Hubungi Saya</h2>
-                    <div class="section-rule"></div>
+                    <span class="section-kicker">KOMUNIKASI AKADEMIK</span>
+                    <h2 class="section-title">Hubungi Saya</h2>
+                    <div class="section-line"></div>
                 </div>
 
                 <div class="contact-layout">
                     <div class="contact-info reveal delay-1">
-                        <h3 class="contact-info-title">Kirimkan Pesan ke Email Saya</h3>
-                        <p class="type-1 contact-info-desc">
-                            Terima kasih telah mengunjungi portofolio saya! Saya selalu senang
-                            dan terbuka untuk berdiskusi mengenai proyek penelitian, persiapan
-                            kompetisi sains, rekomendasi buku fiksi, atau bertukar apresiasi
-                            musik klasik.
+                        <h3 class="contact-lead">Terbuka untuk Diskusi &amp; Kolaborasi</h3>
+                        <p class="body-text">
+                            Saya selalu menyambut baik korespondensi akademik, diskusi seputar persiapan kompetisi sains kebumian, riset ilmiah, maupun pertukaran wawasan literatur dan musik klasik.
                         </p>
 
-                        <div class="contact-card-list">
-                            <div class="contact-card">
-                                <div class="contact-card-icon">
-                                    <i class="fa-solid fa-envelope"></i>
-                                </div>
+                        <div class="contact-items">
+                            <div class="c-item">
+                                <div class="c-icon"><i class="fa-solid fa-envelope"></i></div>
                                 <div>
-                                    <span class="contact-card-label type-5">EMAIL UTAMA</span>
-                                    <a href="mailto:hilmanrasyid2000@gmail.com" class="contact-card-val type-1">
-                                        hilmanrasyid2000@gmail.com
-                                    </a>
+                                    <span class="c-label">EMAIL UTAMA</span>
+                                    <a href="mailto:hilmanrasyid2000@gmail.com" class="c-val">hilmanrasyid2000@gmail.com</a>
                                 </div>
                             </div>
-                            <div class="contact-card">
-                                <div class="contact-card-icon">
-                                    <i class="fa-brands fa-instagram"></i>
-                                </div>
+                            <div class="c-item">
+                                <div class="c-icon"><i class="fa-brands fa-instagram"></i></div>
                                 <div>
-                                    <span class="contact-card-label type-5">INSTAGRAM</span>
-                                    <a href="https://instagram.com/hilmanrasyid2000" target="_blank" class="contact-card-val type-1">
-                                        @hilmanrasyid2000
-                                    </a>
+                                    <span class="c-label">INSTAGRAM</span>
+                                    <a href="https://instagram.com/hilmanrasyid2000" target="_blank" rel="noopener noreferrer" class="c-val">@hilmanrasyid2000</a>
                                 </div>
                             </div>
-                            <div class="contact-card">
-                                <div class="contact-card-icon">
-                                    <i class="fa-solid fa-school"></i>
-                                </div>
+                            <div class="c-item">
+                                <div class="c-icon"><i class="fa-solid fa-school"></i></div>
                                 <div>
-                                    <span class="contact-card-label type-5">SEKOLAH</span>
-                                    <span class="contact-card-val type-1">SMA Negeri 70 Jakarta</span>
+                                    <span class="c-label">SEKOLAH</span>
+                                    <span class="c-val">SMA Negeri 70 Jakarta</span>
                                 </div>
                             </div>
-                            <div class="contact-card">
-                                <div class="contact-card-icon">
-                                    <i class="fa-solid fa-location-dot"></i>
-                                </div>
+                            <div class="c-item">
+                                <div class="c-icon"><i class="fa-solid fa-location-dot"></i></div>
                                 <div>
-                                    <span class="contact-card-label type-5">DOMISILI</span>
-                                    <span class="contact-card-val type-1">DKI Jakarta, Indonesia</span>
+                                    <span class="c-label">DOMISILI</span>
+                                    <span class="c-val">DKI Jakarta, Indonesia</span>
                                 </div>
                             </div>
                         </div>
 
-                        <a href="mailto:hilmanrasyid2000@gmail.com?subject=Halo%20Hilman,%20mari%20berdiskusi!"
-                           class="btn btn-primary btn-full">
-                            <i class="fa-solid fa-paper-plane"></i> Buka Aplikasi Email Langsung
+                        <a href="mailto:hilmanrasyid2000@gmail.com?subject=Inquiry%20Portofolio%20Hilman%20Rasyid%20Kaizan" class="btn btn-primary btn-email-direct">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            <span>Buka Email Langsung</span>
                         </a>
                     </div>
 
                     <form class="contact-form reveal delay-2" id="contactForm">
                         <div class="form-row">
                             <div class="form-group">
-                                <label class="form-label type-4" for="name">Nama Lengkap</label>
-                                <input class="form-input" type="text" id="name" name="name"
-                                       placeholder="Nama Anda" required>
+                                <label for="name" class="form-label">Nama Lengkap</label>
+                                <input type="text" id="name" name="name" class="form-input" placeholder="Nama Anda" required>
                             </div>
                             <div class="form-group">
-                                <label class="form-label type-4" for="email">Alamat Email</label>
-                                <input class="form-input" type="email" id="email" name="email"
-                                       placeholder="nama@email.com" required>
+                                <label for="email" class="form-label">Alamat Email</label>
+                                <input type="email" id="email" name="email" class="form-input" placeholder="nama@email.com" required>
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label class="form-label type-4" for="subject">Subjek</label>
-                            <input class="form-input" type="text" id="subject" name="subject"
-                                   placeholder="Diskusi Riset / Sains / Buku / Musik" required>
+                            <label for="subject" class="form-label">Subjek Korespondensi</label>
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder="Topik diskusi / riset" required>
                         </div>
+
                         <div class="form-group">
-                            <label class="form-label type-4" for="message">Pesan</label>
-                            <textarea class="form-input form-textarea" id="message" name="message"
-                                      rows="5" placeholder="Tuliskan pesan Anda di sini..." required></textarea>
+                            <label for="message" class="form-label">Pesan</label>
+                            <textarea id="message" name="message" class="form-textarea" rows="5" placeholder="Tuliskan pesan Anda..." required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-full">
+
+                        <button type="submit" class="btn btn-primary btn-submit">
                             <i class="fa-solid fa-paper-plane"></i>
-                            Kirim Pesan ke hilmanrasyid2000@gmail.com
+                            <span>Kirimkan Pesan</span>
                         </button>
                     </form>
                 </div>
@@ -707,12 +610,14 @@
 
         <!-- FOOTER -->
         <footer class="site-footer">
-            <p class="type-4">
-                Portofolio <strong>Hilman Rasyid Kaizan</strong> &bull;
-                Siswa SMA Negeri 70 Jakarta &bull;
-                <em>"Stay Hungry. Stay Foolish."</em> &bull;
-                <em>"I Love Sultan"</em>
-            </p>
+            <div class="container footer-content">
+                <p class="footer-copy">
+                    &copy; 2026 <strong>Hilman Rasyid Kaizan</strong> &bull; Siswa SMA Negeri 70 Jakarta.
+                </p>
+                <p class="footer-motto">
+                    <em>&ldquo;Stay Hungry. Stay Foolish.&rdquo;</em>
+                </p>
+            </div>
         </footer>
 
     </main>
