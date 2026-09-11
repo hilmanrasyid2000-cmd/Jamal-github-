@@ -1270,12 +1270,42 @@ img {
   padding: 8px var(--space-md);
   text-align: center;
   min-width: 90px;
+  position: relative;
+  overflow: visible;
   transition: var(--transition-fluid);
 }
 
 .score-pill:hover {
   border-color: var(--border-hover);
   transform: translateY(-2px);
+}
+
+.score-addition {
+  position: absolute;
+  right: 14px;
+  top: -12px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent-primary);
+  animation: score-float 650ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  pointer-events: none;
+  z-index: 30;
+}
+
+@keyframes score-float {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.8);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) scale(1.15);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-24px) scale(1);
+  }
 }
 
 .score-label {
@@ -1299,10 +1329,11 @@ img {
   margin-left: auto;
 }
 
-/* 2048 Board */
+/* 2048 Board Container */
 .game-board-container {
   position: relative;
   width: 340px;
+  max-width: 100%;
   height: 340px;
   background-color: #11141a;
   border: 1px solid var(--border-subtle);
@@ -1310,6 +1341,7 @@ img {
   padding: 10px;
   touch-action: none;
   transition: var(--transition-fluid);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
 }
 
 .game-board-container:hover {
@@ -1327,20 +1359,34 @@ img {
 }
 
 .grid-cell {
-  background-color: #1a1e27;
-  border-radius: 2px;
+  background-color: #181c25;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-/* Tiles */
+/* Layered Tile Container */
+.tile-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Fluid Tiles */
 .tile {
   position: absolute;
+  top: 0;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 2px;
-  transition: transform 0.1s ease-in-out;
   user-select: none;
   z-index: 10;
+  transition: transform 125ms cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
 }
 
 .tile-inner {
@@ -1349,23 +1395,64 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 2px;
+  border-radius: 4px;
   font-family: var(--font-mono);
-  font-weight: 600;
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  transition: background-color 150ms ease, color 150ms ease;
 }
 
-.tile-2    .tile-inner { background: #222633; color: var(--text-primary); font-size: 20px; }
-.tile-4    .tile-inner { background: #2b3040; color: var(--text-primary); font-size: 20px; }
-.tile-8    .tile-inner { background: #3d2f2d; color: var(--accent-primary); font-size: 20px; }
-.tile-16   .tile-inner { background: #5c3832; color: #ffffff; font-size: 19px; }
-.tile-32   .tile-inner { background: #7c4136; color: #ffffff; font-size: 19px; }
-.tile-64   .tile-inner { background: var(--accent-primary); color: #ffffff; font-size: 19px; }
-.tile-128  .tile-inner { background: #c85a40; color: #ffffff; font-size: 17px; }
-.tile-256  .tile-inner { background: #ab442d; color: #ffffff; font-size: 17px; }
-.tile-512  .tile-inner { background: #8e311d; color: #ffffff; font-size: 17px; }
-.tile-1024 .tile-inner { background: #6f2110; color: #ffffff; font-size: 14px; }
-.tile-2048 .tile-inner { background: #e07a5f; color: #0f1115; font-size: 14px; font-weight: 700; }
+/* Spawn Animation */
+.tile.tile-new .tile-inner {
+  animation: tile-appear 200ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Merge Pop Animation */
+.tile.tile-merged {
+  z-index: 20;
+}
+
+.tile.tile-merged .tile-inner {
+  animation: tile-pop 220ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes tile-appear {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes tile-pop {
+  0% {
+    transform: scale(0.85);
+  }
+  50% {
+    transform: scale(1.16);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Tile Themes (Editorial Dark with Warm Accents) */
+.tile-2    .tile-inner { background: #232836; color: var(--text-primary); font-size: 22px; }
+.tile-4    .tile-inner { background: #2c3345; color: var(--text-primary); font-size: 22px; }
+.tile-8    .tile-inner { background: #45322e; color: #f8b4a0; font-size: 22px; border-color: rgba(224, 122, 95, 0.3); }
+.tile-16   .tile-inner { background: #663d33; color: #ffffff; font-size: 21px; border-color: rgba(224, 122, 95, 0.4); }
+.tile-32   .tile-inner { background: #87493a; color: #ffffff; font-size: 21px; }
+.tile-64   .tile-inner { background: #ab5742; color: #ffffff; font-size: 21px; box-shadow: 0 2px 10px rgba(171, 87, 66, 0.35); }
+.tile-128  .tile-inner { background: #c85f43; color: #ffffff; font-size: 19px; box-shadow: 0 2px 12px rgba(200, 95, 67, 0.4); }
+.tile-256  .tile-inner { background: #de6b48; color: #ffffff; font-size: 19px; box-shadow: 0 2px 14px rgba(222, 107, 72, 0.45); }
+.tile-512  .tile-inner { background: #e07a5f; color: #0f1115; font-size: 19px; font-weight: 800; box-shadow: 0 2px 16px rgba(224, 122, 95, 0.5); }
+.tile-1024 .tile-inner { background: #f28e72; color: #0f1115; font-size: 16px; font-weight: 800; box-shadow: 0 2px 18px rgba(242, 142, 114, 0.55); }
+.tile-2048 .tile-inner { background: #f4a261; color: #0f1115; font-size: 16px; font-weight: 800; box-shadow: 0 0 22px rgba(244, 162, 97, 0.65); }
+.tile-super .tile-inner { background: #e76f51; color: #ffffff; font-size: 15px; font-weight: 800; box-shadow: 0 0 24px rgba(231, 111, 81, 0.7); }
 
 .game-overlay {
   display: none;
@@ -1378,10 +1465,17 @@ img {
   justify-content: center;
   gap: var(--space-md);
   z-index: 100;
+  backdrop-filter: blur(2px);
 }
 
 .game-overlay.game-over {
   display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .overlay-msg {
@@ -1686,5 +1780,26 @@ img {
     flex-direction: column;
     text-align: center;
     gap: 4px;
+  }
+
+  .game-board-container {
+    width: 320px;
+    height: 320px;
+  }
+
+  .tile-inner {
+    font-size: 20px !important;
+  }
+
+  .tile-128 .tile-inner,
+  .tile-256 .tile-inner,
+  .tile-512 .tile-inner {
+    font-size: 17px !important;
+  }
+
+  .tile-1024 .tile-inner,
+  .tile-2048 .tile-inner,
+  .tile-super .tile-inner {
+    font-size: 14px !important;
   }
 }

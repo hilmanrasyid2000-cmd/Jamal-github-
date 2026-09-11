@@ -120,18 +120,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /* =========================================================
-       5. 2048 GAME ENGINE
+       5. 2048 GAME ENGINE (FLUID HARDWARE-ACCELERATED MOTION)
        ========================================================= */
+    class Tile {
+        constructor(x, y, value) {
+            this.x = x;
+            this.y = y;
+            this.value = value || 2;
+            this.previousPosition = null;
+            this.mergedInto = null;
+            this.isNew = false;
+            this.isMerged = false;
+            this.element = null;
+            this.id = Tile.idCounter++;
+        }
+
+        savePosition() {
+            this.previousPosition = { x: this.x, y: this.y };
+        }
+
+        updatePosition(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+    Tile.idCounter = 0;
+
     class Game2048 {
         constructor() {
             this.size = 4;
-            this.board = [];
+            this.grid = [];
+            this.tiles = [];
             this.score = 0;
             this.bestScore = parseInt(localStorage.getItem('game2048_bestScore') || '0', 10);
             this.won = false;
+            this.wonReported = false;
             this.over = false;
+            this.isMoving = false;
 
             this.gridElement = document.getElementById('gameGrid');
+            this.tileContainer = document.getElementById('tileContainer') || this.gridElement;
             this.boardContainer = document.getElementById('gameBoardContainer');
             this.scoreElement = document.getElementById('currentScore');
             this.bestScoreElement = document.getElementById('bestScore');
@@ -152,17 +180,27 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         startNewGame() {
-            this.board = Array(this.size).fill(null).map(() => Array(this.size).fill(0));
+            if (this.tiles) {
+                this.tiles.forEach(tile => {
+                    if (tile.element && tile.element.parentNode) {
+                        tile.element.remove();
+                    }
+                });
+            }
+            this.tiles = [];
+            this.grid = Array(this.size).fill(null).map(() => Array(this.size).fill(null));
             this.score = 0;
             this.won = false;
+            this.wonReported = false;
             this.over = false;
+            this.isMoving = false;
+
             this.updateScoreDisplay();
             this.hideMessage();
-            
-            // Add 2 initial tiles
+
             this.addRandomTile();
             this.addRandomTile();
-            this.render();
+            this.actuate();
         }
 
         updateScoreDisplay() {
@@ -178,146 +216,262 @@ document.addEventListener('DOMContentLoaded', () => {
             if (this.bestScoreElement) this.bestScoreElement.textContent = this.bestScore;
         }
 
-        addRandomTile() {
-            const emptyCells = [];
-            for (let r = 0; r < this.size; r++) {
-                for (let c = 0; c < this.size; c++) {
-                    if (this.board[r][c] === 0) {
-                        emptyCells.push({ r, c });
+        showScoreAddition(amount) {
+            if (!this.scoreElement || amount <= 0) return;
+            const scorePill = this.scoreElement.closest('.score-pill');
+            if (!scorePill) return;
+
+            const addition = document.createElement('span');
+            addition.className = 'score-addition';
+            addition.textContent = `+${amount}`;
+            scorePill.appendChild(addition);
+
+            setTimeout(() => {
+                if (addition.parentNode) addition.remove();
+            }, 650);
+        }
+
+        availableCells() {
+            const cells = [];
+            for (let x = 0; x < this.size; x++) {
+                for (let y = 0; y < this.size; y++) {
+                    if (!this.grid[x][y]) {
+                        cells.push({ x, y });
                     }
                 }
             }
+            return cells;
+        }
 
-            if (emptyCells.length > 0) {
-                const randomCell = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-                this.board[randomCell.r][randomCell.c] = Math.random() < 0.9 ? 2 : 4;
+        addRandomTile() {
+            const cells = this.availableCells();
+            if (cells.length > 0) {
+                const c = cells[Math.floor(Math.random() * cells.length)];
+                const tile = new Tile(c.x, c.y, Math.random() < 0.9 ? 2 : 4);
+                tile.isNew = true;
+                this.grid[c.x][c.y] = tile;
+                this.tiles.push(tile);
             }
         }
 
-        render() {
-            const existingTiles = this.gridElement.querySelectorAll('.tile');
-            existingTiles.forEach(t => t.remove());
+        withinBounds(x, y) {
+            return x >= 0 && x < this.size && y >= 0 && y < this.size;
+        }
 
-            const containerWidth = this.gridElement.clientWidth || 310;
-            const gap = 8;
-            const cellSize = (containerWidth - (gap * (this.size - 1))) / this.size;
+        findFarthestPosition(cell, vector) {
+            let previous;
+            let next = { x: cell.x, y: cell.y };
+            do {
+                previous = next;
+                next = { x: previous.x + vector.x, y: previous.y + vector.y };
+            } while (this.withinBounds(next.x, next.y) && !this.grid[next.x][next.y]);
 
-            for (let r = 0; r < this.size; r++) {
-                for (let c = 0; c < this.size; c++) {
-                    const value = this.board[r][c];
-                    if (value > 0) {
-                        const tile = document.createElement('div');
-                        tile.className = `tile tile-${value}`;
-                        tile.style.width = `${cellSize}px`;
-                        tile.style.height = `${cellSize}px`;
-                        tile.style.transform = `translate(${c * (cellSize + gap)}px, ${r * (cellSize + gap)}px)`;
-
-                        const inner = document.createElement('div');
-                        inner.className = 'tile-inner';
-                        inner.textContent = value;
-                        tile.appendChild(inner);
-
-                        this.gridElement.appendChild(tile);
-                    }
-                }
-            }
+            return {
+                farthest: previous,
+                next: next
+            };
         }
 
         move(direction) {
-            if (this.over) return;
+            if (this.over || this.isMoving) return;
+
+            // 0: Up (y: -1), 1: Right (x: 1), 2: Down (y: 1), 3: Left (x: -1)
+            const vectors = [
+                { x: 0, y: -1 },
+                { x: 1, y: 0 },
+                { x: 0, y: 1 },
+                { x: -1, y: 0 }
+            ];
+            const vector = vectors[direction];
+
+            const traversals = {
+                x: [0, 1, 2, 3],
+                y: [0, 1, 2, 3]
+            };
+            if (vector.x === 1) traversals.x.reverse();
+            if (vector.y === 1) traversals.y.reverse();
+
+            // Prepare tiles: clear previous flags & record old positions
+            this.tiles.forEach(tile => {
+                tile.mergedInto = null;
+                tile.isNew = false;
+                tile.isMerged = false;
+                tile.savePosition();
+            });
 
             let moved = false;
-            const previousBoard = JSON.stringify(this.board);
+            let scoreGain = 0;
 
-            if (direction === 0) moved = this.moveUp();
-            else if (direction === 1) moved = this.moveRight();
-            else if (direction === 2) moved = this.moveDown();
-            else if (direction === 3) moved = this.moveLeft();
+            traversals.x.forEach(x => {
+                traversals.y.forEach(y => {
+                    const tile = this.grid[x][y];
+                    if (tile) {
+                        const positions = this.findFarthestPosition({ x, y }, vector);
+                        const nextTile = this.withinBounds(positions.next.x, positions.next.y)
+                            ? this.grid[positions.next.x][positions.next.y]
+                            : null;
 
-            if (JSON.stringify(this.board) !== previousBoard) {
+                        if (nextTile && nextTile.value === tile.value && !nextTile.mergedInto) {
+                            const merged = new Tile(positions.next.x, positions.next.y, tile.value * 2);
+                            merged.isMerged = true;
+
+                            tile.mergedInto = merged;
+                            nextTile.mergedInto = merged;
+
+                            // Update grid
+                            this.grid[x][y] = null;
+                            this.grid[positions.next.x][positions.next.y] = merged;
+                            this.tiles.push(merged);
+
+                            tile.updatePosition(positions.next.x, positions.next.y);
+
+                            this.score += merged.value;
+                            scoreGain += merged.value;
+
+                            if (merged.value === 2048) {
+                                this.won = true;
+                            }
+                            moved = true;
+                        } else {
+                            this.grid[x][y] = null;
+                            this.grid[positions.farthest.x][positions.farthest.y] = tile;
+                            tile.updatePosition(positions.farthest.x, positions.farthest.y);
+
+                            if (x !== positions.farthest.x || y !== positions.farthest.y) {
+                                moved = true;
+                            }
+                        }
+                    }
+                });
+            });
+
+            if (moved) {
+                this.isMoving = true;
                 this.addRandomTile();
-                this.render();
-                this.updateScoreDisplay();
 
-                if (this.checkWin() && !this.won) {
-                    this.won = true;
-                    this.showMessage('Selamat! Anda Mencapai 2048!');
+                if (scoreGain > 0) {
+                    this.showScoreAddition(scoreGain);
+                    this.updateScoreDisplay();
+                }
+
+                this.actuate();
+
+                setTimeout(() => {
+                    this.isMoving = false;
+                }, 110);
+
+                if (this.won && !this.wonReported) {
+                    this.wonReported = true;
+                    setTimeout(() => this.showMessage('Selamat! Anda Mencapai 2048!'), 260);
                 } else if (this.checkGameOver()) {
                     this.over = true;
-                    this.showMessage('Game Over! Coba lagi!');
+                    setTimeout(() => this.showMessage('Game Over! Coba lagi!'), 260);
                 }
             }
         }
 
-        slide(row) {
-            let arr = row.filter(val => val !== 0);
-            for (let i = 0; i < arr.length - 1; i++) {
-                if (arr[i] === arr[i + 1]) {
-                    arr[i] *= 2;
-                    this.score += arr[i];
-                    arr[i + 1] = 0;
-                }
-            }
-            arr = arr.filter(val => val !== 0);
-            while (arr.length < this.size) {
-                arr.push(0);
-            }
-            return arr;
-        }
+        actuate() {
+            window.requestAnimationFrame(() => {
+                const containerWidth = this.gridElement.clientWidth || 320;
+                const gap = 8;
+                const cellSize = (containerWidth - (gap * (this.size - 1))) / this.size;
 
-        moveLeft() {
-            for (let r = 0; r < this.size; r++) {
-                this.board[r] = this.slide(this.board[r]);
-            }
-        }
+                this.tiles.forEach(tile => {
+                    const targetX = tile.x * (cellSize + gap);
+                    const targetY = tile.y * (cellSize + gap);
 
-        moveRight() {
-            for (let r = 0; r < this.size; r++) {
-                let reversed = this.board[r].slice().reverse();
-                reversed = this.slide(reversed);
-                this.board[r] = reversed.reverse();
-            }
-        }
+                    if (tile.mergedInto) {
+                        // Sliding into target tile to merge
+                        if (tile.element) {
+                            tile.element.style.transform = `translate(${targetX}px, ${targetY}px)`;
+                            tile.element.style.zIndex = '5';
+                        }
+                    } else if (!tile.element) {
+                        // New tile or newly merged tile
+                        const tileElem = document.createElement('div');
+                        const valueClass = tile.value > 2048 ? 'tile-super' : `tile-${tile.value}`;
+                        tileElem.className = `tile ${valueClass}`;
+                        tileElem.style.width = `${cellSize}px`;
+                        tileElem.style.height = `${cellSize}px`;
 
-        moveUp() {
-            for (let c = 0; c < this.size; c++) {
-                let col = [this.board[0][c], this.board[1][c], this.board[2][c], this.board[3][c]];
-                col = this.slide(col);
-                for (let r = 0; r < this.size; r++) {
-                    this.board[r][c] = col[r];
-                }
-            }
-        }
+                        const inner = document.createElement('div');
+                        inner.className = 'tile-inner';
+                        inner.textContent = tile.value;
+                        tileElem.appendChild(inner);
 
-        moveDown() {
-            for (let c = 0; c < this.size; c++) {
-                let col = [this.board[3][c], this.board[2][c], this.board[1][c], this.board[0][c]];
-                col = this.slide(col);
-                for (let r = 0; r < this.size; r++) {
-                    this.board[3 - r][c] = col[r];
-                }
-            }
-        }
+                        if (tile.isMerged) {
+                            tileElem.style.transform = `translate(${targetX}px, ${targetY}px)`;
+                            tileElem.classList.add('tile-merged');
+                            tileElem.style.zIndex = '20';
+                            this.tileContainer.appendChild(tileElem);
+                            tile.element = tileElem;
+                        } else if (tile.previousPosition) {
+                            const prevX = tile.previousPosition.x * (cellSize + gap);
+                            const prevY = tile.previousPosition.y * (cellSize + gap);
+                            tileElem.style.transform = `translate(${prevX}px, ${prevY}px)`;
+                            this.tileContainer.appendChild(tileElem);
+                            tile.element = tileElem;
 
-        checkWin() {
-            for (let r = 0; r < this.size; r++) {
-                for (let c = 0; c < this.size; c++) {
-                    if (this.board[r][c] === 2048) return true;
-                }
-            }
-            return false;
+                            window.requestAnimationFrame(() => {
+                                tileElem.style.transform = `translate(${targetX}px, ${targetY}px)`;
+                            });
+                        } else {
+                            tileElem.style.transform = `translate(${targetX}px, ${targetY}px)`;
+                            tileElem.classList.add('tile-new');
+                            this.tileContainer.appendChild(tileElem);
+                            tile.element = tileElem;
+                        }
+                    } else {
+                        // Tile already exists: glide to new position smoothly
+                        tile.element.style.width = `${cellSize}px`;
+                        tile.element.style.height = `${cellSize}px`;
+                        tile.element.style.zIndex = '10';
+                        tile.element.style.transform = `translate(${targetX}px, ${targetY}px)`;
+
+                        const valueClass = tile.value > 2048 ? 'tile-super' : `tile-${tile.value}`;
+                        tile.element.className = `tile ${valueClass}`;
+                        const inner = tile.element.querySelector('.tile-inner');
+                        if (inner) inner.textContent = tile.value;
+                    }
+                });
+
+                // Clean up merged component tiles after glide animation completes
+                setTimeout(() => {
+                    const activeTiles = [];
+                    this.tiles.forEach(tile => {
+                        if (tile.mergedInto) {
+                            if (tile.element && tile.element.parentNode) {
+                                tile.element.remove();
+                            }
+                        } else {
+                            if (tile.element) {
+                                tile.element.classList.remove('tile-new', 'tile-merged');
+                            }
+                            activeTiles.push(tile);
+                        }
+                    });
+                    this.tiles = activeTiles;
+                }, 130);
+            });
         }
 
         checkGameOver() {
-            for (let r = 0; r < this.size; r++) {
-                for (let c = 0; c < this.size; c++) {
-                    if (this.board[r][c] === 0) return false;
-                }
-            }
-            for (let r = 0; r < this.size; r++) {
-                for (let c = 0; c < this.size; c++) {
-                    if (c < this.size - 1 && this.board[r][c] === this.board[r][c + 1]) return false;
-                    if (r < this.size - 1 && this.board[r][c] === this.board[r + 1][c]) return false;
+            if (this.availableCells().length > 0) return false;
+
+            // Check if any adjacent cell has matching value
+            for (let x = 0; x < this.size; x++) {
+                for (let y = 0; y < this.size; y++) {
+                    const tile = this.grid[x][y];
+                    if (!tile) return false;
+
+                    if (x < this.size - 1) {
+                        const right = this.grid[x + 1][y];
+                        if (right && right.value === tile.value) return false;
+                    }
+                    if (y < this.size - 1) {
+                        const down = this.grid[x][y + 1];
+                        if (down && down.value === tile.value) return false;
+                    }
                 }
             }
             return true;
@@ -332,13 +486,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         hideMessage() {
             if (this.messageElement) {
-                this.messageElement.classList.remove('game-over', 'game-won');
+                this.messageElement.classList.remove('game-over');
             }
         }
 
         setupEventListeners() {
             window.addEventListener('keydown', (e) => {
-                if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Space'].includes(e.code)) {
+                const keys = {
+                    'ArrowUp': 0, 'KeyW': 0,
+                    'ArrowRight': 1, 'KeyD': 1,
+                    'ArrowDown': 2, 'KeyS': 2,
+                    'ArrowLeft': 3, 'KeyA': 3
+                };
+
+                if (keys[e.code] !== undefined) {
                     const gameSection = document.getElementById('game');
                     if (gameSection) {
                         const rect = gameSection.getBoundingClientRect();
@@ -346,25 +507,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             e.preventDefault();
                         }
                     }
-                }
-
-                switch (e.code) {
-                    case 'ArrowUp':
-                    case 'KeyW':
-                        this.move(0);
-                        break;
-                    case 'ArrowRight':
-                    case 'KeyD':
-                        this.move(1);
-                        break;
-                    case 'ArrowDown':
-                    case 'KeyS':
-                        this.move(2);
-                        break;
-                    case 'ArrowLeft':
-                    case 'KeyA':
-                        this.move(3);
-                        break;
+                    this.move(keys[e.code]);
                 }
             });
 
@@ -374,12 +517,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (this.boardContainer) {
                 this.boardContainer.addEventListener('touchstart', (e) => {
+                    if (e.touches.length > 1) return;
                     touchStartX = e.touches[0].clientX;
                     touchStartY = e.touches[0].clientY;
                 }, { passive: true });
 
+                this.boardContainer.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                }, { passive: false });
+
                 this.boardContainer.addEventListener('touchend', (e) => {
-                    if (!touchStartX || !touchStartY) return;
+                    if (!touchStartX || !touchStartY || e.changedTouches.length === 0) return;
 
                     const touchEndX = e.changedTouches[0].clientX;
                     const touchEndY = e.changedTouches[0].clientY;
@@ -387,15 +535,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dx = touchEndX - touchStartX;
                     const dy = touchEndY - touchStartY;
 
-                    if (Math.abs(dx) > Math.abs(dy)) {
-                        if (Math.abs(dx) > 30) {
-                            if (dx > 0) this.move(1);
-                            else this.move(3);
-                        }
-                    } else {
-                        if (Math.abs(dy) > 30) {
-                            if (dy > 0) this.move(2);
-                            else this.move(0);
+                    if (Math.max(Math.abs(dx), Math.abs(dy)) > 25) {
+                        if (Math.abs(dx) > Math.abs(dy)) {
+                            this.move(dx > 0 ? 1 : 3);
+                        } else {
+                            this.move(dy > 0 ? 2 : 0);
                         }
                     }
                 }, { passive: true });
@@ -409,7 +553,23 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             window.addEventListener('resize', () => {
-                this.render();
+                const containerWidth = this.gridElement.clientWidth || 320;
+                const gap = 8;
+                const cellSize = (containerWidth - (gap * (this.size - 1))) / this.size;
+
+                this.tiles.forEach(tile => {
+                    if (tile.element) {
+                        tile.element.style.transition = 'none';
+                        tile.element.style.width = `${cellSize}px`;
+                        tile.element.style.height = `${cellSize}px`;
+                        const px = tile.x * (cellSize + gap);
+                        const py = tile.y * (cellSize + gap);
+                        tile.element.style.transform = `translate(${px}px, ${py}px)`;
+                        setTimeout(() => {
+                            if (tile.element) tile.element.style.transition = '';
+                        }, 50);
+                    }
+                });
             });
         }
     }
