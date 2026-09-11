@@ -4,90 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hilman Rasyid Kaizan — Portofolio Akademik & Riset</title>
-    <!-- Google Fonts: Playfair Display (Editorial Serif), Plus Jakarta Sans (Clean Body), JetBrains Mono (Technical Data) -->
+    <!-- Google Fonts: Plus Jakarta Sans (Heading Hero), Inter (Sub-heading/Menu/Button), Roboto (Body/Content), JetBrains Mono (Technical) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Mobile Toggle -->
-    <button class="mobile-toggle" id="mobileToggle" aria-label="Buka Menu Navigasi">
-        <i class="fa-solid fa-bars"></i>
-    </button>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- ===== SIDEBAR ===== -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-top">
-            <div class="profile-block">
-                <div class="profile-img-wrap">
-                    <img src="profile.jpg" alt="Hilman Rasyid Kaizan" class="profile-img">
+    <!-- ===== TOP NAVIGATION BAR & HIDEABLE BAR MENU ===== -->
+    <header class="top-navbar" id="topNavbar">
+        <div class="top-navbar-container">
+            <a href="#home" class="brand-link" aria-label="Hilman Rasyid Kaizan">
+                <div class="brand-avatar-wrap">
+                    <img src="profile.jpg" alt="Hilman Rasyid Kaizan" class="brand-avatar">
                 </div>
-                <h2 class="profile-name">Hilman Rasyid Kaizan</h2>
-                <p class="profile-role">SMA Negeri 70 Jakarta</p>
-            </div>
+                <div class="brand-text">
+                    <span class="brand-name">Hilman Rasyid Kaizan</span>
+                    <span class="brand-sub">SMA Negeri 70 Jakarta</span>
+                </div>
+            </a>
 
-            <nav class="sidebar-nav">
-                <p class="nav-group-label">Navigasi</p>
-                <ul>
-                    <li>
-                        <a href="#home" class="nav-link active">
-                            <i class="fa-solid fa-house"></i>
-                            <span>Beranda</span>
+            <!-- Bar Menu Button (Icon) -->
+            <button class="menu-toggle-btn" id="menuToggle" aria-label="Buka Menu Navigasi" aria-expanded="false">
+                <span class="menu-btn-label">Menu</span>
+                <span class="menu-btn-icon">
+                    <i class="fa-solid fa-bars"></i>
+                </span>
+            </button>
+        </div>
+
+        <!-- Hidden Bar Menu Drawer (Opens when button is pressed) -->
+        <div class="top-menu-drawer" id="topMenuDrawer" aria-hidden="true">
+            <div class="drawer-container">
+                <nav class="drawer-nav">
+                    <ul class="drawer-nav-list">
+                        <li>
+                            <a href="#home" class="nav-link active">
+                                <i class="fa-solid fa-house"></i>
+                                <span>Beranda</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#about" class="nav-link">
+                                <i class="fa-solid fa-user"></i>
+                                <span>Tentang Saya</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#interests" class="nav-link">
+                                <i class="fa-solid fa-book-open"></i>
+                                <span>Minat &amp; Sastra</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#experience" class="nav-link">
+                                <i class="fa-solid fa-flask"></i>
+                                <span>Pengalaman &amp; Riset</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#game" class="nav-link">
+                                <i class="fa-solid fa-gamepad"></i>
+                                <span>Game 2048</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="nav-link">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>Kontak</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="drawer-footer">
+                    <div class="drawer-socials">
+                        <a href="https://instagram.com/hilmanrasyid2000" target="_blank" rel="noopener noreferrer" aria-label="Instagram @hilmanrasyid2000" title="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                            <span>@hilmanrasyid2000</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#about" class="nav-link">
-                            <i class="fa-solid fa-user"></i>
-                            <span>Tentang Saya</span>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
+                            <i class="fa-brands fa-github"></i>
+                            <span>GitHub</span>
                         </a>
-                    </li>
-                    <li>
-                        <a href="#interests" class="nav-link">
-                            <i class="fa-solid fa-book-open"></i>
-                            <span>Minat &amp; Sastra</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#experience" class="nav-link">
-                            <i class="fa-solid fa-flask"></i>
-                            <span>Pengalaman &amp; Riset</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#game" class="nav-link">
-                            <i class="fa-solid fa-gamepad"></i>
-                            <span>Game 2048</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#contact" class="nav-link">
+                        <a href="mailto:hilmanrasyid2000@gmail.com" aria-label="Email hilmanrasyid2000@gmail.com" title="Email">
                             <i class="fa-solid fa-envelope"></i>
-                            <span>Kontak</span>
+                            <span>hilmanrasyid2000@gmail.com</span>
                         </a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-
-        <div class="sidebar-bottom">
-            <div class="sidebar-socials">
-                <a href="https://instagram.com/hilmanrasyid2000" target="_blank" rel="noopener noreferrer" aria-label="Instagram @hilmanrasyid2000" title="Instagram">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-                <a href="mailto:hilmanrasyid2000@gmail.com" aria-label="Email hilmanrasyid2000@gmail.com" title="Email">
-                    <i class="fa-solid fa-envelope"></i>
-                </a>
+                    </div>
+                    <p class="drawer-copy">&copy; 2026 Hilman Rasyid Kaizan &bull; SMA Negeri 70 Jakarta</p>
+                </div>
             </div>
-            <p class="sidebar-copy">&copy; 2026 Hilman Rasyid Kaizan</p>
         </div>
-    </aside>
+    </header>
+
+    <!-- Overlay when menu is open -->
+    <div class="menu-overlay" id="menuOverlay"></div>
 
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main">

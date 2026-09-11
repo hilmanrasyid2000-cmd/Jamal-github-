@@ -6,65 +6,83 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     /* =========================================================
-       1. MOBILE SIDEBAR TOGGLE
+       1. TOP BAR MENU TOGGLE & DRAWER
        ========================================================= */
-    const mobileToggle = document.getElementById('mobileToggle');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const menuToggle = document.getElementById('menuToggle');
+    const topMenuDrawer = document.getElementById('topMenuDrawer');
+    const menuOverlay = document.getElementById('menuOverlay');
     const navLinks = document.querySelectorAll('.nav-link');
 
-    function toggleSidebar() {
-        sidebar.classList.toggle('open');
-        sidebarOverlay.classList.toggle('active');
-        
-        const icon = mobileToggle.querySelector('i');
-        if (sidebar.classList.contains('open')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-xmark');
-        } else {
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
+    function toggleMenu() {
+        if (!topMenuDrawer) return;
+        const isOpen = topMenuDrawer.classList.toggle('open');
+        if (menuOverlay) menuOverlay.classList.toggle('active', isOpen);
+        if (menuToggle) {
+            menuToggle.classList.toggle('open', isOpen);
+            menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            const icon = menuToggle.querySelector('.menu-btn-icon i');
+            if (icon) {
+                if (isOpen) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                } else {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                }
+            }
         }
     }
 
-    function closeSidebar() {
-        sidebar.classList.remove('open');
-        sidebarOverlay.classList.remove('active');
-        const icon = mobileToggle.querySelector('i');
-        if (icon) {
-            icon.classList.remove('fa-xmark');
-            icon.classList.add('fa-bars');
+    function closeMenu() {
+        if (!topMenuDrawer) return;
+        topMenuDrawer.classList.remove('open');
+        if (menuOverlay) menuOverlay.classList.remove('active');
+        if (menuToggle) {
+            menuToggle.classList.remove('open');
+            menuToggle.setAttribute('aria-expanded', 'false');
+            const icon = menuToggle.querySelector('.menu-btn-icon i');
+            if (icon) {
+                icon.classList.remove('fa-xmark');
+                icon.classList.add('fa-bars');
+            }
         }
     }
 
-    if (mobileToggle) {
-        mobileToggle.addEventListener('click', toggleSidebar);
+    if (menuToggle) {
+        menuToggle.addEventListener('click', toggleMenu);
     }
-    if (sidebarOverlay) {
-        sidebarOverlay.addEventListener('click', closeSidebar);
+    if (menuOverlay) {
+        menuOverlay.addEventListener('click', closeMenu);
     }
+
+    // Close on Escape key press
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeMenu();
+        }
+    });
 
     /* =========================================================
-       2. SMOOTH SCROLL NAVIGATION WITH PRECISE OFFSET
+       2. SMOOTH SCROLL NAVIGATION WITH TOP NAVBAR OFFSET
        ========================================================= */
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             if (!targetId || targetId === '#') return;
-            
+
             const targetElem = document.querySelector(targetId);
             if (targetElem) {
                 e.preventDefault();
-                
-                targetElem.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                closeMenu();
+
+                const headerOffset = 76;
+                const elementPosition = targetElem.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
                 });
-                
-                // Close mobile sidebar if open
-                if (window.innerWidth <= 768) {
-                    closeSidebar();
-                }
             }
         });
     });
@@ -73,15 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
        3. SCROLLSPY (ACTIVE LINK ON SCROLL)
        ========================================================= */
     const sections = document.querySelectorAll('section[id]');
-    
+
     function scrollSpy() {
         const scrollY = window.pageYOffset || document.documentElement.scrollTop;
 
         sections.forEach(current => {
             const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 140;
+            const sectionTop = current.offsetTop - 120;
             const sectionId = current.getAttribute('id');
-            const correspondingLink = document.querySelector(`.sidebar-nav a[href*="${sectionId}"]`);
+            const correspondingLink = document.querySelector(`.drawer-nav a[href*="${sectionId}"]`);
 
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                 navLinks.forEach(link => link.classList.remove('active'));
