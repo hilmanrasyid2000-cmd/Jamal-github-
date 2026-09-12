@@ -1127,7 +1127,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!ring) return;
 
         const cards = ring.querySelectorAll('.carousel-3d-card');
-        const hintPill = document.getElementById('galleryHintPill');
 
         cards.forEach(card => {
             // Click or tap card to toggle pause
@@ -1139,19 +1138,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Clicking the currently paused card again resumes rotation
                     ring.classList.remove('is-paused');
                     card.classList.remove('selected');
-                    if (hintPill) {
-                        hintPill.innerHTML = '<i class="fa-solid fa-hand-pointer"></i><span>Sentuh atau klik foto untuk menjeda putaran &bull; Hover untuk memperbesar</span>';
-                        hintPill.classList.remove('paused');
-                    }
                 } else {
                     // Pause carousel on this card
                     ring.classList.add('is-paused');
                     cards.forEach(c => c.classList.remove('selected'));
                     card.classList.add('selected');
-                    if (hintPill) {
-                        hintPill.innerHTML = '<i class="fa-solid fa-circle-pause"></i><span>Putaran dijeda &bull; Klik lagi kartu atau latar untuk melanjutkan</span>';
-                        hintPill.classList.add('paused');
-                    }
                 }
             });
 
@@ -1168,10 +1159,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!e.target.closest('.carousel-3d-card') && ring.classList.contains('is-paused')) {
                 ring.classList.remove('is-paused');
                 cards.forEach(c => c.classList.remove('selected'));
-                if (hintPill) {
-                    hintPill.innerHTML = '<i class="fa-solid fa-hand-pointer"></i><span>Sentuh atau klik foto untuk menjeda putaran &bull; Hover untuk memperbesar</span>';
-                    hintPill.classList.remove('paused');
-                }
             }
         });
     }

@@ -701,33 +701,6 @@ img {
   flex-direction: column;
 }
 
-.journal-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-sm);
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  padding: 6px var(--space-md);
-  border-radius: var(--radius-sm);
-  margin-bottom: var(--space-md);
-  align-self: flex-start;
-}
-
-.badge-dot {
-  width: 6px;
-  height: 6px;
-  background-color: var(--accent-primary);
-  border-radius: 50%;
-}
-
-.badge-text {
-  font-family: var(--font-subheading);
-  font-size: 11px;
-  letter-spacing: 0.8px;
-  color: var(--text-subheading);
-  font-weight: 500;
-}
-
 .hero-heading {
   font-family: var(--font-heading-hero);
   font-size: clamp(36px, 4.2vw, 54px);
@@ -802,22 +775,6 @@ img {
   display: flex;
   align-items: center;
   gap: var(--space-sm);
-}
-
-.carousel-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  font-family: var(--font-subheading);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  color: var(--accent-primary);
-  background-color: rgba(217, 93, 57, 0.08);
-  border: 1px solid rgba(217, 93, 57, 0.22);
-  padding: 3px 9px;
-  border-radius: var(--radius-sm);
-  text-transform: uppercase;
 }
 
 .carousel-counter {
@@ -2680,37 +2637,6 @@ body.modal-open {
   line-height: 1.35;
   margin: 0;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-}
-
-/* Hint Pill */
-.gallery-hint-row {
-  margin-top: var(--space-xl);
-  display: flex;
-  justify-content: center;
-}
-
-.gallery-hint-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 7px 16px;
-  background-color: var(--bg-card);
-  border: 1px solid var(--border-subtle);
-  border-radius: 999px;
-  font-family: var(--font-technical);
-  font-size: 11px;
-  color: var(--text-muted);
-  letter-spacing: 0.3px;
-}
-
-.gallery-hint-pill i {
-  color: var(--accent-primary);
-}
-
-.gallery-hint-pill.paused {
-  border-color: var(--accent-primary);
-  color: var(--text-primary);
-  background-color: rgba(217, 93, 57, 0.1);
 }
 
 /* Selected Card in Paused State */
