@@ -1080,6 +1080,17 @@ img {
   transform: translateY(-2px);
 }
 
+.quote-tag {
+  display: inline-block;
+  font-family: var(--font-subheading);
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
 .quote-mark {
   font-family: var(--font-subheading);
   font-size: 48px;
