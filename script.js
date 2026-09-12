@@ -1333,21 +1333,6 @@ document.addEventListener('DOMContentLoaded', () => {
             };
         }
 
-        // Skip to Solo Theme (0:15)
-        const skipIntroBtn = document.getElementById('miniPlayerSkipIntro');
-        if (skipIntroBtn) {
-            skipIntroBtn.onclick = (e) => {
-                e.stopPropagation();
-                audio.currentTime = 15;
-                if (audio.paused) {
-                    toggleAudio();
-                } else {
-                    updateUI(true);
-                }
-                console.log('[Audio Player] Melompat langsung ke solo biola (detik 15).');
-            };
-        }
-
         // Volume / Mute Toggle Button
         const volBtn = document.getElementById('miniPlayerVolBtn');
         const volIcon = document.getElementById('volIcon');
