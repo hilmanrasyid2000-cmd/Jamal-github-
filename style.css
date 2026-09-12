@@ -225,15 +225,60 @@ img {
   letter-spacing: 0.3px;
 }
 
-/* Menu Toggle Button (Bar Menu Icon) */
-.menu-toggle-btn {
+/* Desktop Horizontal Navbar (Visible on PC >= 768px) */
+.desktop-nav {
+  display: block;
+}
+
+.desktop-nav-list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.desktop-nav .nav-link {
   display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-subheading);
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-subheading);
+  transition: var(--transition-fluid);
+  white-space: nowrap;
+}
+
+.desktop-nav .nav-link:hover {
+  color: var(--accent-primary);
+  background-color: var(--bg-card-hover);
+  border-color: var(--border-subtle);
+  transform: translateY(-1px);
+}
+
+.desktop-nav .nav-link:active {
+  transform: scale(0.97);
+}
+
+.desktop-nav .nav-link.active {
+  color: var(--accent-primary);
+  background-color: rgba(217, 93, 57, 0.08);
+  border-color: var(--accent-primary);
+  font-weight: 600;
+}
+
+/* Menu Toggle Button (Visible on HP < 768px) */
+.menu-toggle-btn {
+  display: none;
   align-items: center;
   gap: var(--space-sm);
   background-color: var(--bg-canvas);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: 8px 16px;
+  padding: 8px 14px;
   color: var(--text-subheading);
   cursor: pointer;
   font-family: var(--font-subheading);
@@ -559,10 +604,22 @@ img {
 }
 
 /* =========================================================
-   1. BERANDA (HERO SECTION & BENTO GRID)
+   1. BERANDA (HERO SECTION & 2-COLUMN HIGHLIGHT CARDS)
    ========================================================= */
 .hero-section {
   padding-top: var(--space-2xl);
+}
+
+.hero-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--space-xl);
+  align-items: center;
+}
+
+.hero-header {
+  display: flex;
+  flex-direction: column;
 }
 
 .journal-badge {
@@ -574,6 +631,7 @@ img {
   padding: 6px var(--space-md);
   border-radius: var(--radius-sm);
   margin-bottom: var(--space-md);
+  align-self: flex-start;
 }
 
 .badge-dot {
@@ -593,7 +651,7 @@ img {
 
 .hero-heading {
   font-family: var(--font-heading-hero);
-  font-size: clamp(38px, 5.5vw, 58px);
+  font-size: clamp(36px, 4.2vw, 54px);
   font-weight: 800; /* Extra Bold */
   letter-spacing: -1.2px;
   line-height: 1.15;
@@ -613,10 +671,9 @@ img {
 
 .hero-desc {
   font-family: var(--font-body);
-  font-size: 16px;
+  font-size: 15.5px;
   color: var(--text-body);
-  max-width: 720px;
-  line-height: 1.75;
+  line-height: 1.7;
   font-weight: 400;
   margin-bottom: var(--space-lg);
 }
@@ -636,13 +693,13 @@ img {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
-  margin-bottom: var(--space-xl);
+  margin-bottom: 0;
 }
 
-/* BENTO GRID (SOLID, SYMMETRICAL, CLEAN) */
+/* BENTO GRID (PC: 2x2 Grid for 4 Highlight Cards) */
 .bento-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--space-sm);
 }
 
@@ -650,10 +707,11 @@ img {
   background-color: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm);
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-md);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-height: 150px;
   transition: var(--transition-fluid);
   cursor: default;
 }
@@ -1822,31 +1880,147 @@ img {
 }
 
 /* =========================================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (PC >= 768px vs HANDPHONE < 768px)
    ========================================================= */
-@media (max-width: 1200px) {
+
+/* ---- PC / DESKTOP SCREEN RULES (>= 768px) ---- */
+@media (min-width: 768px) {
+  /* Header: Horizontal Navbar visible, Hamburger hidden */
+  .desktop-nav {
+    display: block;
+  }
+
+  .menu-toggle-btn {
+    display: none !important;
+  }
+
+  .top-menu-drawer {
+    display: none !important;
+  }
+
+  .menu-overlay {
+    display: none !important;
+  }
+
+  /* Hero: 2-column layout (intro left, 2x2 stat cards right) */
+  .hero-layout {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
   .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+  }
+
+  /* Minat & Pengalaman: 2-column side-by-side */
+  .interests-grid {
+    display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: var(--space-lg);
   }
-}
 
-@media (max-width: 1024px) {
-  .about-grid,
-  .interests-grid,
-  .contact-layout,
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: var(--space-xl);
+  }
+
+  .contact-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: var(--space-xl);
+  }
+
   .game-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .game-board-container {
-    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: var(--space-xl);
+    align-items: start;
   }
 }
 
-@media (max-width: 768px) {
-  .drawer-nav-list {
-    grid-template-columns: 1fr;
+/* Tablet adjustments between 768px and 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hero-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-md);
+  }
+
+  .hero-heading {
+    font-size: 38px;
+  }
+
+  .desktop-nav-list {
+    gap: 2px;
+  }
+
+  .desktop-nav .nav-link {
+    padding: 6px 10px;
+    font-size: 12.5px;
+  }
+
+  .container {
+    padding: 0 var(--space-md);
+  }
+
+  .interests-grid {
+    gap: var(--space-md);
+  }
+
+  .about-grid,
+  .contact-layout {
+    gap: var(--space-md);
+  }
+
+  .game-layout {
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-md);
+  }
+}
+
+/* ---- HANDPHONE / MOBILE SCREEN RULES (< 768px) ---- */
+@media (max-width: 767px) {
+  /* 1. Header / Navigasi di HP: Fixed Top Bar Ringkas + Hamburger Menu */
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .top-navbar {
+    height: 62px;
+  }
+
+  .top-navbar-container {
+    padding: 0 20px;
+  }
+
+  .brand-avatar-wrap {
+    width: 33px;
+    height: 33px;
+  }
+
+  .brand-name {
+    font-size: 14.5px;
+    line-height: 1.2;
+  }
+
+  .brand-sub {
+    font-size: 10px;
+  }
+
+  .menu-toggle-btn {
+    display: inline-flex;
+    padding: 7px 12px;
+    font-size: 12px;
     gap: 6px;
+  }
+
+  .top-menu-drawer {
+    display: block;
+    top: 62px;
   }
 
   .top-menu-drawer.open {
@@ -1855,7 +2029,13 @@ img {
   }
 
   .drawer-container {
-    padding: var(--space-md);
+    padding: var(--space-md) 20px;
+  }
+
+  .drawer-nav-list {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin-bottom: var(--space-md);
   }
 
   .drawer-footer {
@@ -1864,52 +2044,211 @@ img {
     gap: var(--space-sm);
   }
 
-  .top-navbar-container {
-    padding: 0 var(--space-md);
+  /* Safe Side Padding (16px–20px) */
+  .container {
+    padding: 0 20px;
   }
 
-  .container {
-    padding: 0 var(--space-md);
+  .main {
+    padding-top: 62px;
   }
 
   .section {
     padding: var(--space-xl) 0;
   }
 
-  .hero-heading {
-    font-size: 34px;
+  .section-header {
+    margin-bottom: var(--space-lg);
   }
 
+  .section-title {
+    font-size: 26px;
+  }
+
+  /* 2. Hero Section & Highlight Cards di HP: Stack Vertikal (1 Kolom) */
+  .hero-section {
+    padding-top: var(--space-lg);
+  }
+
+  .hero-layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+  }
+
+  .hero-heading {
+    font-size: clamp(28px, 8vw, 38px);
+    line-height: 1.15;
+  }
+
+  .hero-desc {
+    font-size: 14.5px;
+    line-height: 1.65;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Kartu Statistik di HP: 1 Kolom memanjang / Ringkas tanpa terpotong */
   .bento-grid {
     grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .bento-card {
+    padding: 14px 16px;
+    min-height: auto;
+  }
+
+  .bento-val {
+    font-size: 22px;
+  }
+
+  .bento-desc {
+    font-size: 12.5px;
+  }
+
+  /* 3. Minat & Pengalaman di HP: Stack 1 Kolom ke bawah */
+  .about-grid,
+  .interests-grid,
+  .contact-layout {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+
+  .about-lead {
+    font-size: 19px;
+  }
+
+  .quote-body {
+    font-size: 19px;
   }
 
   .book-grid {
     grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  /* Pengalaman & Riset Paper */
+  .paper-card {
+    padding: var(--space-md);
+  }
+
+  .paper-title {
+    font-size: 17px;
+    line-height: 1.4;
+  }
+
+  .paper-abstract {
+    padding: var(--space-sm);
   }
 
   .paper-metrics {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
+  .metric-cell {
+    padding: 12px 8px;
+  }
+
+  .metric-num {
+    font-size: 20px;
+  }
+
+  /* Timeline di HP */
   .timeline-row {
-    grid-template-columns: 70px 24px 1fr;
-    gap: var(--space-sm);
+    grid-template-columns: 60px 18px 1fr;
+    gap: 8px;
+  }
+
+  .timeline-year {
+    font-size: 15px;
+  }
+
+  .timeline-card {
+    padding: 14px;
+    margin-bottom: var(--space-sm);
+  }
+
+  .card-title {
+    font-size: 15px;
+  }
+
+  .card-desc {
+    font-size: 12.5px;
+  }
+
+  /* Kontak Form di HP */
+  .contact-form {
+    padding: var(--space-md);
   }
 
   .form-row {
     grid-template-columns: 1fr;
+    gap: var(--space-sm);
   }
 
-  .footer-content {
+  /* 4. Game 2048 & Footer di HP: Board otomatis 90–95vw */
+  .game-layout {
+    display: flex;
     flex-direction: column;
-    text-align: center;
-    gap: 4px;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  .game-info {
+    width: 100%;
+    text-align: left;
+  }
+
+  .game-lead {
+    font-size: 20px;
+  }
+
+  .game-stats-bar {
+    width: 100%;
+    justify-content: space-between;
+    gap: 6px;
+    margin-top: var(--space-md);
+  }
+
+  .score-pill {
+    min-width: 75px;
+    padding: 6px 10px;
+  }
+
+  .score-num {
+    font-size: 17px;
+  }
+
+  .btn-restart {
+    padding: 8px 14px;
+    font-size: 12.5px;
   }
 
   .game-board-container {
-    width: 320px;
-    height: 320px;
+    width: min(92vw, 340px);
+    height: min(92vw, 340px);
+    max-width: 92vw;
+    max-height: 92vw;
+    margin: 0 auto;
+    padding: 8px;
+    touch-action: none;
+  }
+
+  .game-grid {
+    gap: 6px;
   }
 
   .tile-inner {
@@ -1926,5 +2265,66 @@ img {
   .tile-2048 .tile-inner,
   .tile-super .tile-inner {
     font-size: 14px !important;
+  }
+
+  /* Footer di HP */
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+  }
+}
+
+/* Medium phones (between 480px and 767px) fine-tuning */
+@media (min-width: 480px) and (max-width: 767px) {
+  .bento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Very Small Handphones (<= 480px): 16px Safe Padding */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 16px;
+  }
+
+  .top-navbar-container {
+    padding: 0 16px;
+  }
+
+  .drawer-container {
+    padding: var(--space-md) 16px;
+  }
+
+  .menu-btn-label {
+    display: none;
+  }
+
+  .menu-toggle-btn {
+    padding: 7px 10px;
+  }
+
+  .hero-heading {
+    font-size: 30px;
+  }
+
+  .timeline-row {
+    grid-template-columns: 50px 14px 1fr;
+    gap: 6px;
+  }
+
+  .timeline-year {
+    font-size: 14px;
+  }
+
+  .game-board-container {
+    width: min(94vw, 320px);
+    height: min(94vw, 320px);
+    max-width: 94vw;
+    max-height: 94vw;
   }
 }

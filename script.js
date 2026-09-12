@@ -391,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
         actuate() {
             window.requestAnimationFrame(() => {
                 const containerWidth = this.gridElement.clientWidth || 320;
-                const gap = 8;
+                const gap = parseFloat(window.getComputedStyle(this.gridElement).gap) || 8;
                 const cellSize = (containerWidth - (gap * (this.size - 1))) / this.size;
 
                 this.tiles.forEach(tile => {
@@ -572,7 +572,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             window.addEventListener('resize', () => {
                 const containerWidth = this.gridElement.clientWidth || 320;
-                const gap = 8;
+                const gap = parseFloat(window.getComputedStyle(this.gridElement).gap) || 8;
                 const cellSize = (containerWidth - (gap * (this.size - 1))) / this.size;
 
                 this.tiles.forEach(tile => {

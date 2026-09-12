@@ -26,7 +26,19 @@
                 </div>
             </a>
 
-            <!-- Bar Menu Button (Icon) -->
+            <!-- Desktop Horizontal Navbar (Visible on PC >= 768px) -->
+            <nav class="desktop-nav" aria-label="Navigasi Utama">
+                <ul class="desktop-nav-list">
+                    <li><a href="#home" class="nav-link active">Beranda</a></li>
+                    <li><a href="#about" class="nav-link">Tentang Saya</a></li>
+                    <li><a href="#interests" class="nav-link">Minat &amp; Sastra</a></li>
+                    <li><a href="#experience" class="nav-link">Pengalaman &amp; Riset</a></li>
+                    <li><a href="#game" class="nav-link">Game 2048</a></li>
+                    <li><a href="#contact" class="nav-link">Kontak</a></li>
+                </ul>
+            </nav>
+
+            <!-- Bar Menu Button (Icon for Mobile < 768px) -->
             <button class="menu-toggle-btn" id="menuToggle" aria-label="Buka Menu Navigasi" aria-expanded="false">
                 <span class="menu-btn-label">Menu</span>
                 <span class="menu-btn-icon">
@@ -109,66 +121,68 @@
         <!-- 1. BERANDA (HERO & BENTO STATS) -->
         <section id="home" class="section hero-section">
             <div class="container">
-                <div class="hero-header reveal">
-                    <div class="journal-badge">
-                        <span class="badge-dot"></span>
-                        <span class="badge-text">SMA NEGERI 70 JAKARTA &bull; PORTFOLIO &amp; RESEARCH</span>
+                <div class="hero-layout">
+                    <div class="hero-header reveal">
+                        <div class="journal-badge">
+                            <span class="badge-dot"></span>
+                            <span class="badge-text">SMA NEGERI 70 JAKARTA &bull; PORTFOLIO &amp; RESEARCH</span>
+                        </div>
+
+                        <h1 class="hero-heading">Hilman Rasyid Kaizan</h1>
+
+                        <p class="hero-subtitle">
+                            Siswa SMA Negeri 70 Jakarta &bull; Peneliti Muda &bull; Penggiat Sains Kebumian &amp; Sastra
+                        </p>
+
+                        <p class="hero-desc">
+                            Siswa <strong>SMA Negeri 70 Jakarta</strong> dengan fokus studi pada sains kebumian, metodologi riset ilmiah, dan literatur sastra. Mengapresiasi keindahan logika empiris melalui penelitian kuantitatif serta keagungan harmoni musik klasik karya <em>Jean Sibelius</em>, <em>Beethoven</em>, <em>Bach</em>, dan <em>Brahms</em>.
+                        </p>
+
+                        <div class="hero-cta">
+                            <a href="#about" class="btn btn-primary">
+                                <span>Tentang Saya</span>
+                                <i class="fa-solid fa-arrow-right"></i>
+                            </a>
+                            <a href="#experience" class="btn btn-secondary">
+                                <i class="fa-solid fa-file-lines"></i>
+                                <span>Karya &amp; Riset</span>
+                            </a>
+                            <a href="#contact" class="btn btn-ghost">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Hubungi</span>
+                            </a>
+                        </div>
                     </div>
 
-                    <h1 class="hero-heading">Hilman Rasyid Kaizan</h1>
+                    <!-- BENTO GRID STATS (2x2 on PC, 1 col / stack on HP) -->
+                    <div class="bento-grid reveal delay-2">
+                        <div class="bento-card bento-featured">
+                            <div class="bento-tag">PENGHARGAAN INTERNASIONAL</div>
+                            <h3 class="bento-val">Silver Medal</h3>
+                            <p class="bento-title">ISIF 2024</p>
+                            <p class="bento-desc">International Science Invention Fair &bull; Kategori offline competition bersama IYSA dengan dewan juri mancanegara.</p>
+                        </div>
 
-                    <p class="hero-subtitle">
-                        Siswa SMA Negeri 70 Jakarta &bull; Peneliti Muda &bull; Penggiat Sains Kebumian &amp; Sastra
-                    </p>
+                        <div class="bento-card">
+                            <div class="bento-tag">PUBLIKASI KTI</div>
+                            <h3 class="bento-val">156+</h3>
+                            <p class="bento-title">Responden Riset</p>
+                            <p class="bento-desc">Studi kuantitatif efektivitas loker sekolah berbasis standar ergonomi WHO &amp; AAP.</p>
+                        </div>
 
-                    <p class="hero-desc">
-                        Siswa <strong>SMA Negeri 70 Jakarta</strong> dengan fokus studi pada sains kebumian, metodologi riset ilmiah, dan literatur sastra. Mengapresiasi keindahan logika empiris melalui penelitian kuantitatif serta keagungan harmoni musik klasik karya <em>Jean Sibelius</em>, <em>Beethoven</em>, <em>Bach</em>, dan <em>Brahms</em>.
-                    </p>
+                        <div class="bento-card">
+                            <div class="bento-tag">RISET TERAPAN</div>
+                            <h3 class="bento-val">OPSI 2025</h3>
+                            <p class="bento-title">Bidang IPTEK</p>
+                            <p class="bento-desc">Olimpiade Penelitian Siswa Indonesia &bull; Pusat Prestasi Nasional &amp; BPTI Kemendikbudristek.</p>
+                        </div>
 
-                    <div class="hero-cta">
-                        <a href="#about" class="btn btn-primary">
-                            <span>Tentang Saya</span>
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-                        <a href="#experience" class="btn btn-secondary">
-                            <i class="fa-solid fa-file-lines"></i>
-                            <span>Karya &amp; Riset</span>
-                        </a>
-                        <a href="#contact" class="btn btn-ghost">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            <span>Hubungi</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- BENTO GRID STATS -->
-                <div class="bento-grid reveal delay-2">
-                    <div class="bento-card bento-featured">
-                        <div class="bento-tag">PENGHARGAAN INTERNASIONAL</div>
-                        <h3 class="bento-val">Silver Medal</h3>
-                        <p class="bento-title">ISIF 2024</p>
-                        <p class="bento-desc">International Science Invention Fair &bull; Kategori offline competition bersama IYSA dengan dewan juri mancanegara.</p>
-                    </div>
-
-                    <div class="bento-card">
-                        <div class="bento-tag">PUBLIKASI KTI</div>
-                        <h3 class="bento-val">156+</h3>
-                        <p class="bento-title">Responden Riset</p>
-                        <p class="bento-desc">Studi kuantitatif efektivitas loker sekolah berbasis standar ergonomi WHO &amp; AAP.</p>
-                    </div>
-
-                    <div class="bento-card">
-                        <div class="bento-tag">RISET TERAPAN</div>
-                        <h3 class="bento-val">OPSI 2025</h3>
-                        <p class="bento-title">Bidang IPTEK</p>
-                        <p class="bento-desc">Olimpiade Penelitian Siswa Indonesia &bull; Pusat Prestasi Nasional &amp; BPTI Kemendikbudristek.</p>
-                    </div>
-
-                    <div class="bento-card">
-                        <div class="bento-tag">KOMPETISI SAINS</div>
-                        <h3 class="bento-val">OSN-K 2026</h3>
-                        <p class="bento-title">Bidang Kebumian</p>
-                        <p class="bento-desc">Analisis sistem litosfer, meteorologi, oseanografi, geologi, dan astronomi keplanetan.</p>
+                        <div class="bento-card">
+                            <div class="bento-tag">KOMPETISI SAINS</div>
+                            <h3 class="bento-val">OSN-K 2026</h3>
+                            <p class="bento-title">Bidang Kebumian</p>
+                            <p class="bento-desc">Analisis sistem litosfer, meteorologi, oseanografi, geologi, dan astronomi keplanetan.</p>
+                        </div>
                     </div>
                 </div>
             </div>
