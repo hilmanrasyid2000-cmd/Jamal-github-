@@ -154,34 +154,131 @@
                         </div>
                     </div>
 
-                    <!-- BENTO GRID STATS (2x2 on PC, 1 col / stack on HP) -->
-                    <div class="bento-grid reveal delay-2">
-                        <div class="bento-card bento-featured">
-                            <div class="bento-tag">PENGHARGAAN INTERNASIONAL</div>
-                            <h3 class="bento-val">Silver Medal</h3>
-                            <p class="bento-title">ISIF 2024</p>
-                            <p class="bento-desc">International Science Invention Fair &bull; Kategori offline competition bersama IYSA dengan dewan juri mancanegara.</p>
+                    <!-- HERO SHOWCASE CAROUSEL (Netflix-Style Auto-Sliding Cards) -->
+                    <div class="hero-carousel-wrapper reveal delay-2" id="heroCarousel" aria-roledescription="carousel" aria-label="Sorotan Prestasi dan Riset">
+                        <!-- Carousel Header Controls (Netflix Segmented Progress & Chevrons) -->
+                        <div class="carousel-nav-header">
+                            <div class="carousel-title-meta">
+                                <span class="carousel-badge"><i class="fa-solid fa-bolt"></i> HIGHLIGHTS</span>
+                                <span class="carousel-counter"><span id="carouselCurrent">1</span> / 4</span>
+                            </div>
+                            <!-- Netflix Segmented Progress Bars -->
+                            <div class="carousel-indicators" role="tablist" aria-label="Pilih kartu sorotan">
+                                <button class="indicator-bar active" data-slide="0" aria-label="Kartu 1: Silver Medal ISIF 2024" role="tab" aria-selected="true"><span class="indicator-fill"></span></button>
+                                <button class="indicator-bar" data-slide="1" aria-label="Kartu 2: 156+ Responden Riset KTI" role="tab" aria-selected="false"><span class="indicator-fill"></span></button>
+                                <button class="indicator-bar" data-slide="2" aria-label="Kartu 3: OPSI 2025 Bidang IPTEK" role="tab" aria-selected="false"><span class="indicator-fill"></span></button>
+                                <button class="indicator-bar" data-slide="3" aria-label="Kartu 4: OSN-K 2026 Bidang Kebumian" role="tab" aria-selected="false"><span class="indicator-fill"></span></button>
+                            </div>
+                            <!-- Navigation Arrow Controls -->
+                            <div class="carousel-arrows">
+                                <button class="arrow-btn prev-btn" id="carouselPrev" aria-label="Kartu Sebelumnya">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </button>
+                                <button class="arrow-btn next-btn" id="carouselNext" aria-label="Kartu Berikutnya">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </button>
+                            </div>
                         </div>
 
-                        <div class="bento-card">
-                            <div class="bento-tag">PUBLIKASI KTI</div>
-                            <h3 class="bento-val">156+</h3>
-                            <p class="bento-title">Responden Riset</p>
-                            <p class="bento-desc">Studi kuantitatif efektivitas loker sekolah berbasis standar ergonomi WHO &amp; AAP.</p>
-                        </div>
+                        <!-- Carousel Viewport & Sliding Track -->
+                        <div class="hero-carousel-viewport" id="carouselViewport">
+                            <div class="hero-carousel-track" id="carouselTrack">
+                                <!-- Slide 1: Silver Medal ISIF 2024 -->
+                                <div class="hero-carousel-slide" data-index="0">
+                                    <a href="#timeline-isif2024" class="carousel-card card-featured" aria-label="Lihat detail Silver Medal ISIF 2024">
+                                        <div class="card-glow-pill">
+                                            <i class="fa-solid fa-medal"></i>
+                                            <span>PENGHARGAAN INTERNASIONAL</span>
+                                        </div>
+                                        <div class="card-hero-content">
+                                            <div class="card-val-group">
+                                                <h3 class="card-val">Silver Medal</h3>
+                                                <span class="card-badge-pill">ISIF 2024</span>
+                                            </div>
+                                            <h4 class="card-event-title">International Science Invention Fair</h4>
+                                            <p class="card-desc">
+                                                Kategori offline competition bersama IYSA dengan dewan juri mancanegara. Meraih medali perak melalui presentasi ilmiah dan demonstrasi alat.
+                                            </p>
+                                        </div>
+                                        <div class="card-action-footer">
+                                            <span class="action-text">Lihat Rekam Jejak Prestasi</span>
+                                            <span class="action-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
 
-                        <div class="bento-card">
-                            <div class="bento-tag">RISET TERAPAN</div>
-                            <h3 class="bento-val">OPSI 2025</h3>
-                            <p class="bento-title">Bidang IPTEK</p>
-                            <p class="bento-desc">Olimpiade Penelitian Siswa Indonesia &bull; Pusat Prestasi Nasional &amp; BPTI Kemendikbudristek.</p>
-                        </div>
+                                <!-- Slide 2: 156+ Responden Riset KTI -->
+                                <div class="hero-carousel-slide" data-index="1">
+                                    <a href="#paper-research" class="carousel-card" aria-label="Lihat publikasi KTI 156+ Responden">
+                                        <div class="card-glow-pill">
+                                            <i class="fa-solid fa-file-waveform"></i>
+                                            <span>PUBLIKASI KTI</span>
+                                        </div>
+                                        <div class="card-hero-content">
+                                            <div class="card-val-group">
+                                                <h3 class="card-val">156+</h3>
+                                                <span class="card-badge-pill">Responden Riset</span>
+                                            </div>
+                                            <h4 class="card-event-title">Studi Efektivitas Loker SMP Labschool Kebayoran</h4>
+                                            <p class="card-desc">
+                                                Riset kuantitatif berbasis standar ergonomi WHO &amp; AAP, membuktikan reduksi beban fisik tas sekolah sebesar 97.4% dan kenyamanan kelas 93.6%.
+                                            </p>
+                                        </div>
+                                        <div class="card-action-footer">
+                                            <span class="action-text">Baca Abstrak &amp; Metrik Paper</span>
+                                            <span class="action-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
 
-                        <div class="bento-card">
-                            <div class="bento-tag">KOMPETISI SAINS</div>
-                            <h3 class="bento-val">OSN-K 2026</h3>
-                            <p class="bento-title">Bidang Kebumian</p>
-                            <p class="bento-desc">Analisis sistem litosfer, meteorologi, oseanografi, geologi, dan astronomi keplanetan.</p>
+                                <!-- Slide 3: OPSI 2025 Bidang IPTEK -->
+                                <div class="hero-carousel-slide" data-index="2">
+                                    <a href="#timeline-opsi2025" class="carousel-card" aria-label="Lihat rekam jejak OPSI 2025">
+                                        <div class="card-glow-pill">
+                                            <i class="fa-solid fa-flask"></i>
+                                            <span>RISET TERAPAN</span>
+                                        </div>
+                                        <div class="card-hero-content">
+                                            <div class="card-val-group">
+                                                <h3 class="card-val">OPSI 2025</h3>
+                                                <span class="card-badge-pill">Bidang IPTEK</span>
+                                            </div>
+                                            <h4 class="card-event-title">Olimpiade Penelitian Siswa Indonesia</h4>
+                                            <p class="card-desc">
+                                                Pusat Prestasi Nasional &amp; Balai Pengembangan Talenta Indonesia (Kemendikbudristek) dalam merancang inovasi sains aplikatif.
+                                            </p>
+                                        </div>
+                                        <div class="card-action-footer">
+                                            <span class="action-text">Lihat Rekam Jejak OPSI</span>
+                                            <span class="action-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <!-- Slide 4: OSN-K 2026 Bidang Kebumian -->
+                                <div class="hero-carousel-slide" data-index="3">
+                                    <a href="#timeline-osnk2026" class="carousel-card" aria-label="Lihat rekam jejak OSN-K 2026">
+                                        <div class="card-glow-pill">
+                                            <i class="fa-solid fa-earth-americas"></i>
+                                            <span>KOMPETISI SAINS</span>
+                                        </div>
+                                        <div class="card-hero-content">
+                                            <div class="card-val-group">
+                                                <h3 class="card-val">OSN-K 2026</h3>
+                                                <span class="card-badge-pill">Bidang Kebumian</span>
+                                            </div>
+                                            <h4 class="card-event-title">Olimpiade Sains Nasional Tingkat Kota</h4>
+                                            <p class="card-desc">
+                                                Mewakili SMA Negeri 70 Jakarta dalam analisis sistem litosfer, dinamika hidrosfer, atmosferik, geologi, dan astronomi keplanetan.
+                                            </p>
+                                        </div>
+                                        <div class="card-action-footer">
+                                            <span class="action-text">Lihat Rekam Jejak OSN-K</span>
+                                            <span class="action-icon"><i class="fa-solid fa-arrow-right"></i></span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -390,7 +487,7 @@
                 </div>
 
                 <!-- Featured Research Paper (Scientific Journal Style) -->
-                <div class="paper-card reveal delay-1">
+                <div class="paper-card reveal delay-1" id="paper-research">
                     <div class="paper-header">
                         <div class="paper-badges">
                             <span class="p-badge p-badge-category">Karya Tulis Ilmiah</span>
@@ -439,7 +536,7 @@
                 <!-- Academic Timeline -->
                 <div class="timeline-wrapper">
                     <!-- Item 1: OSN-K 2026 -->
-                    <div class="timeline-row reveal delay-2">
+                    <div class="timeline-row reveal delay-2" id="timeline-osnk2026">
                         <div class="timeline-aside">
                             <span class="timeline-year">2026</span>
                             <span class="timeline-status">Puspresnas</span>
@@ -459,7 +556,7 @@
                     </div>
 
                     <!-- Item 2: OPSI 2025 -->
-                    <div class="timeline-row reveal delay-3">
+                    <div class="timeline-row reveal delay-3" id="timeline-opsi2025">
                         <div class="timeline-aside">
                             <span class="timeline-year">2025</span>
                             <span class="timeline-status">BPTI / Kemdikbud</span>
@@ -479,7 +576,7 @@
                     </div>
 
                     <!-- Item 3: ISIF 2024 -->
-                    <div class="timeline-row timeline-row-last reveal delay-4">
+                    <div class="timeline-row timeline-row-last reveal delay-4" id="timeline-isif2024">
                         <div class="timeline-aside">
                             <span class="timeline-year">2024</span>
                             <span class="timeline-status">Medali Perak</span>

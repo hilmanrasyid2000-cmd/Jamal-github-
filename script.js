@@ -83,6 +83,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     top: offsetPosition,
                     behavior: 'smooth'
                 });
+
+                // Target highlight pulse animation to focus viewer's attention
+                targetElem.classList.remove('highlight-pulse');
+                void targetElem.offsetWidth; // Force reflow
+                targetElem.classList.add('highlight-pulse');
+                setTimeout(() => {
+                    targetElem.classList.remove('highlight-pulse');
+                }, 2400);
             }
         });
     });
@@ -133,12 +141,247 @@ document.addEventListener('DOMContentLoaded', () => {
 
         revealElements.forEach(el => revealObserver.observe(el));
     } else {
-        // Fallback for older browsers
         revealElements.forEach(el => el.classList.add('in-view'));
     }
 
     /* =========================================================
-       5. 2048 GAME ENGINE (FLUID HARDWARE-ACCELERATED MOTION)
+       5. HERO SHOWCASE CAROUSEL (NETFLIX-STYLE AUTO-SLIDER)
+       ========================================================= */
+    function initHeroCarousel() {
+        const carouselWrapper = document.getElementById('heroCarousel');
+        const viewport = document.getElementById('carouselViewport');
+        const track = document.getElementById('carouselTrack');
+        const prevBtn = document.getElementById('carouselPrev');
+        const nextBtn = document.getElementById('carouselNext');
+        const counterEl = document.getElementById('carouselCurrent');
+        const indicators = document.querySelectorAll('.carousel-indicators .indicator-bar');
+
+        if (!carouselWrapper || !viewport || !track) return;
+
+        const originalSlides = Array.from(track.querySelectorAll('.hero-carousel-slide'));
+        const totalOriginal = originalSlides.length;
+        if (totalOriginal === 0) return;
+
+        // Infinite loop clones: Prepend clone of last, append clone of first
+        const cloneFirst = originalSlides[0].cloneNode(true);
+        cloneFirst.classList.add('slide-clone');
+        const cloneLast = originalSlides[totalOriginal - 1].cloneNode(true);
+        cloneLast.classList.add('slide-clone');
+
+        track.appendChild(cloneFirst);
+        track.insertBefore(cloneLast, track.firstChild);
+
+        // Internal index: 1 corresponds to original slide 0
+        let currentIndex = 1;
+        let isTransitioning = false;
+        let autoPlayTimer = null;
+        const autoPlayDelay = 2800; // 2.8 seconds loop (within 2.5 - 3s)
+
+        // Initial setup without animation
+        track.style.transition = 'none';
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        void track.offsetWidth; // Force reflow
+
+        function getRealIndex(index) {
+            if (index === 0) return totalOriginal - 1;
+            if (index === totalOriginal + 1) return 0;
+            return index - 1;
+        }
+
+        function updateUI(realIndex) {
+            if (counterEl) {
+                counterEl.textContent = (realIndex + 1).toString();
+            }
+
+            indicators.forEach((ind, idx) => {
+                const isActive = idx === realIndex;
+                ind.classList.toggle('active', isActive);
+                ind.setAttribute('aria-selected', isActive ? 'true' : 'false');
+
+                // Reset and restart CSS fill animation on active indicator
+                if (isActive) {
+                    const fill = ind.querySelector('.indicator-fill');
+                    if (fill) {
+                        fill.style.animation = 'none';
+                        void fill.offsetWidth; // Force reflow
+                        fill.style.animation = '';
+                    }
+                }
+            });
+        }
+
+        function moveToSlide(index, withTransition = true) {
+            if (withTransition) {
+                track.style.transition = 'transform 0.65s cubic-bezier(0.25, 1, 0.5, 1)';
+            } else {
+                track.style.transition = 'none';
+            }
+            currentIndex = index;
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+            const realIndex = getRealIndex(currentIndex);
+            updateUI(realIndex);
+        }
+
+        function nextSlide() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            moveToSlide(currentIndex + 1, true);
+        }
+
+        function prevSlide() {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            moveToSlide(currentIndex - 1, true);
+        }
+
+        // Transition End listener for seamless infinite wrapping
+        track.addEventListener('transitionend', () => {
+            isTransitioning = false;
+
+            if (currentIndex === totalOriginal + 1) {
+                // Slid forward into clone of first slide -> snap seamlessly to real first slide
+                track.style.transition = 'none';
+                currentIndex = 1;
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                void track.offsetWidth; // Force reflow
+            } else if (currentIndex === 0) {
+                // Slid backward into clone of last slide -> snap seamlessly to real last slide
+                track.style.transition = 'none';
+                currentIndex = totalOriginal;
+                track.style.transform = `translateX(-${currentIndex * 100}%)`;
+                void track.offsetWidth; // Force reflow
+            }
+        });
+
+        // Autoplay Management
+        function startAutoPlay() {
+            stopAutoPlay();
+            carouselWrapper.classList.remove('paused');
+            autoPlayTimer = setInterval(() => {
+                nextSlide();
+            }, autoPlayDelay);
+        }
+
+        function pauseAutoPlay() {
+            carouselWrapper.classList.add('paused');
+            stopAutoPlay();
+        }
+
+        function stopAutoPlay() {
+            if (autoPlayTimer) {
+                clearInterval(autoPlayTimer);
+                autoPlayTimer = null;
+            }
+        }
+
+        function resetAutoPlay() {
+            stopAutoPlay();
+            startAutoPlay();
+        }
+
+        // Arrow Controls
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                resetAutoPlay();
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                resetAutoPlay();
+            });
+        }
+
+        // Indicators Click
+        indicators.forEach((ind) => {
+            ind.addEventListener('click', () => {
+                const targetSlide = parseInt(ind.getAttribute('data-slide'), 10);
+                if (!isNaN(targetSlide) && !isTransitioning) {
+                    isTransitioning = true;
+                    moveToSlide(targetSlide + 1, true);
+                    resetAutoPlay();
+                }
+            });
+        });
+
+        // Pause on Hover (PC)
+        carouselWrapper.addEventListener('mouseenter', pauseAutoPlay);
+        carouselWrapper.addEventListener('mouseleave', startAutoPlay);
+
+        // Touch Swipe Handling (Mobile / HP)
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let isSwiping = false;
+        let hasSwiped = false;
+
+        viewport.addEventListener('touchstart', (e) => {
+            pauseAutoPlay();
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            isSwiping = false;
+            hasSwiped = false;
+        }, { passive: true });
+
+        viewport.addEventListener('touchmove', (e) => {
+            const diffX = e.touches[0].clientX - touchStartX;
+            const diffY = e.touches[0].clientY - touchStartY;
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 10) {
+                isSwiping = true;
+            }
+        }, { passive: true });
+
+        viewport.addEventListener('touchend', (e) => {
+            if (isSwiping) {
+                const touchEndX = e.changedTouches[0].clientX;
+                const diffX = touchEndX - touchStartX;
+                if (diffX < -38) {
+                    hasSwiped = true;
+                    nextSlide();
+                    resetAutoPlay();
+                } else if (diffX > 38) {
+                    hasSwiped = true;
+                    prevSlide();
+                    resetAutoPlay();
+                }
+            }
+            startAutoPlay();
+            setTimeout(() => {
+                hasSwiped = false;
+                isSwiping = false;
+            }, 60);
+        }, { passive: true });
+
+        // Prevent link click when swiping on touch screens
+        track.querySelectorAll('.carousel-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                if (hasSwiped) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+        });
+
+        // Visibility Change (pause when tab is in background)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                stopAutoPlay();
+            } else {
+                startAutoPlay();
+            }
+        });
+
+        // Start Initial AutoPlay
+        updateUI(0);
+        startAutoPlay();
+    }
+
+    initHeroCarousel();
+
+    /* =========================================================
+       6. 2048 GAME ENGINE (FLUID HARDWARE-ACCELERATED MOTION)
        ========================================================= */
     class Tile {
         constructor(x, y, value) {
