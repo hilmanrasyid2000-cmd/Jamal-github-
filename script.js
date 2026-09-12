@@ -103,6 +103,16 @@ document.addEventListener('DOMContentLoaded', () => {
             initResearchModal();
         }
 
+        // Re-init 3D gallery carousel if present
+        if (typeof initGalleryCarousel3D === 'function') {
+            initGalleryCarousel3D();
+        }
+
+        // Re-init classical audio player if present
+        if (typeof initClassicalAudioPlayer === 'function') {
+            initClassicalAudioPlayer();
+        }
+
         // Update active nav link
         scrollSpy();
     }
@@ -548,6 +558,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalId: 'opsiModal',
                 closeBtnId: 'closeOpsiModal',
                 dismissBtnId: 'dismissOpsiModal'
+            },
+            {
+                openBtnId: 'openLautBerceritaModal',
+                modalId: 'lautBerceritaModal',
+                closeBtnId: 'closeLautBerceritaModal',
+                dismissBtnId: 'dismissLautBerceritaModal'
             }
         ];
 
@@ -585,6 +601,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 openBtn.onclick = (e) => {
                     e.preventDefault();
                     openModal();
+                };
+                openBtn.onkeydown = (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openModal();
+                    }
                 };
             }
 
@@ -1096,4 +1118,330 @@ document.addEventListener('DOMContentLoaded', () => {
             contactForm.reset();
         });
     }
+
+    /* =========================================================
+       7. 3D GALLERY CAROUSEL (PAUSE ONLY ON CLICK / TOUCH)
+       ========================================================= */
+    function initGalleryCarousel3D() {
+        const ring = document.getElementById('carouselRing');
+        if (!ring) return;
+
+        const cards = ring.querySelectorAll('.carousel-3d-card');
+        const hintPill = document.getElementById('galleryHintPill');
+
+        cards.forEach(card => {
+            // Click or tap card to toggle pause
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isAlreadySelected = card.classList.contains('selected');
+
+                if (isAlreadySelected) {
+                    // Clicking the currently paused card again resumes rotation
+                    ring.classList.remove('is-paused');
+                    card.classList.remove('selected');
+                    if (hintPill) {
+                        hintPill.innerHTML = '<i class="fa-solid fa-hand-pointer"></i><span>Sentuh atau klik foto untuk menjeda putaran &bull; Hover untuk memperbesar</span>';
+                        hintPill.classList.remove('paused');
+                    }
+                } else {
+                    // Pause carousel on this card
+                    ring.classList.add('is-paused');
+                    cards.forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    if (hintPill) {
+                        hintPill.innerHTML = '<i class="fa-solid fa-circle-pause"></i><span>Putaran dijeda &bull; Klik lagi kartu atau latar untuk melanjutkan</span>';
+                        hintPill.classList.add('paused');
+                    }
+                }
+            });
+
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+
+        // Resume when clicking outside any card
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.carousel-3d-card') && ring.classList.contains('is-paused')) {
+                ring.classList.remove('is-paused');
+                cards.forEach(c => c.classList.remove('selected'));
+                if (hintPill) {
+                    hintPill.innerHTML = '<i class="fa-solid fa-hand-pointer"></i><span>Sentuh atau klik foto untuk menjeda putaran &bull; Hover untuk memperbesar</span>';
+                    hintPill.classList.remove('paused');
+                }
+            }
+        });
+    }
+
+    initGalleryCarousel3D();
+
+    /* =========================================================
+       8. CLASSICAL MUSIC AUDIO PLAYER & MINI CONTROLLER (JEAN SIBELIUS)
+       ========================================================= */
+    function initClassicalAudioPlayer() {
+        const spotlightCard = document.getElementById('classicalSpotlight');
+        if (!spotlightCard) return;
+
+        let audio = document.getElementById('classicalAudio');
+        if (!audio) {
+            audio = new Audio();
+            audio.id = 'classicalAudio';
+            audio.preload = 'metadata';
+            spotlightCard.appendChild(audio);
+        }
+
+        const badgeBtn = document.getElementById('spotlightAudioBadge');
+        const badgeText = document.getElementById('audioBadgeText');
+        const miniPlayer = document.getElementById('classicalMiniPlayer');
+        const miniPlayBtn = document.getElementById('miniPlayerPlayBtn');
+        const miniPlayIcon = document.getElementById('miniPlayIcon');
+        const currentTimeDisplay = document.getElementById('audioCurrentTime');
+        const durationDisplay = document.getElementById('audioTotalDuration');
+        const seekbar = document.getElementById('audioSeekbar');
+
+        // List of candidate relative audio paths to verify and fallback
+        const candidatePaths = [
+            './classic.mp3',
+            './audio/classic.mp3',
+            'classic.mp3',
+            'audio/classic.mp3',
+            'classic.mp3.mp3'
+        ];
+        let currentCandidateIdx = 0;
+        let isSeeking = false;
+
+        // Set initial source if not set
+        if (!audio.getAttribute('src')) {
+            audio.setAttribute('src', candidatePaths[0]);
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds === Infinity || seconds < 0) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        function updateDuration() {
+            if (audio.duration && !isNaN(audio.duration) && audio.duration > 0) {
+                if (durationDisplay) durationDisplay.textContent = formatTime(audio.duration);
+                if (seekbar) {
+                    seekbar.max = audio.duration.toFixed(2);
+                }
+            }
+        }
+
+        function updateUI(isPlaying) {
+            if (isPlaying) {
+                spotlightCard.classList.add('playing');
+                spotlightCard.classList.add('has-played');
+                spotlightCard.setAttribute('aria-pressed', 'true');
+                if (badgeText) badgeText.textContent = 'Jeda Audio';
+                if (miniPlayIcon) {
+                    miniPlayIcon.classList.remove('fa-play');
+                    miniPlayIcon.classList.add('fa-pause');
+                }
+            } else {
+                spotlightCard.classList.remove('playing');
+                spotlightCard.setAttribute('aria-pressed', 'false');
+                if (badgeText) badgeText.textContent = 'Putar Audio';
+                if (miniPlayIcon) {
+                    miniPlayIcon.classList.remove('fa-pause');
+                    miniPlayIcon.classList.add('fa-play');
+                }
+            }
+        }
+
+        function tryNextCandidate() {
+            if (currentCandidateIdx < candidatePaths.length - 1) {
+                currentCandidateIdx++;
+                const nextPath = candidatePaths[currentCandidateIdx];
+                console.warn(`[Audio Player] Mencoba fallback path berikutnya: "${nextPath}"`);
+                audio.src = nextPath;
+                audio.load();
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            console.log(`[Audio Player] Berhasil memutar via fallback: "${nextPath}"`);
+                            updateUI(true);
+                        })
+                        .catch(err => {
+                            console.error(`[Audio Player] Gagal memutar fallback "${nextPath}":`, err);
+                            tryNextCandidate();
+                        });
+                }
+            } else {
+                console.error('[Audio Player] Semua kandidat path audio telah dicoba dan tidak ada yang berhasil dimuat. Pastikan file "classic.mp3" ada di root atau subfolder ./audio/.');
+                updateUI(false);
+            }
+        }
+
+        function toggleAudio() {
+            if (!audio) return;
+
+            if (audio.paused) {
+                audio.volume = 1.0;
+                audio.muted = false;
+                spotlightCard.classList.add('has-played');
+                console.log(`[Audio Player] Mencoba memutar audio: "${audio.currentSrc || audio.src}" (Volume: ${audio.volume}, Muted: ${audio.muted})`);
+                const playPromise = audio.play();
+                if (playPromise !== undefined) {
+                    playPromise
+                        .then(() => {
+                            console.log('[Audio Player] Audio berhasil diputar.');
+                            updateUI(true);
+                        })
+                        .catch(err => {
+                            console.error('[Audio Player] Play error:', err);
+                            tryNextCandidate();
+                        });
+                } else {
+                    updateUI(true);
+                }
+            } else {
+                audio.pause();
+                console.log('[Audio Player] Audio dijeda.');
+                updateUI(false);
+            }
+        }
+
+        // Card Click (ignore if clicking inside mini-player or badge)
+        spotlightCard.onclick = (e) => {
+            if (e.target.closest('.classical-mini-player') || e.target.closest('#spotlightAudioBadge')) {
+                return;
+            }
+            toggleAudio();
+        };
+
+        // Badge Button Click
+        if (badgeBtn) {
+            badgeBtn.onclick = (e) => {
+                e.stopPropagation();
+                toggleAudio();
+            };
+        }
+
+        // Mini Player Play/Pause Button
+        if (miniPlayBtn) {
+            miniPlayBtn.onclick = (e) => {
+                e.stopPropagation();
+                toggleAudio();
+            };
+        }
+
+        // Skip to Solo Theme (0:15)
+        const skipIntroBtn = document.getElementById('miniPlayerSkipIntro');
+        if (skipIntroBtn) {
+            skipIntroBtn.onclick = (e) => {
+                e.stopPropagation();
+                audio.currentTime = 15;
+                if (audio.paused) {
+                    toggleAudio();
+                } else {
+                    updateUI(true);
+                }
+                console.log('[Audio Player] Melompat langsung ke solo biola (detik 15).');
+            };
+        }
+
+        // Volume / Mute Toggle Button
+        const volBtn = document.getElementById('miniPlayerVolBtn');
+        const volIcon = document.getElementById('volIcon');
+        if (volBtn) {
+            volBtn.onclick = (e) => {
+                e.stopPropagation();
+                audio.muted = !audio.muted;
+                if (audio.muted) {
+                    volBtn.classList.add('muted');
+                    if (volIcon) {
+                        volIcon.classList.remove('fa-volume-high');
+                        volIcon.classList.add('fa-volume-xmark');
+                    }
+                    console.log('[Audio Player] Suara dimatikan (Muted).');
+                } else {
+                    audio.volume = 1.0;
+                    volBtn.classList.remove('muted');
+                    if (volIcon) {
+                        volIcon.classList.remove('fa-volume-xmark');
+                        volIcon.classList.add('fa-volume-high');
+                    }
+                    console.log('[Audio Player] Suara aktif (Unmuted, volume 100%).');
+                }
+            };
+        }
+
+        // Keyboard Access on Card
+        spotlightCard.onkeydown = (e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && !e.target.closest('.classical-mini-player')) {
+                e.preventDefault();
+                toggleAudio();
+            }
+        };
+
+        // Audio Events
+        audio.addEventListener('loadedmetadata', updateDuration);
+        audio.addEventListener('durationchange', updateDuration);
+        audio.addEventListener('canplay', updateDuration);
+
+        audio.addEventListener('timeupdate', () => {
+            if (!isSeeking && audio.duration) {
+                const current = audio.currentTime || 0;
+                if (currentTimeDisplay) currentTimeDisplay.textContent = formatTime(current);
+                if (seekbar) {
+                    seekbar.value = current;
+                    const progressPercent = (current / audio.duration) * 100;
+                    seekbar.style.setProperty('--progress', `${progressPercent}%`);
+                }
+            }
+        });
+
+        audio.addEventListener('ended', () => {
+            console.log('[Audio Player] Pemutaran selesai.');
+            updateUI(false);
+            audio.currentTime = 0;
+            if (seekbar) {
+                seekbar.value = 0;
+                seekbar.style.setProperty('--progress', '0%');
+            }
+            if (currentTimeDisplay) currentTimeDisplay.textContent = '0:00';
+        });
+
+        audio.addEventListener('error', (e) => {
+            const err = audio.error;
+            console.error(`[Audio Player] Error event fired pada path "${audio.currentSrc || audio.src}":`, err);
+            tryNextCandidate();
+        });
+
+        // Seekbar Interactions
+        if (seekbar) {
+            seekbar.addEventListener('input', (e) => {
+                e.stopPropagation();
+                isSeeking = true;
+                const seekVal = parseFloat(seekbar.value);
+                if (currentTimeDisplay) currentTimeDisplay.textContent = formatTime(seekVal);
+                if (audio.duration) {
+                    const progressPercent = (seekVal / audio.duration) * 100;
+                    seekbar.style.setProperty('--progress', `${progressPercent}%`);
+                }
+            });
+
+            seekbar.addEventListener('change', (e) => {
+                e.stopPropagation();
+                const seekVal = parseFloat(seekbar.value);
+                audio.currentTime = seekVal;
+                isSeeking = false;
+                console.log(`[Audio Player] Seek audio ke detik: ${seekVal.toFixed(1)}`);
+            });
+
+            seekbar.addEventListener('click', (e) => e.stopPropagation());
+            seekbar.addEventListener('mousedown', (e) => e.stopPropagation());
+            seekbar.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+        }
+    }
+
+    initClassicalAudioPlayer();
 });

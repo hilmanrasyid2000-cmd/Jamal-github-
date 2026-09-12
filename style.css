@@ -1370,6 +1370,55 @@ img {
   transform: scale(0.98);
 }
 
+.book-item-interactive {
+  cursor: pointer;
+  justify-content: space-between;
+}
+
+.book-item-interactive:hover {
+  border-color: var(--accent-primary);
+  background-color: var(--bg-card-hover);
+  box-shadow: 0 4px 14px rgba(217, 93, 57, 0.15);
+  transform: translateY(-2px);
+}
+
+.book-item-interactive:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.book-main-col {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.book-action-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-technical);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  background-color: var(--accent-subtle);
+  border: 1px solid rgba(217, 93, 57, 0.25);
+  border-radius: 999px;
+  padding: 2px 7px;
+  margin-left: auto;
+  white-space: nowrap;
+  transition: var(--transition-fluid);
+  flex-shrink: 0;
+}
+
+.book-item-interactive:hover .book-action-badge {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  transform: scale(1.04);
+}
+
 .book-spine {
   width: 3px;
   height: 28px;
@@ -1400,7 +1449,7 @@ img {
   font-weight: 400;
 }
 
-/* Classical Music Spotlight */
+/* Classical Music Spotlight (Interactive Audio Player) */
 .classical-spotlight {
   background-color: var(--bg-inset);
   border: 1px solid var(--border-accent);
@@ -1408,11 +1457,38 @@ img {
   padding: var(--space-md);
   margin-bottom: var(--space-sm);
   transition: var(--transition-fluid);
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 .classical-spotlight:hover {
   border-color: var(--accent-primary);
   transform: translateY(-2px);
+  box-shadow: 0 4px 18px rgba(217, 93, 57, 0.16);
+}
+
+.classical-spotlight:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Playing state with gentle highlight & pulse glow */
+.classical-spotlight.playing {
+  border-color: var(--accent-primary);
+  background: linear-gradient(135deg, rgba(217, 93, 57, 0.12) 0%, var(--bg-inset) 85%);
+  box-shadow: 0 6px 24px rgba(217, 93, 57, 0.28), 0 0 12px rgba(217, 93, 57, 0.2);
+  transform: translateY(-2px);
+}
+
+.spotlight-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  gap: var(--space-xs);
 }
 
 .spotlight-tag {
@@ -1421,9 +1497,70 @@ img {
   letter-spacing: 0.8px;
   color: var(--accent-primary);
   text-transform: uppercase;
-  margin-bottom: 4px;
-  display: inline-block;
   font-weight: 500;
+  margin-bottom: 0;
+}
+
+.spotlight-audio-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-technical);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  background-color: var(--accent-subtle);
+  border: 1px solid rgba(217, 93, 57, 0.3);
+  border-radius: 999px;
+  padding: 3px 9px;
+  transition: var(--transition-fluid);
+  flex-shrink: 0;
+}
+
+.classical-spotlight:hover .spotlight-audio-badge {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+}
+
+.classical-spotlight.playing .spotlight-audio-badge {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 10px rgba(217, 93, 57, 0.5);
+}
+
+/* Animated Equalizer */
+.audio-equalizer {
+  display: none;
+  align-items: flex-end;
+  gap: 2px;
+  height: 10px;
+}
+
+.classical-spotlight.playing .play-icon {
+  display: none;
+}
+
+.classical-spotlight.playing .audio-equalizer {
+  display: inline-flex;
+}
+
+.eq-bar {
+  width: 2px;
+  height: 100%;
+  background-color: currentColor;
+  border-radius: 1px;
+  animation: eqBarPulse 0.75s ease-in-out infinite alternate;
+}
+
+.eq-bar:nth-child(1) { animation-delay: 0.1s; height: 50%; }
+.eq-bar:nth-child(2) { animation-delay: 0.35s; height: 100%; }
+.eq-bar:nth-child(3) { animation-delay: 0.2s; height: 70%; }
+
+@keyframes eqBarPulse {
+  0% { transform: scaleY(0.25); }
+  100% { transform: scaleY(1); }
 }
 
 .spotlight-piece {
@@ -1448,6 +1585,226 @@ img {
   color: var(--text-muted);
   line-height: 1.55;
   font-weight: 400;
+}
+
+/* Mini Player Controller (Jean Sibelius) */
+.classical-mini-player {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: rgba(18, 18, 18, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(217, 93, 57, 0.35);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  animation: miniPlayerFadeIn 0.35s ease forwards;
+}
+
+/* Shown when active/playing or after user has interacted */
+.classical-spotlight.has-played .classical-mini-player,
+.classical-spotlight.playing .classical-mini-player {
+  display: flex;
+}
+
+@keyframes miniPlayerFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mini-player-play-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: #ffffff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(217, 93, 57, 0.35);
+}
+
+.mini-player-play-btn:hover {
+  transform: scale(1.08);
+  background: var(--accent-hover, #e06e4a);
+  box-shadow: 0 6px 18px rgba(217, 93, 57, 0.5);
+}
+
+.mini-player-play-btn:active {
+  transform: scale(0.95);
+}
+
+.mini-player-track {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.mini-player-info-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  line-height: 1;
+}
+
+.mini-player-label {
+  font-family: var(--font-technical);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.mini-player-time {
+  font-family: var(--font-technical);
+  font-size: 11px;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.3px;
+}
+
+.time-sep {
+  opacity: 0.5;
+  margin: 0 2px;
+}
+
+.mini-player-slider-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.mini-player-seekbar {
+  width: 100%;
+  height: 5px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(to right, var(--accent-primary) 0%, var(--accent-primary) var(--progress, 0%), rgba(255, 255, 255, 0.12) var(--progress, 0%), rgba(255, 255, 255, 0.12) 100%);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+  transition: height 0.15s ease;
+}
+
+.mini-player-seekbar:hover {
+  height: 7px;
+}
+
+.mini-player-seekbar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 0 8px rgba(217, 93, 57, 0.6);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mini-player-seekbar:hover::-webkit-slider-thumb,
+.mini-player-seekbar:active::-webkit-slider-thumb {
+  transform: scale(1.25);
+  box-shadow: 0 0 12px rgba(217, 93, 57, 0.9);
+}
+
+.mini-player-seekbar::-moz-range-thumb {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--accent-primary);
+  box-shadow: 0 0 8px rgba(217, 93, 57, 0.6);
+  cursor: pointer;
+}
+
+.mini-player-seekbar::-moz-range-track {
+  background: transparent;
+}
+
+.mini-player-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mini-player-pill-action {
+  background-color: rgba(217, 93, 57, 0.18);
+  border: 1px solid rgba(217, 93, 57, 0.4);
+  color: var(--accent-primary);
+  font-family: var(--font-technical);
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition-fluid);
+}
+
+.mini-player-pill-action:hover {
+  background-color: var(--accent-primary);
+  color: #ffffff;
+}
+
+.mini-player-vol-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.mini-player-vol-btn:hover {
+  color: var(--accent-primary);
+  transform: scale(1.1);
+}
+
+.mini-player-vol-btn.muted {
+  color: #e74c3c;
+}
+
+.mini-player-hint-text {
+  font-family: var(--font-body);
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin: 4px 0 0 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.mini-player-hint-text i {
+  color: var(--accent-primary);
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .repertoire-list {
@@ -2206,7 +2563,203 @@ body.modal-open {
 }
 
 /* =========================================================
-   5. GAME 2048 (SOLID EDITORIAL DARK)
+   5. DOKUMENTASI & GALERI 3D CAROUSEL (360 ROULETTE)
+   ========================================================= */
+.gallery-section {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-2xl) 0;
+}
+
+.gallery-lead-wrap {
+  max-width: 680px;
+  margin: 0 auto var(--space-xl) auto;
+  text-align: center;
+}
+
+.gallery-lead-desc {
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* 3D Perspective Scene Container */
+.carousel-3d-scene {
+  position: relative;
+  width: 100%;
+  height: 440px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1100px;
+  perspective-origin: 50% 50%;
+  margin: var(--space-md) auto;
+}
+
+/* Rotating Ring with preserve-3d */
+.carousel-3d-ring {
+  position: relative;
+  width: 190px;
+  height: 275px;
+  transform-style: preserve-3d;
+  animation: rotateCarousel3D 28s linear infinite;
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+/* Pause Infinite Rotation ONLY when touching, clicking, or hovering an actual photo card */
+.carousel-3d-ring:has(.carousel-3d-card:hover),
+.carousel-3d-ring:has(.carousel-3d-card:active),
+.carousel-3d-ring.is-paused {
+  animation-play-state: paused !important;
+}
+
+/* Continuous 360-degree Keyframes */
+@keyframes rotateCarousel3D {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
+/* Individual 3D Card Positioning (9 Cards @ 40deg) */
+.carousel-3d-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 190px;
+  height: 275px;
+  transform: rotateY(calc(var(--i) * 40deg)) translateZ(280px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  outline: none;
+}
+
+.carousel-card-inner {
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-subtle);
+  background-color: var(--bg-card);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Card Hover / Touch Active: Scale Up and Warm Glow / Shadow */
+.carousel-3d-card:hover .carousel-card-inner,
+.carousel-3d-card:active .carousel-card-inner,
+.carousel-3d-card:focus-visible .carousel-card-inner {
+  transform: scale(1.08) translateY(-8px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 18px 45px rgba(217, 93, 57, 0.42), 0 0 25px rgba(217, 93, 57, 0.28);
+}
+
+.carousel-img-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  background-color: #111111;
+}
+
+.carousel-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.carousel-3d-card:hover .carousel-img-wrap img {
+  transform: scale(1.08);
+}
+
+/* Card Caption Gradient Overlay */
+.carousel-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--space-lg) var(--space-sm) var(--space-sm);
+  background: linear-gradient(to top, rgba(17, 17, 17, 0.94) 0%, rgba(17, 17, 17, 0.65) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  pointer-events: none;
+}
+
+.card-caption-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-technical);
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.card-caption-title {
+  font-family: var(--font-subheading);
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.35;
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* Hint Pill */
+.gallery-hint-row {
+  margin-top: var(--space-xl);
+  display: flex;
+  justify-content: center;
+}
+
+.gallery-hint-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  font-family: var(--font-technical);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 0.3px;
+}
+
+.gallery-hint-pill i {
+  color: var(--accent-primary);
+}
+
+.gallery-hint-pill.paused {
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
+  background-color: rgba(217, 93, 57, 0.1);
+}
+
+/* Selected Card in Paused State */
+.carousel-3d-card.selected .carousel-card-inner {
+  transform: scale(1.08) translateY(-8px);
+  border-color: var(--accent-primary);
+  box-shadow: 0 18px 45px rgba(217, 93, 57, 0.42), 0 0 25px rgba(217, 93, 57, 0.28);
+}
+
+/* =========================================================
+   6. GAME 2048 (SOLID EDITORIAL DARK)
    ========================================================= */
 .game-layout {
   display: grid;
@@ -3068,6 +3621,35 @@ body.modal-open {
     justify-content: center;
   }
 
+  /* Galeri 3D Carousel di HP / Tablet */
+  .carousel-3d-scene {
+    height: 350px;
+    perspective: 750px;
+  }
+
+  .carousel-3d-ring {
+    width: 135px;
+    height: 195px;
+  }
+
+  .carousel-3d-card {
+    width: 135px;
+    height: 195px;
+    transform: rotateY(calc(var(--i) * 40deg)) translateZ(195px);
+  }
+
+  .carousel-card-overlay {
+    padding: var(--space-md) var(--space-xs) var(--space-xs);
+  }
+
+  .card-caption-tag {
+    font-size: 9px;
+  }
+
+  .card-caption-title {
+    font-size: 11.5px;
+  }
+
   /* Kontak Form di HP */
   .contact-form {
     padding: var(--space-md);
@@ -3218,6 +3800,26 @@ body.modal-open {
     padding: 7px 12px;
   }
 
+  .carousel-3d-scene {
+    height: 310px;
+    perspective: 620px;
+  }
+
+  .carousel-3d-ring {
+    width: 110px;
+    height: 160px;
+  }
+
+  .carousel-3d-card {
+    width: 110px;
+    height: 160px;
+    transform: rotateY(calc(var(--i) * 40deg)) translateZ(155px);
+  }
+
+  .card-caption-title {
+    font-size: 10.5px;
+  }
+
   .timeline-year {
     font-size: 14px;
   }
@@ -3227,5 +3829,16 @@ body.modal-open {
     height: min(94vw, 320px);
     max-width: 94vw;
     max-height: 94vw;
+  }
+
+  .classical-mini-player {
+    padding: 8px 10px;
+    gap: 8px;
+  }
+
+  .mini-player-play-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
   }
 }

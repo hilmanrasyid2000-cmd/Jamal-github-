@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=2.2">
 </head>
 <body>
 
@@ -34,6 +34,7 @@
                     <li><a href="#about" class="nav-link">Tentang Saya</a></li>
                     <li><a href="#interests" class="nav-link">Minat &amp; Sastra</a></li>
                     <li><a href="#experience" class="nav-link">Pengalaman &amp; Riset</a></li>
+                    <li><a href="#gallery" class="nav-link">Galeri</a></li>
                     <li><a href="#game" class="nav-link">Game 2048</a></li>
                     <li><a href="#contact" class="nav-link">Kontak</a></li>
                 </ul>
@@ -75,6 +76,12 @@
                             <a href="#experience" class="nav-link">
                                 <i class="fa-solid fa-flask"></i>
                                 <span>Pengalaman &amp; Riset</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#gallery" class="nav-link">
+                                <i class="fa-solid fa-images"></i>
+                                <span>Galeri Foto</span>
                             </a>
                         </li>
                         <li>
@@ -396,16 +403,22 @@
                             </div>
                         </div>
                         <p class="body-text">
-                            Membaca novel melatih daya imajinasi dan empati terhadap kompleksitas sosial. Beberapa karya sastra yang menjadi referensi dan inspirasi utama:
+                            Pada awalnya, saya bukanlah seseorang yang menyukai membaca novel. Saya hanya membaca karena terpaksa, entah karena tugas sekolah atau suruhan orang tua, dan saya tidak membaca semuanya. Namun, ketika saya berada di kelas 9 SMP, saya pertama kali membeli buku novel yang sungguh-sungguh saya inginkan sendiri: <em>Laut Bercerita</em> karya Leila S. Chudori.
+                        </p>
+                        <p class="body-text" style="margin-top: 10px; margin-bottom: var(--space-md);">
+                            Dari halaman pertama, saya langsung terpesona. Saya tidak bisa menghentikan diri untuk terus membaca dan mengetahui kelanjutan ceritanya. Buku itu berhasil saya selesaikan hanya dalam empat hari. Sejak saat itulah, saya mulai benar-benar mencintai membaca novel.
                         </p>
 
                         <div class="book-grid">
-                            <div class="book-item">
-                                <div class="book-spine"></div>
-                                <div class="book-info">
-                                    <strong class="book-name">Laut Bercerita</strong>
-                                    <span class="book-by">Leila S. Chudori</span>
+                            <div class="book-item book-item-interactive" id="openLautBerceritaModal" role="button" tabindex="0" aria-haspopup="dialog" aria-controls="lautBerceritaModal" title="Klik untuk membaca ulasan novel Laut Bercerita">
+                                <div class="book-main-col">
+                                    <div class="book-spine"></div>
+                                    <div class="book-info">
+                                        <strong class="book-name">Laut Bercerita</strong>
+                                        <span class="book-by">Leila S. Chudori</span>
+                                    </div>
                                 </div>
+                                <span class="book-action-badge"><i class="fa-solid fa-book-open"></i> Ulasan</span>
                             </div>
                             <div class="book-item">
                                 <div class="book-spine"></div>
@@ -446,13 +459,57 @@
                             Menghayati aransemen polifonik karya maestro dunia seperti <strong>Ludwig van Beethoven</strong>, <strong>Johann Sebastian Bach</strong>, dan <strong>Johannes Brahms</strong>:
                         </p>
 
-                        <div class="classical-spotlight">
-                            <span class="spotlight-tag">MAHAKARYA PILIHAN</span>
+                        <div class="classical-spotlight" id="classicalSpotlight" role="region" aria-label="Apresiasi Musik Jean Sibelius">
+                            <div class="spotlight-top-bar">
+                                <span class="spotlight-tag">MAHAKARYA PILIHAN</span>
+                                <button type="button" class="spotlight-audio-badge" id="spotlightAudioBadge" aria-label="Putar atau jeda cuplikan audio">
+                                    <i class="fa-solid fa-play play-icon" id="spotlightPlayIcon"></i>
+                                    <span class="audio-equalizer" aria-hidden="true">
+                                        <span class="eq-bar"></span>
+                                        <span class="eq-bar"></span>
+                                        <span class="eq-bar"></span>
+                                    </span>
+                                    <span class="audio-badge-text" id="audioBadgeText">Putar Audio</span>
+                                </button>
+                            </div>
                             <h4 class="spotlight-piece">Violin Concerto in D minor, Op. 47</h4>
                             <p class="spotlight-composer">Karya Komponis <strong>Jean Sibelius</strong></p>
                             <p class="spotlight-text">
                                 Komposisi concerto biola yang kaya dinamika melankolis, teknik virtuositas tinggi, dan atmosfer megah lanskap Skandinavia.
                             </p>
+
+                            <!-- Mini Player Controller -->
+                            <div class="classical-mini-player" id="classicalMiniPlayer">
+                                <button type="button" class="mini-player-play-btn" id="miniPlayerPlayBtn" aria-label="Putar / Jeda Musik">
+                                    <i class="fa-solid fa-play" id="miniPlayIcon"></i>
+                                </button>
+                                <div class="mini-player-track">
+                                    <div class="mini-player-info-row">
+                                        <span class="mini-player-label"><i class="fa-solid fa-compact-disc fa-spin-pulse"></i> Hilary Hahn &bull; Sibelius</span>
+                                        <div class="mini-player-actions">
+                                            <button type="button" class="mini-player-pill-action" id="miniPlayerSkipIntro" title="Lompat langsung ke solo biola">
+                                                <i class="fa-solid fa-forward"></i> Solo 0:15
+                                            </button>
+                                            <button type="button" class="mini-player-vol-btn" id="miniPlayerVolBtn" title="Bisukan / Nyalakan Suara (Mute/Unmute)">
+                                                <i class="fa-solid fa-volume-high" id="volIcon"></i>
+                                            </button>
+                                            <div class="mini-player-time">
+                                                <span id="audioCurrentTime">0:00</span>
+                                                <span class="time-sep">/</span>
+                                                <span id="audioTotalDuration">0:00</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="mini-player-slider-wrap">
+                                        <input type="range" class="mini-player-seekbar" id="audioSeekbar" min="0" max="100" value="0" step="0.1" aria-label="Seek durasi audio">
+                                    </div>
+                                    <p class="mini-player-hint-text">
+                                        <i class="fa-solid fa-circle-info"></i> Detik 0&ndash;4 berbunyi sangat lembut (<em>pianissimo</em>). Klik <strong>Solo 0:15</strong> untuk mendengar melodi biola utama.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <audio id="classicalAudio" preload="auto" src="./classic.mp3"></audio>
                         </div>
 
                         <div class="repertoire-list">
@@ -638,7 +695,154 @@
             </div>
         </section>
 
-        <!-- 5. GAME 2048 (CLEAN EDITORIAL DARK) -->
+        <!-- 5. DOKUMENTASI & GALERI 3D -->
+        <section id="gallery" class="section gallery-section">
+            <div class="container">
+                <div class="section-header reveal">
+                    <span class="section-kicker">MOMEN &amp; DOKUMENTASI</span>
+                    <h2 class="section-title">Galeri Aktivitas</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="gallery-lead-wrap reveal delay-1">
+                    <p class="body-text text-center gallery-lead-desc">
+                        Dokumentasi perjalanan kompetisi sains internasional, aktivitas akademik Labschool, seni teater, dan potret kegiatan. Putaran 360&deg; otomatis akan berhenti saat menyentuh atau mengklik foto.
+                    </p>
+                </div>
+
+                <!-- 3D Carousel Stage / Roulette Melingkar 360 Derajat -->
+                <div class="carousel-3d-scene reveal delay-2">
+                    <div class="carousel-3d-ring" id="carouselRing">
+                        <!-- Foto 1: ISIF 2024 Awarding Ceremony -->
+                        <div class="carousel-3d-card" style="--i: 0;" tabindex="0" role="button" aria-label="Penganugerahan Medali Perak ISIF 2024">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-1.jpg" alt="Penganugerahan Medali Perak ISIF 2024" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-medal"></i> ISIF 2024</span>
+                                        <p class="card-caption-title">Medali Perak Sains Internasional</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 2: Potret Diri -->
+                        <div class="carousel-3d-card" style="--i: 1;" tabindex="0" role="button" aria-label="Potret Pribadi Hilman Rasyid Kaizan">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-2.jpg" alt="Potret Pribadi Hilman Rasyid Kaizan" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-user"></i> Potret Diri</span>
+                                        <p class="card-caption-title">Hilman Rasyid Kaizan</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 3: Acara Formal & Kenegaraan -->
+                        <div class="carousel-3d-card" style="--i: 2;" tabindex="0" role="button" aria-label="Acara Formal dan Resepsi Resmi">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-3.jpg" alt="Acara Formal dan Resepsi Resmi" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-user-tie"></i> Forum Resmi</span>
+                                        <p class="card-caption-title">Busana Formal &amp; Kenegaraan</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 4: Kegiatan Kepemimpinan CAP 23 -->
+                        <div class="carousel-3d-card" style="--i: 3;" tabindex="0" role="button" aria-label="Kegiatan Siswa CAP 23 SMP Labschool Kebayoran">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-4.jpg" alt="Kegiatan Siswa CAP 23 SMP Labschool Kebayoran" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-campground"></i> Kepemimpinan</span>
+                                        <p class="card-caption-title">Dinamika Lapangan &amp; Karakter</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 5: Pementasan Drama Seni Budaya -->
+                        <div class="carousel-3d-card" style="--i: 4;" tabindex="0" role="button" aria-label="Pementasan Seni Teater Kolosal">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-5.jpg" alt="Pementasan Seni Teater Kolosal" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-masks-theater"></i> Seni Budaya</span>
+                                        <p class="card-caption-title">Pementasan Drama &amp; Teater</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 6: Seragam Akademik Sekolah -->
+                        <div class="carousel-3d-card" style="--i: 5;" tabindex="0" role="button" aria-label="Aktivitas Pembelajaran di Sekolah">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-6.jpg" alt="Seragam Sekolah dan Aktivitas Pembelajaran" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-graduation-cap"></i> Akademik</span>
+                                        <p class="card-caption-title">Aktivitas Sekolah &amp; Belajar</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 7: Pas Foto Resmi Batik Labschool -->
+                        <div class="carousel-3d-card" style="--i: 6;" tabindex="0" role="button" aria-label="Pas Foto Resmi Batik SMP Labschool Kebayoran">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-7.jpg" alt="Pas Foto Resmi Batik SMP Labschool Kebayoran" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-id-card"></i> Identitas Resmi</span>
+                                        <p class="card-caption-title">Pas Foto Batik Labschool</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 8: Busana Muslim / Kegiatan Keagamaan -->
+                        <div class="carousel-3d-card" style="--i: 7;" tabindex="0" role="button" aria-label="Busana Muslim SMP Labschool Kebayoran">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-8.jpg" alt="Busana Muslim SMP Labschool Kebayoran" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-mosque"></i> Kegiatan Jumat</span>
+                                        <p class="card-caption-title">Busana Muslim Labschool</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 9: Potret Kasual -->
+                        <div class="carousel-3d-card" style="--i: 8;" tabindex="0" role="button" aria-label="Potret Keseharian Siswa">
+                            <div class="carousel-card-inner">
+                                <div class="carousel-img-wrap">
+                                    <img src="gallery-9.jpg" alt="Potret Keseharian Siswa" loading="lazy">
+                                    <div class="carousel-card-overlay">
+                                        <span class="card-caption-tag"><i class="fa-solid fa-camera"></i> Keseharian</span>
+                                        <p class="card-caption-title">Potret Keseharian Siswa</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Petunjuk Interaksi 3D Carousel -->
+                <div class="gallery-hint-row reveal delay-3">
+                    <span class="gallery-hint-pill" id="galleryHintPill">
+                        <i class="fa-solid fa-hand-pointer"></i>
+                        <span>Sentuh atau klik foto untuk menjeda putaran &bull; Hover untuk memperbesar</span>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. GAME 2048 (CLEAN EDITORIAL DARK) -->
         <section id="game" class="section">
             <div class="container">
                 <div class="section-header reveal">
@@ -1000,6 +1204,58 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- ===== MODAL POPUP: ULASAN NOVEL LAUT BERCERITA ===== -->
+    <div class="research-modal-backdrop" id="lautBerceritaModal" role="dialog" aria-modal="true" aria-labelledby="lautBerceritaModalTitle" aria-hidden="true">
+        <div class="research-modal-container">
+            <!-- Modal Header -->
+            <div class="research-modal-header">
+                <div class="modal-badge-group">
+                    <span class="modal-pill-badge"><i class="fa-solid fa-book-bookmark"></i> REVIEW NOVEL &bull; REKOMENDASI UTAMA</span>
+                    <span class="modal-sub-badge">Sastra Fiksi &amp; Sejarah</span>
+                </div>
+                <button type="button" class="modal-close-btn" id="closeLautBerceritaModal" aria-label="Tutup ulasan novel Laut Bercerita">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="research-modal-body">
+                <!-- Title & Author -->
+                <div class="modal-title-section">
+                    <h3 class="modal-paper-title" id="lautBerceritaModalTitle">
+                        1. Laut Bercerita: Leila S. Chudori
+                    </h3>
+                    <div class="modal-meta-row">
+                        <p class="modal-authors">
+                            <i class="fa-solid fa-pen-nib"></i>
+                            <span><strong>Penulis:</strong> Leila S. Chudori</span>
+                        </p>
+                        <p class="modal-school">
+                            <i class="fa-solid fa-bookmark"></i>
+                            <span>Novel pertama yang diselesaikan &bull; Inspirasi awal kecintaan membaca</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Review Content -->
+                <div class="modal-text-section">
+                    <h4 class="modal-section-heading">Ulasan Cerita</h4>
+                    <p class="modal-desc">
+                        Novel ini merupakan novel pertama yang saya selesaikan. Cerita ini mengikuti perjalanan seorang mahasiswa bernama Biru Laut, seorang aktivis yang berdedikasi memperjuangkan hak-hak masyarakat yang tertindas. Kita dapat menyaksikan kebahagiaan dan persahabatan Biru Laut bersama rekan-rekan aktivisnya saat mereka berdemo bersama, tetapi juga kesedihannya ketika dimulai penindasan dan penyiksaan yang mengakhiri hidupnya.
+                    </p>
+                    <p class="modal-desc">
+                        Di samping itu, novel ini juga menghadirkan kehangatan hubungan Biru Laut dengan keluarganya. Cerita-cerita tentang makanan yang selalu disiapkan ibunya, pertengkaran dengan adik perempuannya, dan kebaikan ayahnya tergambar dengan indah. Namun, di sisi lain, kita juga melihat penderitaan orang tua yang harus kehilangan anak mereka sekaligus kakak dari adik-adiknya.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="research-modal-footer">
+                <button type="button" class="btn btn-ghost" id="dismissLautBerceritaModal">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=2.2"></script>
 </body>
 </html>
