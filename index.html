@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="view-transition" content="same-origin">
     <title>Hilman Rasyid Kaizan — Portofolio Akademik & Riset</title>
     <!-- Google Fonts: Plus Jakarta Sans (Heading Hero), Inter (Sub-heading/Menu/Button), Roboto (Body/Content), JetBrains Mono (Technical) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -195,13 +196,13 @@
                                                 <h3 class="card-val">Silver Medal</h3>
                                                 <span class="card-badge-pill">ISIF 2024</span>
                                             </div>
-                                            <h4 class="card-event-title">International Science Invention Fair</h4>
+                                            <h4 class="card-event-title">Skimmer Boat to Overcome Waste in Rivers &bull; ISIF 2024</h4>
                                             <p class="card-desc">
-                                                Kategori offline competition bersama IYSA dengan dewan juri mancanegara. Meraih medali perak melalui presentasi ilmiah dan demonstrasi alat.
+                                                Inovasi purwarupa kapal pembersih sampah sungai berbasis Hukum Archimedes dan conveyor belt trapesium PVC. Meraih medali perak kompetisi luring IYSA bersama juri internasional.
                                             </p>
                                         </div>
                                         <div class="card-action-footer">
-                                            <span class="action-text">Lihat Rekam Jejak Prestasi</span>
+                                            <span class="action-text"><i class="fa-solid fa-file-pdf"></i> Lihat Naskah Paper &amp; Foto Dokumentasi</span>
                                             <span class="action-icon"><i class="fa-solid fa-arrow-right"></i></span>
                                         </div>
                                     </a>
@@ -231,7 +232,7 @@
                                     </a>
                                 </div>
 
-                                <!-- Slide 3: OPSI 2025 Bidang IPTEK -->
+                                <!-- Slide 3: OPSI 2025 Bidang IPT -->
                                 <div class="hero-carousel-slide" data-index="2">
                                     <a href="#timeline-opsi2025" class="carousel-card" aria-label="Lihat rekam jejak OPSI 2025">
                                         <div class="card-glow-pill">
@@ -241,15 +242,15 @@
                                         <div class="card-hero-content">
                                             <div class="card-val-group">
                                                 <h3 class="card-val">OPSI 2025</h3>
-                                                <span class="card-badge-pill">Bidang IPTEK</span>
+                                                <span class="card-badge-pill">Bidang IPT</span>
                                             </div>
                                             <h4 class="card-event-title">Olimpiade Penelitian Siswa Indonesia</h4>
                                             <p class="card-desc">
-                                                Pusat Prestasi Nasional &amp; Balai Pengembangan Talenta Indonesia (Kemendikbudristek) dalam merancang inovasi sains aplikatif.
+                                                Perancangan dan simulasi kapal pembersih sampah laut bertenaga kendali Arduino melalui pemodelan 3D ShipConstructor.
                                             </p>
                                         </div>
                                         <div class="card-action-footer">
-                                            <span class="action-text">Lihat Rekam Jejak OPSI</span>
+                                            <span class="action-text"><i class="fa-solid fa-file-pdf"></i> Lihat Naskah Proposal &amp; Detail Riset</span>
                                             <span class="action-icon"><i class="fa-solid fa-arrow-right"></i></span>
                                         </div>
                                     </a>
@@ -531,6 +532,22 @@
                             <span class="metric-sub">Dukungan KBM sekolah</span>
                         </div>
                     </div>
+
+                    <!-- Pelengkap Dokumen: Naskah Lengkap KTI (PDF) -->
+                    <div class="paper-action-footer">
+                        <div class="paper-file-meta">
+                            <span class="file-icon"><i class="fa-solid fa-file-pdf"></i></span>
+                            <div class="file-info">
+                                <span class="file-name">Naskah Lengkap Karya Tulis Ilmiah (KTI)</span>
+                                <span class="file-desc">26 Halaman &bull; Format Dokumen PDF Resmi SMP Labschool Kebayoran</span>
+                            </div>
+                        </div>
+                        <a href="karya-tulis-loker-2025.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+                            <i class="fa-solid fa-file-pdf"></i>
+                            <span>Buka Naskah Lengkap (PDF)</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Academic Timeline -->
@@ -566,12 +583,24 @@
                             <div class="marker-line"></div>
                         </div>
                         <div class="timeline-card">
-                            <span class="card-kicker">KOMPETISI PENELITIAN NASIONAL</span>
-                            <h3 class="card-title">Peserta OPSI Bidang IPTEK 2025</h3>
-                            <p class="card-org">Olimpiade Penelitian Siswa Indonesia &bull; Balai Pengembangan Talenta Indonesia</p>
+                            <div class="timeline-badge-row">
+                                <span class="card-kicker">KOMPETISI PENELITIAN NASIONAL</span>
+                                <span class="card-status-pill"><i class="fa-solid fa-flask"></i> OPSI 2025</span>
+                            </div>
+                            <h3 class="card-title">Peserta OPSI Bidang Rekayasa &amp; Teknologi (IPT) 2025</h3>
+                            <p class="card-org">Olimpiade Penelitian Siswa Indonesia &bull; Balai Pengembangan Talenta Indonesia (Puspresnas)</p>
                             <p class="card-desc">
-                                Merumuskan proposal riset dan karya rekayasa berbasis IPTEK guna menghasilkan solusi sistematis terhadap tantangan sains terapan di lingkungan pendidikan.
+                                Perancangan dan analisis simulasi kapal pengangkut sampah laut bertenaga kendali Arduino untuk menanggulangi 3,2 juta ton sampah laut nasional.
                             </p>
+
+                            <!-- Clean CTA Button to open detail modal -->
+                            <div class="timeline-cta-wrap">
+                                <button type="button" class="btn-timeline-detail" id="openOpsiModal" aria-haspopup="dialog" aria-controls="opsiModal">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    <span>Lihat Detail Riset &amp; Proposal</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -585,12 +614,24 @@
                             <div class="marker-dot marker-dot-highlight"></div>
                         </div>
                         <div class="timeline-card timeline-card-highlight">
-                            <span class="card-kicker">AJANG INTERNASIONAL</span>
+                            <div class="timeline-badge-row">
+                                <span class="card-kicker">AJANG INTERNASIONAL &bull; MEDALI PERAK</span>
+                                <span class="card-status-pill"><i class="fa-solid fa-medal"></i> ISIF 2024</span>
+                            </div>
                             <h3 class="card-title">Silver Medal &mdash; International Science Invention Fair (ISIF) 2024</h3>
-                            <p class="card-org">ISIF Offline Competition 2024 &bull; Indonesian Young Scientist Association (IYSA)</p>
+                            <p class="card-org">Indonesian Young Scientist Association (IYSA) &bull; Kategori Offline Competition</p>
                             <p class="card-desc">
-                                Meraih Medali Perak dalam kompetisi invensi sains internasional luring melalui presentasi ilmiah, demonstrasi purwarupa, dan sesi tanya-jawab bersama panel juri internasional.
+                                Inovasi purwarupa kapal pembersih sampah sungai (*Skimmer Boat*) ramah lingkungan berbasis Hukum Archimedes dan konveyor trapesium PVC guna mereduksi pencemaran air secara berkelanjutan.
                             </p>
+
+                            <!-- Clean CTA Button to open detail modal -->
+                            <div class="timeline-cta-wrap">
+                                <button type="button" class="btn-timeline-detail" id="openIsifModal" aria-haspopup="dialog" aria-controls="isifModal">
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    <span>Lihat Detail Riset &amp; Dokumentasi</span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -747,6 +788,217 @@
         </footer>
 
     </main>
+
+    <!-- ===== MODAL POPUP: DETAIL RISET & DOKUMENTASI ISIF 2024 ===== -->
+    <div class="research-modal-backdrop" id="isifModal" role="dialog" aria-modal="true" aria-labelledby="isifModalTitle" aria-hidden="true">
+        <div class="research-modal-container">
+            <!-- Modal Header -->
+            <div class="research-modal-header">
+                <div class="modal-badge-group">
+                    <span class="modal-pill-badge"><i class="fa-solid fa-medal"></i> Medali Perak &bull; ISIF 2024</span>
+                    <span class="modal-sub-badge">Offline Competition &bull; IYSA</span>
+                </div>
+                <button type="button" class="modal-close-btn" id="closeIsifModal" aria-label="Tutup jendela detail riset">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="research-modal-body">
+                <!-- Title & Authors -->
+                <div class="modal-title-section">
+                    <h3 class="modal-paper-title" id="isifModalTitle">
+                        &ldquo;Design and Development of the Skimmer Boat to Overcome Waste in Rivers&rdquo;
+                    </h3>
+                    <div class="modal-meta-row">
+                        <p class="modal-authors">
+                            <i class="fa-solid fa-users"></i>
+                            <span><strong>Tim Peneliti:</strong> Biyan Elgani N., Abyan Maududi T., Adlyn Nazurah N., <strong>Hilman Rasyid Kaizan</strong>, Izzam Nararya K.</span>
+                        </p>
+                        <p class="modal-school">
+                            <i class="fa-solid fa-school"></i>
+                            <span>SMP Labschool Kebayoran, Jakarta Selatan</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Media Photo Showcase -->
+                <div class="modal-media-showcase">
+                    <div class="modal-photo-wrap">
+                        <img src="isif-2024.jpg" alt="Dokumentasi Penganugerahan Medali Perak ISIF 2024 bersama Tim" class="modal-photo" loading="lazy">
+                        <div class="modal-photo-tag">
+                            <i class="fa-solid fa-award"></i>
+                            <span>Awarding Ceremony &bull; ISIF 2024</span>
+                        </div>
+                    </div>
+                    <p class="modal-photo-caption">
+                        <i class="fa-solid fa-camera"></i>
+                        <span>Dokumentasi penganugerahan Silver Medal pada ajang <strong>International Science Invention Fair (ISIF) 2024</strong> bersama tim kontingen.</span>
+                    </p>
+                </div>
+
+                <!-- Deskripsi Masalah & Metodologi Rekayasa -->
+                <div class="modal-text-section">
+                    <h4 class="modal-section-heading">Latar Belakang &amp; Metodologi Rekayasa</h4>
+                    <p class="modal-desc">
+                        Berdasarkan data Badan Pusat Statistik (BPS), sekitar 46% sungai di Indonesia mengalami pencemaran berat. Solusi pembersihan konvensional (seperti <em>Interceptor 001</em> dan <em>Trash Boom</em>) memiliki biaya operasional dan pengadaan yang sangat tinggi sehingga sulit didistribusikan secara merata.
+                    </p>
+                    <p class="modal-desc">
+                        Riset ini mengembangkan purwarupa kapal pembersih sampah mini multifungsi (*Skimmer Boat*) yang hemat biaya (*cost-effective*), mudah difabrikasi, dan ramah lingkungan (*nature-friendly*), difokuskan untuk sungai kecil dan saluran air bertipologi arus tenang.
+                    </p>
+                </div>
+
+                <!-- Grid Spesifikasi Teknis -->
+                <div class="modal-specs-section">
+                    <h4 class="modal-section-heading">Spesifikasi &amp; Sistem Fisika-Komputasi</h4>
+                    <div class="modal-specs-grid">
+                        <div class="modal-spec-card">
+                            <div class="spec-icon"><i class="fa-solid fa-water"></i></div>
+                            <div class="spec-info">
+                                <strong class="spec-title">Hukum Apung Archimedes</strong>
+                                <span class="spec-detail">\(F_b = \rho \cdot g \cdot V\) dengan 5 bola apung berjarak 6 cm untuk kestabilan pusat gravitasi kapal.</span>
+                            </div>
+                        </div>
+                        <div class="modal-spec-card">
+                            <div class="spec-icon"><i class="fa-solid fa-gears"></i></div>
+                            <div class="spec-info">
+                                <strong class="spec-title">Konveyor Trapesium PVC</strong>
+                                <span class="spec-detail">Right-angled trapezoidal conveyor digerakkan motor listrik &amp; rantai sepeda untuk mengangkat debris tanpa merusak ekosistem.</span>
+                            </div>
+                        </div>
+                        <div class="modal-spec-card">
+                            <div class="spec-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="spec-info">
+                                <strong class="spec-title">Propulsi Kendali Arduino</strong>
+                                <span class="spec-detail">Radio-controlled (RC) transmitter-receiver dengan modul motor driver Arduino dan bilah baling-baling bertenaga gearbox.</span>
+                            </div>
+                        </div>
+                        <div class="modal-spec-card">
+                            <div class="spec-icon"><i class="fa-solid fa-bell"></i></div>
+                            <div class="spec-info">
+                                <strong class="spec-title">Sensor Cerdas Kapasitas</strong>
+                                <span class="spec-detail">Sound &amp; motion sensor otomatis untuk mendeteksi muatan sampah saat jaring penampung hampir penuh.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="research-modal-footer">
+                <a href="skimmer-boat-isif2024.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>Baca Full Paper Riset (PDF)</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <a href="isif-2024.jpg" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <i class="fa-solid fa-expand"></i>
+                    <span>Lihat Foto Penuh</span>
+                </a>
+                <button type="button" class="btn btn-ghost" id="dismissIsifModal">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL POPUP: DETAIL RISET & PROPOSAL OPSI 2025 ===== -->
+    <div class="research-modal-backdrop" id="opsiModal" role="dialog" aria-modal="true" aria-labelledby="opsiModalTitle" aria-hidden="true">
+        <div class="research-modal-container">
+            <!-- Modal Header -->
+            <div class="research-modal-header">
+                <div class="modal-badge-group">
+                    <span class="modal-pill-badge"><i class="fa-solid fa-flask"></i> OPSI 2025 &bull; Bidang IPT</span>
+                    <span class="modal-sub-badge">BPTI &bull; Pusat Prestasi Nasional</span>
+                </div>
+                <button type="button" class="modal-close-btn" id="closeOpsiModal" aria-label="Tutup jendela detail proposal OPSI">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="research-modal-body">
+                <!-- Title & Authors -->
+                <div class="modal-title-section">
+                    <h3 class="modal-paper-title" id="opsiModalTitle">
+                        &ldquo;Perancangan dan Analisis Hasil Simulasi Kapal Pengangkut Sampah di Laut&rdquo;
+                    </h3>
+                    <div class="modal-meta-row">
+                        <p class="modal-authors">
+                            <i class="fa-solid fa-users"></i>
+                            <span><strong>Peneliti:</strong> Adlyn Nazurah Nugraha, <strong>Hilman Rasyid Kaizan</strong></span>
+                        </p>
+                        <p class="modal-school">
+                            <i class="fa-solid fa-school"></i>
+                            <span>SMP Labschool Kebayoran, Jakarta Selatan &bull; Guru Pembimbing: Athiyah Kumala Sari, M.Pd.</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Latar Belakang & Urgensi Masalah -->
+                <div class="modal-text-section">
+                    <h4 class="modal-section-heading">Latar Belakang &amp; Urgensi Masalah</h4>
+                    <p class="modal-desc">
+                        Berdasarkan data Badan Pusat Statistik (BPS) dan Asosiasi Industri Plastik Indonesia (INAPLAS), Indonesia menghasilkan sekitar 64 juta ton sampah setiap tahun dengan 7,68 juta ton berupa sampah plastik, di mana 3,2 juta ton di antaranya berakhir mencemari lautan. Indonesia tercatat sebagai kontributor sampah plastik laut terbesar kedua di dunia.
+                    </p>
+                    <p class="modal-desc">
+                        Selain sampah plastik, risiko pencemaran laut akibat kebocoran minyak lepas pantai (seperti insiden anjungan Pertamina Hulu Energi ONWJ 2019) membuktikan rapuhnya ekosistem laut dan dampaknya terhadap mata pencaharian nelayan. Riset ini mengembangkan inovasi kapal pembersih laut yang efektif, berbiaya terjangkau, dan ramah lingkungan.
+                    </p>
+                </div>
+
+                <!-- Grid Spesifikasi & Arsitektur Rekayasa -->
+                <div class="modal-specs-section">
+                    <h4 class="modal-section-heading">Arsitektur Desain &amp; Hidrodinamika Kapal</h4>
+                    <div class="modal-specs-grid">
+                        <div class="modal-spec-card">
+                            <div class="spec-icon"><i class="fa-solid fa-ship"></i></div>
+                            <div class="spec-info">
+                                <strong class="spec-title">Lambung Katamaran &amp; Ponton</strong>
+                                <span class="spec-detail">Dua lambung (twin-hull) untuk meminimalkan tahanan gelombang, stabilitas tinggi saat berkecepatan, dan operasi aman di perairan dangkal.</span>
+                            </div>
+                        </div>
+                        <div class="modal-spec-card">
+                            <div class="spec-icon"><i class="fa-solid fa-compass-drafting"></i></div>
+                            <div class="spec-info">
+                                <strong class="spec-title">Pemodelan 3D ShipConstructor</strong>
+                                <span class="spec-detail">Simulasi digital untuk menghitung displasemen (berat benaman), berat kapal kosong (Light Displacement), dan Operating Load (OL).</span>
+                            </div>
+                        </div>
+                        <div class="modal-spec-card">
+                            <div class="spec-icon"><i class="fa-solid fa-microchip"></i></div>
+                            <div class="spec-info">
+                                <strong class="spec-title">Propulsi Terintegrasi Arduino</strong>
+                                <span class="spec-detail">2 Dinamo DC + gearbox propeller mini dengan sirkuit pengontrol Modul Motor Driver Arduino untuk kemudi manuver presisi.</span>
+                            </div>
+                        </div>
+                        <div class="modal-spec-card">
+                            <div class="spec-icon"><i class="fa-solid fa-vial-circle-check"></i></div>
+                            <div class="spec-info">
+                                <strong class="spec-title">Simulasi Kolam Uji Terkalibrasi (2x2 m&sup2;)</strong>
+                                <span class="spec-detail">Pengujian empiris penyaringan debris menggunakan jaring tangkapan 1m x 5m di bak air terukur guna memvalidasi efisiensi angkut.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Landasan Kebijakan & Dampak Keberlanjutan -->
+                <div class="modal-text-section">
+                    <h4 class="modal-section-heading">Dukungan Regulasi &amp; Dampak Ekologis</h4>
+                    <p class="modal-desc">
+                        Penelitian ini mendukung agenda nasional pengurangan sampah laut yang tertuang dalam <strong>Perpres No. 83 Tahun 2018</strong>, menekan bahaya mikroplastik pada rantai pangan laut, serta melindungi biota laut di berbagai wilayah pesisir Indonesia.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Modal Footer Actions -->
+            <div class="research-modal-footer">
+                <a href="proposal-opsi-2025.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span>Baca Proposal Lengkap OPSI (PDF)</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </a>
+                <button type="button" class="btn btn-ghost" id="dismissOpsiModal">Tutup</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

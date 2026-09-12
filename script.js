@@ -63,19 +63,128 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     /* =========================================================
-       2. SMOOTH SCROLL NAVIGATION WITH TOP NAVBAR OFFSET
+       2. SEAMLESS SPA NAVIGATION & VIEW TRANSITIONS API
        ========================================================= */
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (!targetId || targetId === '#') return;
+    const topNavbar = document.getElementById('topNavbar');
 
-            const targetElem = document.querySelector(targetId);
+    function getNavOffset() {
+        return (topNavbar ? topNavbar.offsetHeight : 68) + 8;
+    }
+
+    // Dynamic re-initialization of page components after View Transition
+    function reinitPageFeatures() {
+        // Re-observe reveal elements
+        const newReveals = document.querySelectorAll('.reveal:not(.in-view)');
+        if ('IntersectionObserver' in window && newReveals.length > 0) {
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.1,
+                rootMargin: '0px 0px -40px 0px'
+            });
+            newReveals.forEach(el => revealObserver.observe(el));
+        } else {
+            newReveals.forEach(el => el.classList.add('in-view'));
+        }
+
+        // Re-init carousel if present
+        if (typeof initHeroCarousel === 'function') {
+            initHeroCarousel();
+        }
+
+        // Re-init research modal if present
+        if (typeof initResearchModal === 'function') {
+            initResearchModal();
+        }
+
+        // Update active nav link
+        scrollSpy();
+    }
+
+    // Cross-page navigation using View Transitions API
+    async function navigateWithViewTransition(url, pushState = true) {
+        closeMenu();
+
+        if (!document.startViewTransition) {
+            // Fallback for browsers without View Transitions API
+            window.location.href = url;
+            return;
+        }
+
+        const transition = document.startViewTransition(async () => {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    window.location.href = url;
+                    return;
+                }
+                const html = await response.text();
+                const parser = new DOMParser();
+                const newDoc = parser.parseFromString(html, 'text/html');
+
+                // Update document title
+                document.title = newDoc.title;
+
+                // Update main content smoothly in-place
+                const currentMain = document.querySelector('main.main') || document.querySelector('main');
+                const newMain = newDoc.querySelector('main.main') || newDoc.querySelector('main');
+                if (currentMain && newMain) {
+                    currentMain.innerHTML = newMain.innerHTML;
+                }
+
+                if (pushState) {
+                    history.pushState({}, '', url);
+                }
+
+                // Handle anchor or top scroll
+                const urlObj = new URL(url, window.location.origin);
+                if (urlObj.hash) {
+                    const target = document.querySelector(urlObj.hash);
+                    if (target) {
+                        window.scrollTo({ top: target.offsetTop - getNavOffset(), behavior: 'instant' });
+                    }
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                }
+
+                reinitPageFeatures();
+            } catch (err) {
+                console.warn('View Transition fetch failed, navigating traditionally:', err);
+                window.location.href = url;
+            }
+        });
+
+        try {
+            await transition.finished;
+        } catch (e) {
+            // Ignored
+        }
+    }
+
+    // Unified Link Interceptor (Smooth In-Page Scrolling + Cross-Page View Transition)
+    document.addEventListener('click', (e) => {
+        const anchor = e.target.closest('a');
+        if (!anchor) return;
+
+        const href = anchor.getAttribute('href');
+        if (!href || href === '#' || href.startsWith('javascript:')) return;
+        if (anchor.getAttribute('target') === '_blank') return;
+        if (href.startsWith('mailto:') || href.startsWith('tel:')) return;
+
+        // 1. In-Page Smooth Scroll Navigation (e.g. #home, #about, #experience)
+        if (href.startsWith('#')) {
+            const targetElem = document.querySelector(href);
             if (targetElem) {
                 e.preventDefault();
                 closeMenu();
 
-                const headerOffset = 76;
+                const headerOffset = getNavOffset();
                 const elementPosition = targetElem.getBoundingClientRect().top;
                 const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
@@ -84,7 +193,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth'
                 });
 
-                // Target highlight pulse animation to focus viewer's attention
+                try {
+                    history.pushState(null, '', href);
+                } catch (err) {
+                    // Ignored
+                }
+
+                // Subtle ambient focus pulse on target
                 targetElem.classList.remove('highlight-pulse');
                 void targetElem.offsetWidth; // Force reflow
                 targetElem.classList.add('highlight-pulse');
@@ -92,28 +207,65 @@ document.addEventListener('DOMContentLoaded', () => {
                     targetElem.classList.remove('highlight-pulse');
                 }, 2400);
             }
-        });
+            return;
+        }
+
+        // 2. Cross-Page Same-Origin View Transition
+        try {
+            const url = new URL(href, window.location.href);
+            if (url.origin === window.location.origin) {
+                // Same path with hash
+                if (url.pathname === window.location.pathname) {
+                    if (url.hash) {
+                        const targetElem = document.querySelector(url.hash);
+                        if (targetElem) {
+                            e.preventDefault();
+                            closeMenu();
+                            const offsetPosition = targetElem.getBoundingClientRect().top + window.pageYOffset - getNavOffset();
+                            window.scrollTo({
+                                top: offsetPosition,
+                                behavior: 'smooth'
+                            });
+                            history.pushState(null, '', url.hash);
+                            return;
+                        }
+                    }
+                } else {
+                    // Different page -> trigger View Transition
+                    e.preventDefault();
+                    navigateWithViewTransition(url.href);
+                }
+            }
+        } catch (err) {
+            // Default browser action
+        }
+    });
+
+    // Handle browser Back/Forward with View Transitions
+    window.addEventListener('popstate', () => {
+        if (document.startViewTransition) {
+            navigateWithViewTransition(window.location.href, false);
+        }
     });
 
     /* =========================================================
-       3. SCROLLSPY (ACTIVE LINK ON SCROLL)
+       3. SCROLLSPY (ACTIVE LINK ON SCROLL - DESKTOP & MOBILE)
        ========================================================= */
     const sections = document.querySelectorAll('section[id]');
 
     function scrollSpy() {
         const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        const navOffset = getNavOffset() + 40;
 
         sections.forEach(current => {
             const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - 120;
+            const sectionTop = current.offsetTop - navOffset;
             const sectionId = current.getAttribute('id');
-            const correspondingLink = document.querySelector(`.drawer-nav a[href*="${sectionId}"]`);
+            const correspondingLinks = document.querySelectorAll(`a.nav-link[href="#${sectionId}"]`);
 
             if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                 navLinks.forEach(link => link.classList.remove('active'));
-                if (correspondingLink) {
-                    correspondingLink.classList.add('active');
-                }
+                correspondingLinks.forEach(link => link.classList.add('active'));
             }
         });
     }
@@ -381,7 +533,95 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeroCarousel();
 
     /* =========================================================
-       6. 2048 GAME ENGINE (FLUID HARDWARE-ACCELERATED MOTION)
+       6. RESEARCH TIMELINE MODALS (ISIF 2024 & OPSI 2025)
+       ========================================================= */
+    function initResearchModal() {
+        const modalConfigs = [
+            {
+                openBtnId: 'openIsifModal',
+                modalId: 'isifModal',
+                closeBtnId: 'closeIsifModal',
+                dismissBtnId: 'dismissIsifModal'
+            },
+            {
+                openBtnId: 'openOpsiModal',
+                modalId: 'opsiModal',
+                closeBtnId: 'closeOpsiModal',
+                dismissBtnId: 'dismissOpsiModal'
+            }
+        ];
+
+        modalConfigs.forEach(cfg => {
+            const openBtn = document.getElementById(cfg.openBtnId);
+            const modal = document.getElementById(cfg.modalId);
+            const closeBtn = document.getElementById(cfg.closeBtnId);
+            const dismissBtn = document.getElementById(cfg.dismissBtnId);
+
+            if (!modal) return;
+
+            function openModal() {
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('modal-open');
+
+                // Focus on close button for accessible keyboard navigation
+                if (closeBtn) {
+                    setTimeout(() => closeBtn.focus(), 60);
+                }
+            }
+
+            function closeModal() {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('modal-open');
+
+                // Restore focus to trigger button
+                if (openBtn) {
+                    openBtn.focus();
+                }
+            }
+
+            if (openBtn) {
+                openBtn.onclick = (e) => {
+                    e.preventDefault();
+                    openModal();
+                };
+            }
+
+            if (closeBtn) {
+                closeBtn.onclick = (e) => {
+                    e.preventDefault();
+                    closeModal();
+                };
+            }
+
+            if (dismissBtn) {
+                dismissBtn.onclick = (e) => {
+                    e.preventDefault();
+                    closeModal();
+                };
+            }
+
+            // Click outside container (on backdrop) to dismiss
+            modal.onclick = (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            };
+
+            // Escape key dismiss handler
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+        });
+    }
+
+    initResearchModal();
+
+    /* =========================================================
+       7. 2048 GAME ENGINE (FLUID HARDWARE-ACCELERATED MOTION)
        ========================================================= */
     class Tile {
         constructor(x, y, value) {
